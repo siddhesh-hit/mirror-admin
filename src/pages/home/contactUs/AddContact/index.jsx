@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -79,10 +79,10 @@ const AddContact = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <a className="addpagess" href="/Dashboard">
+          <Link className="addpagess" to={paths.viewContact}>
             <img src={add} alt="add" style={{ width: 25 }} />
             Go back
-          </a>
+          </Link>
           <h4 className="page-title">• Add Contact Us</h4>
           <div className="card card-info">
             <div className="row">

@@ -64,7 +64,7 @@ import ViewAllLibraryDoc from "pages/portals/libraryDoc/ViewAllLibraryDoc";
 import AddMantriMandal from "pages/portals/mantriMandal/AddMantriMandal";
 import ViewAllMantriMandal from "pages/portals/mantriMandal/ViewAllMantriMandal";
 import ViewMantriMandal from "pages/portals/mantriMandal/ViewMantriMandal";
-import EdiMantriMandal from "pages/portals/mantriMandal/EditMantriMandal";
+import EditMantriMandal from "pages/portals/mantriMandal/EditMantriMandal";
 
 import AddRajyapal from "pages/portals/rajyapal/AddRajyapal";
 import ViewRajyapal from "pages/portals/rajyapal/ViewRajyapal";
@@ -146,7 +146,7 @@ import EditSessionField from "pages/masters/sessionField/EditSessionField";
 // HOME ROUTES
 
 import ViewAudit from "pages/home/auditTrail/ViewAudit";
-import ViewAllUserAudit from "pages/home/auditTrail/ViewUserAudit";
+import ViewAllUserAudit from "pages/home/auditTrail/ViewAllUserAudit";
 import ViewUserAudit from "pages/home/auditTrail/ViewUserAudit";
 
 import AddContact from "pages/home/contactUs/AddContact";
@@ -304,7 +304,7 @@ export const routes = [
   },
   {
     name: "Faqs",
-    path: paths.addFaq,
+    path: paths.editFaq,
     exact: true,
     access: ["SuperAdmin", "Admin", "ContentCreator"],
     element: <EditFaq />,
@@ -571,10 +571,10 @@ export const routes = [
   },
   {
     name: "MantriMandal",
-    path: paths.ediMantriMandal,
+    path: paths.editMantriMandal,
     exact: true,
     access: ["SuperAdmin", "Admin", "ContentCreator", "Reviewer"],
-    element: <EdiMantriMandal />,
+    element: <EditMantriMandal />,
   },
   {
     name: "Rajyapal",
@@ -992,14 +992,14 @@ export const routes = [
     path: paths.viewUserAudit,
     exact: true,
     access: ["SuperAdmin"],
-    element: <ViewUserAudit />,
+    element: <ViewAllUserAudit />,
   },
   {
     name: "AuditTrail",
     path: paths.viewAllUserAudit,
     exact: true,
     access: ["SuperAdmin"],
-    element: <ViewAllUserAudit />,
+    element: <ViewUserAudit />,
   },
   {
     name: "ContactUs",

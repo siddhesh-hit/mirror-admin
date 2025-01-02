@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import back from "assets/back.svg";
@@ -61,10 +61,10 @@ const EditDesignation = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <a className="addpagess" href={paths.viewDesignation}>
+          <Link className="addpagess" to={paths.viewDesignation}>
             <img src={back} alt="add" style={{ width: 25 }} />
             Go back
-          </a>
+          </Link>
           <h4 className="page-title">• Edit Designation</h4>
           <div className="card card-info">
             <div className="row">

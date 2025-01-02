@@ -83,7 +83,7 @@ export const portalPaths = [
   {
     name: "Gallery",
     path: "/ViewGallery",
-    child: ["/ViewGallery", "/AddGallery", "/EditGallery", "/ViewGallery"],
+    child: ["/ViewGallery", "/AddGallery", "/EditGallery", "/ViewGallery", "/ViewGalleryImage"],
   },
   {
     name: "MantriMandal",
@@ -108,8 +108,8 @@ export const masterPaths = [
     path: "/ViewPoliticalParty",
     child: [
       "/ViewPoliticalParty",
-      "/AddPoliticalParties",
-      "/EditPoliticalParties",
+      "/AddPoliticalParty",
+      "/EditPoliticalParty",
     ],
   },
   {

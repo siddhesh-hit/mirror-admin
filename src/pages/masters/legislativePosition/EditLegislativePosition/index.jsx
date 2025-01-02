@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import add from "assets/back.svg";
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditLegislativePosition = () => {
   const [isSubmitted, setSubmit] = useState(false);
@@ -51,7 +52,7 @@ const EditLegislativePosition = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link className="addpagess" to={"/ViewLegislativePositions"}>
+          <Link className="addpagess" to={paths.viewLegislativePosition}>
             <img src={add} alt="add" style={{ width: 25 }} />
             Go back
           </Link>

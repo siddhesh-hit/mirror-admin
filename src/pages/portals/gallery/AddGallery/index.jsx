@@ -48,7 +48,7 @@ const AddGallery = () => {
         if (res.data.success) {
           toast.success("Gallery added successfully");
           setTimeout(() => {
-            navigate(paths.viewAllGallery);
+            navigate(paths.viewGallery);
           }, 1000);
         }
       })
@@ -69,7 +69,7 @@ const AddGallery = () => {
           <div className="row">
             <div className="col-lg-10">
               <div>
-                <Link className="addpagess" to={paths.viewAllGallery}>
+                <Link className="addpagess" to={paths.viewGallery}>
                   <img src={back} alt="back" style={{ width: 25 }} />
                   Go back
                 </Link>

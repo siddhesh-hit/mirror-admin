@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import add from "assets/back.svg";
@@ -59,10 +59,10 @@ const EditSessionField = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <a className="addpagess" href={paths.viewSessionField}>
+          <Link className="addpagess" to={paths.viewSessionField}>
             <img src={add} alt="add" style={{ width: 25 }} />
             Go back
-          </a>
+          </Link>
           <h4 className="page-title">• Edit Session Field</h4>
           <div className="card card-info">
             <div className="row">

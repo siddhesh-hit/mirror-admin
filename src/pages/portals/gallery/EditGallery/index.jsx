@@ -62,7 +62,7 @@ const EditGallery = () => {
         if (res.data.success) {
           toast.success("Gallery updated successfully");
           setTimeout(() => {
-            navigate(paths.viewAllGallery);
+            navigate(paths.viewGallery);
           }, 1000);
         }
       })
@@ -86,7 +86,7 @@ const EditGallery = () => {
           <div className="row">
             <div className="col-lg-10">
               <div>
-                <Link className="addpagess" to={paths.viewAllGallery}>
+                <Link className="addpagess" to={paths.viewGallery}>
                   <img src={back} alt="back" style={{ width: 25 }} />
                   Go back
                 </Link>

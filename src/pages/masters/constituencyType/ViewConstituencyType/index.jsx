@@ -105,7 +105,6 @@ const ViewConstituencyType = () => {
                     <th>Short Name</th>
                     <th>Short Name (Marathi)</th>
                     <th>House</th>
-                    <th>House</th>
                     <th>Edit</th>
                     <th>Delete</th>
                   </tr>

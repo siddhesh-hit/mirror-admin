@@ -143,7 +143,7 @@ const ViewAllLegislativeMember = () => {
                         <tr key={index}>
                           <td>
                             <h4>
-                              {pageOptions.current * pageOptions + index + 1}
+                              {pageOptions.current * pageOptions.page + index + 1}
                             </h4>
                           </td>
                           <td>

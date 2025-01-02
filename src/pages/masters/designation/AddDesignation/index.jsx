@@ -46,10 +46,10 @@ const AddDesignation = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <a className="addpagess" href={paths.viewDesignation}>
+          <Link className="addpagess" to={paths.viewDesignation}>
             <img src={back} alt="add" style={{ width: 25 }} />
             Go back
-          </a>
+          </Link>
           <h4 className="page-title">• Add Designation</h4>
           <div className="card card-info">
             <div className="row">
