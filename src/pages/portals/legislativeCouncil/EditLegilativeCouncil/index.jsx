@@ -11,6 +11,7 @@ import EditBanner from "components/pages/portal/legislative_council/EditBanner";
 import EditPublication from "components/pages/portal/legislative_council/EditPublication";
 import EditStructure from "components/pages/portal/legislative_council/EditStructure";
 import EditProfile from "components/pages/portal/legislative_council/EditProfile";
+import { paths } from "services/paths";
 
 const EditLegislativeCouncil = () => {
   const [divCount5, setDivCount5] = useState(1);
@@ -415,9 +416,9 @@ const EditLegislativeCouncil = () => {
       .then((res) => {
         if (res.data.success) {
           toast.success("VidhanParishad updated successfully");
-          // setTimeout(() => {
-          //   navigate("/ViewAllLegislativeCouncil");
-          // }, 1000);
+          setTimeout(() => {
+            navigate(paths.viewAllLegislativeCouncil);
+          }, 1000);
         }
       })
       .catch((err) => {

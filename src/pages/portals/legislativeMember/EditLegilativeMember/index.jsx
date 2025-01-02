@@ -13,6 +13,7 @@ import back from "assets/back.svg";
 import EditBasicInformation from "components/pages/portal/legislative_members/EditBasicInformation";
 import EditPoliticalJourney from "components/pages/portal/legislative_members/EditPoliticaljourney";
 import EditElectionData from "components/pages/portal/legislative_members/EditElectionData";
+import { paths } from "services/paths";
 
 
 const EditLegislativeMember = () => {
@@ -370,7 +371,7 @@ const EditLegislativeMember = () => {
         if (res.data.success) {
           toast.success("Legislative Member updated successfully.");
           setTimeout(() => {
-            navigate("/ViewAllLegislativeMembers");
+            navigate(paths.viewAllLegislativeMember);
           }, 1100);
         }
       })
@@ -391,7 +392,7 @@ const EditLegislativeMember = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllLegislativeMembers" className="addpagess">
+        <Link to={paths.viewAllLegislativeMember} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

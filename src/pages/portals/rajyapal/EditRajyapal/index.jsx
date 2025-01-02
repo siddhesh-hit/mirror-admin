@@ -12,6 +12,7 @@ import { API } from "lib/api";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { formatDateForInput } from "lib/dateEnUsFormat";
+import { paths } from "services/paths";
 
 const EditRajyapal = () => {
   const [data, setData] = useState();
@@ -197,7 +198,7 @@ const EditRajyapal = () => {
       .then((res) => {
         if (res.data.success) {
           toast.success("Rajyapal member updated successfully.");
-          navigate("/ViewAllRajyapal");
+          navigate(paths.viewAllRajyapal);
         }
       })
       .catch((err) => {
@@ -225,7 +226,7 @@ const EditRajyapal = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllRajyapal" className="addpagess">
+        <Link to={paths.viewAllRajyapal} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

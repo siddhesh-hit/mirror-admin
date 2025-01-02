@@ -7,6 +7,7 @@ import back from "assets/back.svg";
 import remove from "assets/remove.svg";
 import addwhite from "assets/addwhite.svg";
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddConstituencyTypes = () => {
   const [divCount, setDivCount] = useState(1);
@@ -47,7 +48,7 @@ const AddConstituencyTypes = () => {
         if (res && res.data && res.data.success) {
           toast.success("Added Constituency Types");
           setTimeout(() => {
-            navigate("/ViewConstituencyTypes");
+            navigate(paths.viewConstituencyType);
           }, 1100);
         }
       })
@@ -60,7 +61,7 @@ const AddConstituencyTypes = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewConstituencyTypes" className="addpagess">
+        <Link to={paths.viewConstituencyType} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

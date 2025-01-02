@@ -9,6 +9,7 @@ import history from "assets/history.svg";
 import { getApi } from "services/axiosInterceptors";
 import { newPageName } from "data/fileName";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
+import { paths } from "services/paths";
 
 const ViewAllFaqs = () => {
   const [data, setData] = useState([]);
@@ -53,7 +54,7 @@ const ViewAllFaqs = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/ViewWorkflowHistory" className="addpagess">
+          <Link to={paths.viewWorkflowHistory} className="addpagess">
             <img src={history} alt="history" />
             Workflow history
           </Link>
@@ -137,7 +138,7 @@ const ViewAllFaqs = () => {
                           </td>
                           <td>
                             <Link
-                              to={`/EditWorkflow?id=${item._id}&action=${item.action}`}
+                              to={`${paths.editWorkflow}?id=${item._id}&action=${item.action}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}

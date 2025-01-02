@@ -8,6 +8,7 @@ import remove from "assets/remove.svg";
 import addwhite from "assets/addwhite.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddPoliticalParty = () => {
   const [divCount, setDivCount] = useState(1);
@@ -143,7 +144,7 @@ const AddPoliticalParty = () => {
         if (res.data.success) {
           toast.success("Added party");
           setTimeout(() => {
-            navigate("/ViewPoliticalParties");
+            navigate(paths.viewPoliticalParty);
           }, 1100);
         }
       })
@@ -159,7 +160,7 @@ const AddPoliticalParty = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewPoliticalParties" className="addpagess">
+        <Link to={paths.viewPoliticalParty} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

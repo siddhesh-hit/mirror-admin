@@ -8,6 +8,7 @@ import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewConstituency = () => {
   const [data, setData] = useState([]);
@@ -49,7 +50,7 @@ const ViewConstituency = () => {
           if (res.status === 204) {
             toast.success("Deleted the constituency.");
             setTimeout(() => {
-              navigate("/ViewConstituency");
+              navigate(paths.viewConstituency);
               fetchData();
             }, 1100);
           }
@@ -72,7 +73,7 @@ const ViewConstituency = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddConstituency" className="addpagess">
+        <Link to={paths.addConstituency} className="addpagess">
           <img src={add} alt="add" />
           Add Constituency
         </Link>
@@ -153,7 +154,7 @@ const ViewConstituency = () => {
                             </h4>
                           </td>
                           <td>
-                            <Link to={`/EditConstituency?id=${item._id}`}>
+                            <Link to={`${paths.editConstituency}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

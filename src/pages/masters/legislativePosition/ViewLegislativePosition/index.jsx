@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewLegislativePosition = () => {
   const [data, setData] = useState([]);
@@ -34,7 +35,7 @@ const ViewLegislativePosition = () => {
           if (res.status === 204) {
             toast.success("Deleted the position.");
             setTimeout(() => {
-              navigate("/ViewLegislativePositions");
+              navigate(paths.viewLegislativePosition);
               fetchData();
             }, 1100);
           }
@@ -55,7 +56,7 @@ const ViewLegislativePosition = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddLegislativePositions" className="addpagess">
+        <Link to={paths.addLegislativePosition} className="addpagess">
           <img src={add} alt="add" />
           Add Legislative Positions
         </Link>
@@ -84,7 +85,7 @@ const ViewLegislativePosition = () => {
                           </td>
                           <td>
                             <Link
-                              to={`/EditLegislativePositions?id=${item._id}`}
+                              to={`${paths.editLegislativePosition}?id=${item._id}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}

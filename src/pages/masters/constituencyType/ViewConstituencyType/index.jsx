@@ -9,6 +9,7 @@ import add from "assets/add.svg";
 
 import { API } from "lib/api";
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewConstituencyType = () => {
   const [data, setData] = useState([]);
@@ -50,7 +51,7 @@ const ViewConstituencyType = () => {
           if (res.status === 204) {
             toast.success("Deleted the Constituency Types.");
             setTimeout(() => {
-              navigate("/ViewConstituencyType");
+              navigate(paths.viewConstituencyType);
               fetchData();
             }, 1100);
           }
@@ -72,7 +73,7 @@ const ViewConstituencyType = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddConstituencyTypes" className="addpagess">
+        <Link to={paths.addConstituencyType} className="addpagess">
           <img src={add} alt="add" />
           Add Constituency Types
         </Link>
@@ -131,7 +132,7 @@ const ViewConstituencyType = () => {
                           </td>
 
                           <td>
-                            <Link to={`/EditConstituencyTypes?id=${item._id}`}>
+                            <Link to={`${paths.editConstituencyType}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

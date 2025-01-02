@@ -6,6 +6,7 @@ import add from "assets/add.svg";
 import remove from "assets/remove.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddBiologicalInformation = () => {
   const [divCount, setDivCount] = useState(1); // Initialize with one div
@@ -149,7 +150,7 @@ const AddBiologicalInformation = () => {
         if (res.data.success) {
           toast.success("Information added successfully");
           setTimeout(() => {
-            navigate("/ViewLegislativeAssembly");
+            navigate(paths.viewAllBiologicalInformation);
           }, 1000);
         }
       })

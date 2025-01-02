@@ -11,6 +11,7 @@ import EditBanner from "components/pages/portal/legislative_assembly/EditBanner"
 import EditPublication from "components/pages/portal/legislative_assembly/EditPublication";
 import EditStructure from "components/pages/portal/legislative_assembly/EditProfile";
 import EditProfile from "components/pages/portal/legislative_assembly/EditProfile";
+import { paths } from "services/paths";
 
 const EditLegislativeAssembly = () => {
   const [divCount5, setDivCount5] = useState(1);
@@ -413,7 +414,7 @@ const EditLegislativeAssembly = () => {
         if (res.data.success) {
           toast.success("Vidhansabha updated successfully");
           setTimeout(() => {
-            navigate("/ViewAllLegislativeAssembly");
+            navigate(paths.viewAllLegislativeAssembly);
           }, 1000);
         }
       })

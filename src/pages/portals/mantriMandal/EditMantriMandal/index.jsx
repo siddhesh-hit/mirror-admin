@@ -13,6 +13,7 @@ import {
   putApi,
 } from "services/axiosInterceptors";
 import { formatDateForInput } from "lib/dateEnUsFormat";
+import { paths } from "services/paths";
 
 const EditMantriMandal = () => {
   const [data, setData] = useState([]);
@@ -106,7 +107,7 @@ const EditMantriMandal = () => {
         if (res.data.success) {
           toast.success("Ministry updated request forwaded!");
           setTimeout(() => {
-            navigate(`/ViewAllMantriMandal`);
+            navigate(paths.viewAllMantriMandal);
           }, 1100);
         }
       })
@@ -254,7 +255,7 @@ const EditMantriMandal = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllMantriMandal" className="addpagess">
+        <Link to={paths.viewAllMantriMandal} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

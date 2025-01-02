@@ -7,6 +7,7 @@ import back from "assets/back.svg";
 import { postApi } from "services/axiosInterceptors";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { paths } from "services/paths";
 
 const AddLibrary = () => {
   const [data, setData] = useState({
@@ -71,9 +72,9 @@ const AddLibrary = () => {
       .then((res) => {
         if (res.data.success) {
           toast.success("Library Added Successfully");
-          // setTimeout(() => {
-          //   navigate(`/ViewLibrary?id=${res.data.data._id}`);
-          // }, 1100);
+          setTimeout(() => {
+            navigate(`${paths.viewLibrary}?id=${res.data.data._id}`);
+          }, 1100);
         }
       })
       .catch(() => {
@@ -99,7 +100,7 @@ const AddLibrary = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllLibrary" className="addpagess">
+        <Link to={paths.viewAllLibrary} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

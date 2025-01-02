@@ -8,6 +8,7 @@ import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewAllMantriMandal = () => {
   const [data, setData] = useState([]);
@@ -105,7 +106,7 @@ const ViewAllMantriMandal = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/AddMantriMandal" className="addpagess">
+          <Link to={paths.addMantriMandal} className="addpagess">
             <img src={add} alt="add" />
             Add Mantri Mandal
           </Link>
@@ -152,7 +153,7 @@ const ViewAllMantriMandal = () => {
                               item.member_name.basic_info.surname}
                           </td>
                           <td>
-                            <Link to={`/ViewMantriMandal?id=${item._id}`}>
+                            <Link to={`${paths.viewMantriMandal}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -165,7 +166,7 @@ const ViewAllMantriMandal = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`/EditMantriMandal?id=${item._id}`}>
+                            <Link to={`${paths.editMantriMandal}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

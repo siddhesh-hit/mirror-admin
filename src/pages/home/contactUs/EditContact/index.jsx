@@ -6,6 +6,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import add from "assets/back.svg";
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditContact = () => {
   const [data, setData] = useState([]);
@@ -60,7 +61,7 @@ const EditContact = () => {
         if (res.data.success) {
           toast.success("Contact request forwaded!");
           setTimeout(() => {
-            navigate("/ViewContact");
+            navigate(paths.viewContact);
           }, 1110);
         }
       })

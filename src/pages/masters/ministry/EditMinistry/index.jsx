@@ -11,6 +11,7 @@ import addwhite from "assets/addwhite.svg";
 import { getApiById, putApi } from "services/axiosInterceptors";
 import { addMinistry } from "validations/masters/ministry";
 import { formatDateForInput } from "lib/dateEnUsFormat";
+import { paths } from "services/paths";
 
 const EditMinistry = () => {
   const [divCount, setDivCount] = useState(1);
@@ -93,7 +94,7 @@ const EditMinistry = () => {
         if (res.data.success) {
           toast.success("Updated ministry");
           setTimeout(() => {
-            navigate("/ViewMinistry");
+            navigate(paths.viewMinistry);
           }, 1100);
         }
       })
@@ -116,7 +117,7 @@ const EditMinistry = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewMinistry" className="addpagess">
+        <Link to={paths.viewMinistry} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

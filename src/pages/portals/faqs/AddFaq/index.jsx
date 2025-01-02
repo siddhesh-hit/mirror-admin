@@ -9,6 +9,7 @@ import back from "assets/back.svg";
 import { postApi } from "services/axiosInterceptors";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { paths } from "services/paths";
 
 const AddFaq = () => {
   const [divCount, setDivCount] = useState(1);
@@ -49,7 +50,7 @@ const AddFaq = () => {
           toast.success("Added FAQ");
 
           setTimeout(() => {
-            navigate("/ViewAllFaqs");
+            navigate(paths.viewAllFaq);
           }, 1100);
         }
       })
@@ -74,7 +75,7 @@ const AddFaq = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllFaqs" className="addpagess">
+        <Link to={paths.viewAllFaq} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

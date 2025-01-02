@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { API } from "lib/api";
 import { getApiById, putApi } from "services/axiosInterceptors";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
+import { paths } from "services/paths";
 
 const ViewWorkflowMemberProfile = () => {
   const [data, setData] = useState({});
@@ -178,7 +179,7 @@ const ViewWorkflowMemberProfile = () => {
         if (res.data.success) {
           toast.success(`Status ${status}!`);
           setTimeout(() => {
-            navigate(`/ViewAllWorkflow`);
+            navigate(paths.viewAllWorkflow);
           }, 1100);
         }
       })
@@ -234,10 +235,10 @@ const ViewWorkflowMemberProfile = () => {
           <Link
             to={
               history === "true"
-                ? "/ViewWorkflowHistory"
+                ? paths.viewWorkflowHistory
                 : history === "false"
-                  ? "/ViewWorkflowHistory"
-                  : "/ViewAllWorkflow"
+                  ? paths.viewWorkflowHistory
+                  : paths.viewAllWorkflow
             }
             className="addpagess"
           >

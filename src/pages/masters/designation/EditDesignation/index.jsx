@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import back from "assets/back.svg";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditDesignation = () => {
   const [data, setData] = useState({});
@@ -42,7 +43,7 @@ const EditDesignation = () => {
         if (res.data.success) {
           toast.success(`Designation updated.`);
           setTimeout(() => {
-            navigate("/ViewDesignation");
+            navigate(paths.viewDesignation);
           }, 1100);
         }
       })
@@ -60,7 +61,7 @@ const EditDesignation = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <a className="addpagess" href="/ViewDesignation">
+          <a className="addpagess" href={paths.viewDesignation}>
             <img src={back} alt="add" style={{ width: 25 }} />
             Go back
           </a>

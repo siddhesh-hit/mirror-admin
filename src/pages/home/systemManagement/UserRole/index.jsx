@@ -4,6 +4,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { auth } from "data/RouteStructure";
 import { getApi } from "services/axiosInterceptors";
 import { Link } from "react-router-dom";
+import { paths } from "services/paths";
 
 const UserRole = () => {
   const [role, setRole] = useState("");
@@ -127,7 +128,7 @@ const UserRole = () => {
                         </div>
                       </td>
                       <td>
-                        <Link to={`/EditRole?id=${item._id}`}>
+                        <Link to={`${paths.editRole}?id=${item._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (

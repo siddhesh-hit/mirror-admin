@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { getApi, deleteApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewAllHelpdesk = () => {
   const [data, setData] = useState([]);
@@ -89,7 +90,7 @@ const ViewAllHelpdesk = () => {
                           <td>{item?.email}</td>
                           {/* <td>{item.isActive ? "Active" : "Inactive"}</td> */}
                           <td>
-                            <Link to={`/Viewhelpdesk?id=${item._id}`}>
+                            <Link to={`${paths.viewHelpdesk}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -102,7 +103,7 @@ const ViewAllHelpdesk = () => {
                             </Link>
                           </td>
                           {/* <td>
-                            <Link to={`/Edithelpdesk?id=${item._id}`}>
+                            <Link to={`${paths.editHelpdesk}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

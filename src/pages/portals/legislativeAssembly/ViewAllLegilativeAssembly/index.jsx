@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewAllLegislativeAssembly = () => {
   const [data, setData] = useState([]);
@@ -89,7 +90,7 @@ const ViewAllLegislativeAssembly = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/AddLegislativeAssembly" className="addpagess">
+          <Link to={paths.addLegislativeAssembly} className="addpagess">
             <img src={add} alt="add" />
             Add Legislative Assembly
           </Link>
@@ -118,7 +119,7 @@ const ViewAllLegislativeAssembly = () => {
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
                             <Link
-                              to={`/ViewLegislativeAssembly?id=${item._id}`}
+                              to={`${paths.viewLegislativeAssembly}?id=${item._id}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
@@ -133,7 +134,7 @@ const ViewAllLegislativeAssembly = () => {
                           </td>
                           <td>
                             <Link
-                              to={`/EditLegislativeAssembly?id=${item._id}`}
+                              to={`${paths.editLegislativeAssembly}?id=${item._id}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}

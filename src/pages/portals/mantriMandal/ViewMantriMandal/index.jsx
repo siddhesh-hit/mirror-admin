@@ -6,6 +6,7 @@ import back from "assets/back.svg";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
+import { paths } from "services/paths";
 
 const ViewMantriMandal = () => {
   const { data, loading, error } = useDataFetchingForBothApis("minister");
@@ -16,7 +17,7 @@ const ViewMantriMandal = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllMantriMandal" className="addpagess">
+        <Link to={paths.viewAllMantriMandal} className="addpagess">
           <img src={back} alt="back" style={{ width: "25px" }} />
           Go back
         </Link>
@@ -116,7 +117,7 @@ const ViewMantriMandal = () => {
                         </p>
                       </td>
                       <td>
-                        <Link to={`/EditMantriMandal?id=${data._id}`}>
+                        <Link to={`${paths.editMantriMandal}?id=${data._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (

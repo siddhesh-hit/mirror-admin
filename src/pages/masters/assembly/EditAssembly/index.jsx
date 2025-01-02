@@ -8,6 +8,7 @@ import back from "assets/back.svg";
 
 import { formatDateForInput } from "lib/dateEnUsFormat";
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditAssembly = () => {
   const [data, setData] = useState({});
@@ -65,7 +66,7 @@ const EditAssembly = () => {
 
           toast.success(`${message ? message : "Assembly"} updated.`);
           setTimeout(() => {
-            navigate("/ViewAssembly");
+            navigate(paths.viewAssembly);
           }, 1100);
         }
       })
@@ -88,7 +89,7 @@ const EditAssembly = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAssembly" className="addpagess">
+        <Link to={paths.viewAssembly} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

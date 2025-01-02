@@ -7,6 +7,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import add from "assets/back.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddContact = () => {
   const [isSubmitted, setSubmit] = useState(false);
@@ -63,7 +64,7 @@ const AddContact = () => {
         if (res.data.success) {
           toast.success("Contact Us entry created!");
           setTimeout(() => {
-            navigate("/ViewContact");
+            navigate(paths.viewContact);
           }, 1100);
         }
       })

@@ -8,6 +8,7 @@ import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewAllSessionCalendar = () => {
   const [data, setData] = useState([]);
@@ -101,7 +102,7 @@ const ViewAllSessionCalendar = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/AddSessionCalendar" className="addpagess">
+          <Link to={paths.addSessionCalendar} className="addpagess">
             <img src={add} alt="add" />
             Add Session Calendar
           </Link>
@@ -148,7 +149,7 @@ const ViewAllSessionCalendar = () => {
                           </td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link to={`/ViewCalendar?id=${item._id}`}>
+                            <Link to={`${paths.viewSessionCalendar}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -161,7 +162,7 @@ const ViewAllSessionCalendar = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`/EditSessionCalendar?id=${item._id}`}>
+                            <Link to={`${paths.editSessionCalendar}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

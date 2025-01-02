@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import back from "assets/back.svg";
 
 import { getApi, postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddConstituency = () => {
   const [isToggled, setIsToggled] = useState(true);
@@ -102,7 +103,7 @@ const AddConstituency = () => {
         if (res.data.success) {
           toast.success("New Constituency Added.");
           setTimeout(() => {
-            navigate("/ViewConstituency");
+            navigate([paths.viewConstituency]);
           }, 1100);
         }
       })
@@ -140,7 +141,7 @@ const AddConstituency = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewConstituency" className="addpagess">
+        <Link to={paths.viewConstituency} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

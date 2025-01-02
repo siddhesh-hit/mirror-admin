@@ -10,6 +10,7 @@ import { API } from "lib/api";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
+import { paths } from "services/paths";
 
 const ViewSessionCalendar = () => {
   const { data, loading, error } = useDataFetchingForBothApis("session");
@@ -20,7 +21,7 @@ const ViewSessionCalendar = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllCalendar" className="addpagess">
+        <Link to={paths.viewAllSessionCalendar} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>
@@ -94,7 +95,7 @@ const ViewSessionCalendar = () => {
                     )}
                   </td>
                   <td>
-                    <Link to={`/EditSessionCalendar?id=${data._id}`}>
+                    <Link to={`${paths.editSessionCalendar}?id=${data._id}`}>
                       <OverlayTrigger
                         delay={{ hide: 450, show: 300 }}
                         overlay={(props) => (

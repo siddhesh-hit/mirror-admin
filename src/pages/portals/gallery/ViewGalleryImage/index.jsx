@@ -5,6 +5,7 @@ import back from "assets/back.svg";
 
 import { API } from "lib/api";
 import { getApiById } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewGalleryAsset = () => {
   const [data, setData] = useState({});
@@ -26,7 +27,7 @@ const ViewGalleryAsset = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link className="addpagess" to="/ViewGallery">
+          <Link className="addpagess" to={paths.viewAllGallery}>
             <img src={back} alt="back" style={{ width: 25 }} />
             Go back
           </Link>

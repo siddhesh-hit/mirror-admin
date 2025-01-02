@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewDepartment = () => {
   const [data, setData] = useState([]);
@@ -53,7 +54,7 @@ const ViewDepartment = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddDepartment" className="addpagess">
+        <Link to={paths.addDepartment} className="addpagess">
           <img src={add} alt="add" />
           Add Department
         </Link>
@@ -91,7 +92,7 @@ const ViewDepartment = () => {
                             <h4>{item?.designation?.name}</h4>
                           </td>
                           <td>
-                            <Link to={`/EditDepartment?id=${item._id}`}>
+                            <Link to={`${paths.editDepartment}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

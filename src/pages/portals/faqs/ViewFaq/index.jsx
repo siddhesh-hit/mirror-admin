@@ -5,6 +5,7 @@ import back from "assets/back.svg";
 
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
+import { paths } from "services/paths";
 
 const ViewFaq = () => {
   const { data, loading, error } = useDataFetchingForBothApis("faq");
@@ -16,7 +17,7 @@ const ViewFaq = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllFaqs" className="addpagess">
+        <Link to={paths.viewAllFaq} className="addpagess">
           <img src={back} alt="back" style={{ width: "25px" }} />
           Go Back
         </Link>
@@ -50,7 +51,7 @@ const ViewFaq = () => {
                         }}
                       ></td>
                       <td>
-                        <Link to={`/EditFaqs?id=${data._id}`}>
+                        <Link to={`${paths.editFaq}?id=${data._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import { getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewInterestRequest = () => {
   const [data, setData] = useState({
@@ -60,7 +61,7 @@ const ViewInterestRequest = () => {
                           <td>{item.query.marathi.navigation}</td>
                           <td>{item?.userId?.full_name}</td>
                           <td>
-                            <Link to={`/ViewInterest?id=${item._id}`}>
+                            <Link to={`${paths.viewInterest}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -73,7 +74,7 @@ const ViewInterestRequest = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`/EditInterest?id=${item._id}`}>
+                            <Link to={`${paths.editInterest}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -126,7 +127,7 @@ const ViewInterestRequest = () => {
                           <td>{data.isRejected ? "Yes" : "No"}</td>
                           <td>{data.isAccepted ? "Yes" : "No"}</td>
                           <td>
-                            <Link to={`/ViewRequest?id=${item._id}`}>
+                            <Link to={`${paths.viewRequest}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -139,7 +140,7 @@ const ViewInterestRequest = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`/EditRequest?id=${item._id}`}>
+                            <Link to={`${paths.editRequest}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

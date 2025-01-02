@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import back from "assets/back.svg";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewWorkflowFaq = () => {
   const [data, setData] = useState({});
@@ -50,7 +51,7 @@ const ViewWorkflowFaq = () => {
         if (res.data.success) {
           toast.success(`Status ${status}!`);
           setTimeout(() => {
-            navigate(`/ViewAllWorkflow`);
+            navigate(paths.viewAllWorkflow);
           }, 1100);
         }
       })
@@ -69,10 +70,10 @@ const ViewWorkflowFaq = () => {
           <Link
             to={
               history === "true"
-                ? "/ViewWorkflowHistory"
+                ? paths.viewWorkflowHistory
                 : history === "false"
-                  ? "/ViewWorkflowHistory"
-                  : "/ViewAllWorkflow"
+                  ? paths.viewWorkflowHistory
+                  : paths.viewAllWorkflow
             }
             className="addpagess"
           >

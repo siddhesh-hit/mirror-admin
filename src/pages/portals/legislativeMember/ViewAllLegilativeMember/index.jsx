@@ -9,6 +9,7 @@ import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewAllLegislativeMember = () => {
   const [data, setData] = useState([]);
@@ -102,7 +103,7 @@ const ViewAllLegislativeMember = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/AddLegislativeMembers" className="addpagess">
+          <Link to={paths.addLegislativeMember} className="addpagess">
             <img src={add} alt="add" />
             Add Legislative Member
           </Link>
@@ -151,7 +152,7 @@ const ViewAllLegislativeMember = () => {
                               item.basic_info.surname}
                           </td>
                           <td>
-                            <Link to={`/Viewmemberprofile?id=${item._id}`}>
+                            <Link to={`${paths.viewMemberProfile}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -164,7 +165,7 @@ const ViewAllLegislativeMember = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`/EditLegislativeMember?id=${item._id}`}>
+                            <Link to={`${paths.editLegislativeMember}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

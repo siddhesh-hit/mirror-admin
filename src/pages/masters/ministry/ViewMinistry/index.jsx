@@ -8,6 +8,7 @@ import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewMinistry = () => {
   const [data, setData] = useState([]);
@@ -66,7 +67,7 @@ const ViewMinistry = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddMinistry" className="addpagess">
+        <Link to={paths.addMinistry} className="addpagess">
           <img src={add} alt="add" />
           Add Ministry / Department
         </Link>
@@ -127,7 +128,7 @@ const ViewMinistry = () => {
                             </h4>
                           </td>
                           <td>
-                            <Link to={`/EditMinistry?id=${item._id}`}>
+                            <Link to={`${paths.editMinistry}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

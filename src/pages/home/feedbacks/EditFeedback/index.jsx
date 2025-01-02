@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditFeedback = () => {
   const [data, setData] = useState([]);
@@ -44,7 +45,7 @@ const EditFeedback = () => {
         if (res.data.success) {
           toast.success("Feedback updated successfully!");
           setTimeout(() => {
-            navigate("/ViewAllFeedbacks");
+            navigate(paths.viewAllFeedback);
           }, 1110);
         }
       })

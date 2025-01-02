@@ -11,6 +11,7 @@ import AddBanner from "components/pages/portal/legislative_council/AddBanner";
 import AddPublication from "components/pages/portal/legislative_council/AddPublication";
 import AddStructure from "components/pages/portal/legislative_council/AddStructure";
 import AddProfile from "components/pages/portal/legislative_council/AddProfile";
+import { paths } from "services/paths";
 
 const AddLegislativeCouncil = () => {
   const [divCount4, setDivCount4] = useState(1);
@@ -387,7 +388,7 @@ const AddLegislativeCouncil = () => {
       .then((res) => {
         if (res.data.success) {
           toast.success("VidhanParishad added Successfully");
-          navigate("/ViewAllLegislativeCouncil");
+          navigate(paths.viewAllLegislativeCouncil);
         }
       })
       .catch((err) => console.log(err));

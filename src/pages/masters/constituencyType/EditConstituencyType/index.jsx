@@ -5,6 +5,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 
 import back from "assets/back.svg";
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditConstituencyTypes = () => {
   const [data, setData] = useState({});
@@ -43,7 +44,7 @@ const EditConstituencyTypes = () => {
         if (res.data && res.data.success) {
           toast.success("Updated ConstituencyTypes");
           setTimeout(() => {
-            navigate("/ViewConstituencyTypes");
+            navigate(paths.viewConstituencyType);
           }, 1100);
         } else {
           console.log("error", res);
@@ -67,7 +68,7 @@ const EditConstituencyTypes = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewConstituencyTypes" className="addpagess">
+        <Link to={paths.viewConstituencyType} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

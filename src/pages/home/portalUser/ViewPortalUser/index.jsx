@@ -8,6 +8,7 @@ import add from "assets/add.svg";
 
 import { getApi } from "services/axiosInterceptors";
 import { API } from "lib/api";
+import { paths } from "services/paths";
 
 const ViewPortalUser = () => {
   const [data, setData] = useState([]);
@@ -76,10 +77,10 @@ const ViewPortalUser = () => {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item href="/AddPortalUsers">
+            <Dropdown.Item href={paths.addPortalUser}>
               Add Portal Users
             </Dropdown.Item>
-            <Dropdown.Item href="/UploadPortalUsers">
+            <Dropdown.Item href={paths.uploadPortalUser}>
               Import User Account
             </Dropdown.Item>
           </Dropdown.Menu>
@@ -216,7 +217,7 @@ const ViewPortalUser = () => {
                           )}
                         </td>
                         <td>
-                          <Link to={`/EditPortalUsers?id=${item._id}`}>
+                          <Link to={`${paths.editPortalUser}?id=${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (
@@ -234,7 +235,7 @@ const ViewPortalUser = () => {
                           </Link>
                         </td>
                         <td>
-                          <Link to={`/BlockUser?id=${item._id}`}>
+                          <Link to={`${paths.blockPortalUser}?id=${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (
@@ -255,7 +256,7 @@ const ViewPortalUser = () => {
                           </Link>
                         </td>
                         <td>
-                          <Link to={`/UserReset?id=${item._id}`}>
+                          <Link to={`${paths.resetPortalUser}?id=${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

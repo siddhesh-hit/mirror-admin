@@ -4,6 +4,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 
 import back from "assets/back.svg";
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditBranch = () => {
   const [Name, setName] = useState({});
@@ -29,7 +30,7 @@ const EditBranch = () => {
         if (res.data && res.data.success) {
           toast.success("Updated branch");
           setTimeout(() => {
-            navigate("/Viewbranch");
+            navigate(paths.viewBranch);
           }, 1100);
         } else {
           console.log("error", res);
@@ -52,7 +53,7 @@ const EditBranch = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/Viewbranch" className="addpagess">
+        <Link to={paths.viewBranch} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

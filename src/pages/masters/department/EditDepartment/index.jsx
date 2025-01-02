@@ -10,6 +10,7 @@ import {
   getApiById,
 } from "services/axiosInterceptors";
 import ReactDatePicker from "react-datepicker";
+import { paths } from "services/paths";
 
 const EditDepartment = () => {
   const [designation, setDesignation] = useState([]);
@@ -56,7 +57,7 @@ const EditDepartment = () => {
         if (res.data.success) {
           toast.success("Updated the department.");
           setTimeout(() => {
-            navigate("/ViewDepartment");
+            navigate(paths.viewDepartment);
             fetchData();
           }, 1100);
         }
@@ -76,7 +77,7 @@ const EditDepartment = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link className="addpagess" to={"/ViewDepartment"}>
+          <Link className="addpagess" to={paths.viewDepartment}>
             <img src={add} alt="add" style={{ width: 25 }} />
             Go back
           </Link>

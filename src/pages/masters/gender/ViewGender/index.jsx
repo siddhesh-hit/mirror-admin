@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewGender = () => {
   const [data, setData] = useState([]);
@@ -35,7 +36,7 @@ const ViewGender = () => {
           if (res.status === 204) {
             toast.success("Deleted the gender.");
             setTimeout(() => {
-              navigate("/ViewGender");
+              navigate(paths.viewGender);
               fetchData();
             }, 1100);
           }
@@ -58,7 +59,7 @@ const ViewGender = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddGender" className="addpagess">
+        <Link to={paths.addGender} className="addpagess">
           <img src={add} alt="add" />
           Add Gender
         </Link>
@@ -88,7 +89,7 @@ const ViewGender = () => {
                             <h4>{item.marathi.gender}</h4>
                           </td>
                           <td>
-                            <Link to={`/EditGender?id=${item._id}`}>
+                            <Link to={`${paths.editGender}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -124,100 +125,6 @@ const ViewGender = () => {
             </div>
           </div>
         </div>
-        {/* <div className="card card-info mt-5">
-          <div className="row">
-            <div className="col-lg-12">
-              <table className="table mb-0 gallery_photo">
-                <thead>
-                  <tr>
-                    <th>Sr No</th>
-                    <th>Photos and Videos Gallery</th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <h4>1</h4>
-                    </td>
-                    <td>
-                      <h4>Maharashtra Legislative Secretariat</h4>
-                    </td>
-                    <td>
-                      <button>View</button>
-                    </td>
-                    <td>
-                      <Link to="/Edit_vidhan_mandal">
-                        <i
-                          className="fa fa-edit"
-                          style={{ fontSize: "20px" }}
-                        ></i>
-                      </Link>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h4>1</h4>
-                    </td>
-                    <td>
-                      <h4>Maharashtra Legislative Secretariat</h4>
-                    </td>
-                    <td>
-                      <button>View</button>
-                    </td>
-                    <td>
-                      <Link to="/Edit_vidhan_mandal">
-                        <i
-                          className="fa fa-edit"
-                          style={{ fontSize: "20px" }}
-                        ></i>
-                      </Link>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h4>1</h4>
-                    </td>
-                    <td>
-                      <h4>Maharashtra Legislative Secretariat</h4>
-                    </td>
-                    <td>
-                      <button>View</button>
-                    </td>
-                    <td>
-                      <Link to="/Edit_vidhan_mandal">
-                        <i
-                          className="fa fa-edit"
-                          style={{ fontSize: "20px" }}
-                        ></i>
-                      </Link>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h4>1</h4>
-                    </td>
-                    <td>
-                      <h4>Maharashtra Legislative Secretariat</h4>
-                    </td>
-                    <td>
-                      <button>View</button>
-                    </td>
-                    <td>
-                      <Link to="/Edit_vidhan_mandal">
-                        <i
-                          className="fa fa-edit"
-                          style={{ fontSize: "20px" }}
-                        ></i>
-                      </Link>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import add from "assets/back.svg";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditSessionField = () => {
   const [data, setData] = useState({});
@@ -34,7 +35,7 @@ const EditSessionField = () => {
     await putApi("sessionField", id, data)
       .then((res) => {
         if (res.data.success) {
-          navigate("/ViewSessionField");
+          navigate(paths.viewSessionField);
           toast.success("Session Field updated!");
         }
       })
@@ -58,7 +59,7 @@ const EditSessionField = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <a className="addpagess" href="/ViewSessionField">
+          <a className="addpagess" href={paths.viewSessionField}>
             <img src={add} alt="add" style={{ width: 25 }} />
             Go back
           </a>
@@ -109,7 +110,7 @@ const EditSessionField = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

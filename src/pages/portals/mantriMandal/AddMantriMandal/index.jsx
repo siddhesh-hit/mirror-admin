@@ -8,6 +8,7 @@ import dayjs, { Dayjs } from "dayjs";
 import back from "assets/back.svg";
 
 import { getApi, postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddMantriMandal = () => {
   const [minister, setMinister] = useState({
@@ -91,7 +92,7 @@ const AddMantriMandal = () => {
       .then((res) => {
         if (res.data.success) {
           toast.success("Minister create request forwaded!");
-          navigate("/ViewAllMantriMandal");
+          navigate(paths.viewAllMantriMandal);
         }
       })
       .catch((err) => console.log(err));
@@ -194,7 +195,7 @@ const AddMantriMandal = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/ViewAllMantriMandal" className="addpagess">
+          <Link to={paths.viewAllMantriMandal} className="addpagess">
             <img src={back} style={{ width: "25px" }} alt="add" />
             Go back
           </Link>

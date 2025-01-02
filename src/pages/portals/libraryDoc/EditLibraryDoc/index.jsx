@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditLibraryDoc = () => {
   const [data, setData] = useState([]);
@@ -84,7 +85,7 @@ const EditLibraryDoc = () => {
         if (res.data.success) {
           toast.success("Library docs updated Successfully");
           setTimeout(() => {
-            navigate("/ViewLibrary");
+            navigate(paths.viewAllLibraryDoc);
           }, 1100);
         }
       })

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import add from "assets/back.svg";
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddLegislativePosition = () => {
   const [data, setData] = useState("");
@@ -24,7 +25,7 @@ const AddLegislativePosition = () => {
         if (res.data.success) {
           toast.success("Position created!");
           setTimeout(() => {
-            navigate("/ViewLegislativePositions");
+            navigate(paths.viewLegislativePosition);
           }, 1100);
         }
       })
@@ -39,7 +40,7 @@ const AddLegislativePosition = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link className="addpagess" to={"/ViewLegislativePositions"}>
+          <Link className="addpagess" to={paths.viewLegislativePosition}>
             <img src={add} alt="add" style={{ width: 25 }} />
             Go back
           </Link>

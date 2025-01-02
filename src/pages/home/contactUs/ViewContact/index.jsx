@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import add from "assets/add.svg";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewContact = () => {
   const [data, setData] = useState([]);
@@ -26,7 +27,7 @@ const ViewContact = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link className="addpagess" to="/AddContact">
+          <Link className="addpagess" to={paths.addContact}>
             <img src={add} alt="add" />
             Add Contact Us
           </Link>
@@ -71,7 +72,7 @@ const ViewContact = () => {
                             <h4>{item?.isActive ? "Active" : "Inactive"}</h4>
                           </td>
                           <td>
-                            <Link to={`/EditContact?id=${item._id}`}>
+                            <Link to={`${paths.editContact}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

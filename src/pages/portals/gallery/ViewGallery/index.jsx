@@ -9,6 +9,7 @@ import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
 import { API } from "lib/api";
+import { paths } from "services/paths";
 
 const ViewGallery = () => {
   const [data, setData] = useState([]);
@@ -104,7 +105,7 @@ const ViewGallery = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddGallery" className="addpagess">
+        <Link to={paths.addGallery} className="addpagess">
           <img src={add} alt="add" />
           Add Gallery
         </Link>
@@ -150,7 +151,7 @@ const ViewGallery = () => {
                           <h4>{item?.filename}</h4>
                         </td>
                         <td>
-                          <Link to={`/ViewGalleryImage?id=${item._id}`}>
+                          <Link to={`${paths.viewGalleryImage}?id=${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (
@@ -158,23 +159,12 @@ const ViewGallery = () => {
                               )}
                               placement="bottom"
                             >
-                              {/* <a
-                              href={
-                                API.baseUrl +
-                                item.destination +
-                                "/" +
-                                item.filename
-                              }
-                              target="_blank"
-                              rel="noreferrer"
-                            > */}
                               <i className="fa fa-eye" aria-hidden="true"></i>
-                              {/* </a> */}
                             </OverlayTrigger>
                           </Link>
                         </td>
                         <td>
-                          <Link to={`/EditGallery?id=${item._id}`}>
+                          <Link to={`${paths.editGallery}?id=${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import add from "assets/back.svg";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const BlockPortalUser = () => {
   const [data, setData] = useState({});
@@ -44,7 +45,7 @@ const BlockPortalUser = () => {
         if (res.data.success) {
           toast.success("User block status updated successfully!");
           setTimeout(() => {
-            navigate(`/ViewPortalUsers`);
+            navigate(paths.viewPortalUser);
           }, 1110);
         }
       })
@@ -65,7 +66,7 @@ const BlockPortalUser = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewPortalUsers" className="addpagess">
+        <Link to={paths.viewPortalUser} className="addpagess">
           <img src={add} style={{ width: "25px" }} alt="back" />
           Go back
         </Link>

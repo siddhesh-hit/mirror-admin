@@ -8,6 +8,7 @@ import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewSEO = () => {
   const [data, setData] = useState([]);
@@ -50,7 +51,7 @@ const ViewSEO = () => {
           if (res.status === 200) {
             toast.success(res.data.message);
             setTimeout(() => {
-              navigate("/Viewseo");
+              navigate(paths.viewSeo);
               fetchData();
             }, 1100);
           }
@@ -74,7 +75,7 @@ const ViewSEO = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddSEO" className="addpagess">
+        <Link to={paths.addSeo} className="addpagess">
           <img src={add} alt="add" />
           Add SEO
         </Link>
@@ -120,7 +121,7 @@ const ViewSEO = () => {
                             <h4>{item.title}</h4>
                           </td>
                           <td>
-                            <Link to={`/EditSEO?id=${item._id}`}>
+                            <Link to={`${paths.editSeo}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

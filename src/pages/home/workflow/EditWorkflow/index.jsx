@@ -6,6 +6,7 @@ import back from "assets/back.svg";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
 import { Form } from "react-bootstrap";
+import { paths } from "services/paths";
 
 const EditWorkflow = () => {
   const [data, setData] = useState({});
@@ -45,7 +46,7 @@ const EditWorkflow = () => {
           // toast.success("Updated pending");
           toast.success(`Status ${status}!`);
           setTimeout(() => {
-            navigate(`/ViewAllWorkflow`);
+            navigate(paths.viewAllWorkflow);
           }, 1100);
         }
       })
@@ -61,7 +62,7 @@ const EditWorkflow = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllWorkflow" className="addpagess">
+        <Link to={paths.viewAllWorkflow} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

@@ -7,6 +7,7 @@ import add from "assets/back.svg";
 import { getApiById, putApi } from "services/axiosInterceptors";
 import { routes, auth, authDesc } from "data/RouteStructure";
 import { toast } from "react-toastify";
+import { paths } from "services/paths";
 
 const EditTask = () => {
   const [role, setRole] = useState({});
@@ -53,7 +54,7 @@ const EditTask = () => {
       .then((res) => {
         if (res.data.success) {
           toast.success("Roles updated successfully");
-          navigate(`/ViewTask`);
+          navigate(paths.viewTask);
         }
       })
       .catch((err) => console.log(err));

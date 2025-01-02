@@ -6,6 +6,7 @@ import add from "assets/add.svg";
 import { API } from "lib/api";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
+import { paths } from "services/paths";
 
 const ViewLegislativeAssembly = () => {
   const { data, loading, error } = useDataFetchingForBothApis("sabha");
@@ -16,7 +17,7 @@ const ViewLegislativeAssembly = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddLegislativeAssembly" className="addpagess">
+        <Link to={paths.addLegislativeAssembly} className="addpagess">
           <img src={add} alt="add" />
           Add Legislative Assembly
         </Link>
@@ -83,7 +84,7 @@ const ViewLegislativeAssembly = () => {
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`/EditLegislativeAssembly?id=${data._id}`}>
+                        <Link to={`${paths.editLegislativeAssembly}?id=${data._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (
@@ -176,7 +177,7 @@ const ViewLegislativeAssembly = () => {
                           </td>
                           <td>
                             <Link
-                              to={`/EditLegislativeAssembly?id=${data._id}`}
+                              to={`${paths.editLegislativeAssembly}?id=${data._id}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
@@ -273,7 +274,7 @@ const ViewLegislativeAssembly = () => {
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`/EditLegislativeAssembly?id=${data._id}`}>
+                        <Link to={`${paths.editLegislativeAssembly}?id=${data._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (
@@ -375,7 +376,7 @@ const ViewLegislativeAssembly = () => {
                           </p>
                         </td>
                         <td>
-                          <Link to={`/EditLegislativeAssembly?id=${data._id}`}>
+                          <Link to={`${paths.editLegislativeAssembly}?id=${data._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

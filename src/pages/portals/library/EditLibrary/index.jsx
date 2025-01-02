@@ -6,6 +6,7 @@ import back from "assets/back.svg";
 import { getApiById, putApi } from "services/axiosInterceptors";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { paths } from "services/paths";
 
 const EditLibrary = () => {
   const [data, setData] = useState([]);
@@ -98,7 +99,7 @@ const EditLibrary = () => {
         if (res.data.success) {
           toast.success("Library updated Successfully");
           setTimeout(() => {
-            navigate(`/ViewLibrary?id=${data._id}`);
+            navigate(`${paths.viewAllLibrary}?id=${data._id}`);
           }, 1100);
         }
       })
@@ -131,7 +132,7 @@ const EditLibrary = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllLibrary" className="addpagess">
+        <Link to={paths.viewAllLibrary} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>
@@ -211,20 +212,6 @@ const EditLibrary = () => {
                             )
                           }
                         />
-                        {/* <textarea
-                          name="english_description"
-                          defaultValue={serverData.english.description}
-                          onChange={handleChange}
-                          className="form-control mb-3"
-                          placeholder="Enter description"
-                        />
-                        <textarea
-                          name="marathi_description"
-                          defaultValue={serverData.marathi.description}
-                          onChange={handleChange}
-                          className="form-control"
-                          placeholder="वर्णन प्रविष्ट करा"
-                        /> */}
                       </div>
                     </div>
                   </div>

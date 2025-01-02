@@ -7,6 +7,7 @@ import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
 import { getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewAllUserAudit = () => {
   const [data, setData] = useState([]);
@@ -46,7 +47,7 @@ const ViewAllUserAudit = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddPortalUsers" className="addpagess">
+        <Link to={paths.addPortalUser} className="addpagess">
           <img src={add} alt="add" />
           Add Portal User
         </Link>
@@ -113,7 +114,7 @@ const ViewAllUserAudit = () => {
                           <p>{item.email}</p>
                         </td>
                         <td>
-                          <Link to={`/ViewUserAudit?id=${item._id}`}>
+                          <Link to={`${paths.viewUserAudit}?id=${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

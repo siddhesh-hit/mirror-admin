@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
 import { toast } from "react-toastify";
+import { paths } from "services/paths";
 
 const EditInterest = () => {
   const [data, setData] = useState({});
@@ -38,7 +39,7 @@ const EditInterest = () => {
         if (res.data.success) {
           toast.success("Interest updated successfully!");
           setTimeout(() => {
-            navigate(`/ViewInterest?id=${id}`);
+            navigate(`${paths.viewInterest}?id=${id}`);
           }, 1110);
         }
       })

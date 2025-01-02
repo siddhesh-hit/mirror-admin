@@ -11,6 +11,7 @@ import {
   getApi,
   putApi,
 } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditPortalUser = () => {
   const [server, setServer] = useState({});
@@ -82,7 +83,7 @@ const EditPortalUser = () => {
       .then((res) => {
         if (res.data.success) {
           toast.success("User updated Successfully");
-          navigate("/ViewPortalUsers");
+          navigate(paths.viewPortalUser);
         }
       })
       .catch((err) => {
@@ -154,7 +155,7 @@ const EditPortalUser = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewPortalUsers" className="addpagess">
+        <Link to={paths.viewPortalUser} className="addpagess">
           <img src={add} style={{ width: "25px" }} alt="back" />
           Go back
         </Link>

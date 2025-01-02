@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import back from "assets/back.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddGallery = () => {
   const [serverData, setServerData] = useState({});
@@ -47,7 +48,7 @@ const AddGallery = () => {
         if (res.data.success) {
           toast.success("Gallery added successfully");
           setTimeout(() => {
-            navigate("/ViewGallery");
+            navigate(paths.viewAllGallery);
           }, 1000);
         }
       })
@@ -68,7 +69,7 @@ const AddGallery = () => {
           <div className="row">
             <div className="col-lg-10">
               <div>
-                <Link className="addpagess" to="/ViewGallery">
+                <Link className="addpagess" to={paths.viewAllGallery}>
                   <img src={back} alt="back" style={{ width: 25 }} />
                   Go back
                 </Link>

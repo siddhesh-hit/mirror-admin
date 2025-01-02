@@ -8,6 +8,7 @@ import remove from "assets/remove.svg";
 import addwhite from "assets/addwhite.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddBranch = () => {
   const [name, setName] = useState("");
@@ -25,7 +26,7 @@ const AddBranch = () => {
         if (res && res.data && res.data.success) {
           toast.success("Added branch");
           setTimeout(() => {
-            navigate("/Viewbranch");
+            navigate(paths.viewBranch);
           }, 1100);
         }
       })
@@ -38,7 +39,7 @@ const AddBranch = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/Viewbranch" className="addpagess">
+        <Link to={paths.viewBranch} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

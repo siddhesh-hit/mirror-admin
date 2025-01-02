@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewPortalDepartment = () => {
   const [data, setData] = useState([]);
@@ -33,7 +34,7 @@ const ViewPortalDepartment = () => {
           if (res.status === 204) {
             toast.success("Deleted the Portal Department.");
             setTimeout(() => {
-              navigate("/ViewPortalDepartment");
+              navigate(paths.viewPortalDepartment);
               fetchData();
             }, 1100);
           }
@@ -54,7 +55,7 @@ const ViewPortalDepartment = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddPortalDepartment" className="addpagess">
+        <Link to={paths.addPortalDepartment} className="addpagess">
           <img src={add} alt="add" />
           Add Portal Department
         </Link>
@@ -90,7 +91,7 @@ const ViewPortalDepartment = () => {
                             <h4>{item.for}</h4>
                           </td>
                           <td>
-                            <Link to={`/EditPortalDepartment?id=${item._id}`}>
+                            <Link to={`${paths.editPortalDepartment}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

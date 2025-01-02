@@ -60,7 +60,7 @@ export const paths = {
   addMantriMandal: "/AddMantriMandal",
   viewAllMantriMandal: "/ViewAllMantriMandal",
   viewMantriMandal: "/ViewMantriMandal",
-  viewAuEditMantriMandaldit: "/EditMantriMandal",
+  editMantriMandal: "/EditMantriMandal",
 
   addRajyapal: "/AddRajyapal",
   editRajyapal: "/EditRajyapal",
@@ -91,7 +91,7 @@ export const paths = {
   viewCommittee: "/ViewCommittee",
   editCommittee: "/EditCommittee",
 
-  eddConstituency: "/AddConstituency",
+  addConstituency: "/AddConstituency",
   viewConstituency: "/ViewConstituency",
   editConstituency: "/EditConstituency",
 
@@ -119,11 +119,11 @@ export const paths = {
   editLegislativePosition: "/EditLegislativePosition",
   viewLegislativePosition: "/ViewLegislativePosition",
 
-  eddMinistry: "/AddMinistry",
+  addMinistry: "/AddMinistry",
   viewMinistry: "/ViewMinistry",
   editMinistry: "/EditMinistry",
 
-  eddNavigation: "/AddNavigation",
+  addNavigation: "/AddNavigation",
   viewNavigation: "/ViewNavigation",
   editNavigation: "/EditNavigation",
 

@@ -9,6 +9,7 @@ import remove from "assets/remove.svg";
 import back from "assets/back.svg";
 
 import { getApi, postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddSessionCalendar = () => {
   const [divCount, setDivCount] = useState(1);
@@ -74,19 +75,19 @@ const AddSessionCalendar = () => {
     if (index) {
       if (files) {
         if (files[0]?.type.startsWith("application/pdf")) {
-          if (files[0].size > maxAllowedSize) {
-            alert("Upload the file of size less than 2MB.");
-          } else {
-            setData((prev) => ({
-              ...prev,
-              [field]: [
-                ...prev[field].map((item, ind) => {
-                  // console.log(+index === ind);
-                  return ind === +index ? { ...item, [lang]: files[0] } : item;
-                }),
-              ],
-            }));
-          }
+          // if (files[0].size > maxAllowedSize) {
+          //   alert("Upload the file of size less than 2MB.");
+          // } else {
+          setData((prev) => ({
+            ...prev,
+            [field]: [
+              ...prev[field].map((item, ind) => {
+                // console.log(+index === ind);
+                return ind === +index ? { ...item, [lang]: files[0] } : item;
+              }),
+            ],
+          }));
+          // }
         } else {
           alert("Only upload PDF format files!");
         }
@@ -125,7 +126,7 @@ const AddSessionCalendar = () => {
         if (res.data.success) {
           toast.success("Session added successfully.");
           setTimeout(() => {
-            navigate("/ViewAllCalendar");
+            navigate(paths.viewAllSessionCalendar);
           }, 1100);
         }
       })
@@ -159,10 +160,12 @@ const AddSessionCalendar = () => {
     setOption((prev) => ({ ...prev, year: years }));
   }, []);
 
+  console.log(data);
+
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllCalendar" className="addpagess">
+        <Link to={paths.viewAllSessionCalendar} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>
@@ -349,8 +352,8 @@ const AddSessionCalendar = () => {
                                   ...documents[index],
                                   date: date.format(),
                                 };
-
-                                return documents;
+                                prev.documents = documents;
+                                return prev;
                               });
                             }}
                             format="DD/MM/YYYY"

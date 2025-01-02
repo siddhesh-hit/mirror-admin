@@ -6,6 +6,7 @@ import back from "assets/back.svg";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
 import { API } from "lib/api";
+import { paths } from "services/paths";
 
 const EditGallery = () => {
   const [data, setData] = useState({});
@@ -61,7 +62,7 @@ const EditGallery = () => {
         if (res.data.success) {
           toast.success("Gallery updated successfully");
           setTimeout(() => {
-            navigate("/ViewGallery");
+            navigate(paths.viewAllGallery);
           }, 1000);
         }
       })
@@ -85,7 +86,7 @@ const EditGallery = () => {
           <div className="row">
             <div className="col-lg-10">
               <div>
-                <Link className="addpagess" to="/ViewGallery">
+                <Link className="addpagess" to={paths.viewAllGallery}>
                   <img src={back} alt="back" style={{ width: 25 }} />
                   Go back
                 </Link>

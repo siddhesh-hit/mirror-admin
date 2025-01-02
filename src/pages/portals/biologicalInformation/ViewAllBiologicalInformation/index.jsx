@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewAllBiologicalInformation = () => {
   const [data, setData] = useState([]);
@@ -86,7 +87,7 @@ const ViewAllBiologicalInformation = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/AddBiologicalInformation" className="addpagess">
+          <Link to={paths.addBiologicalInformation} className="addpagess">
             <img src={add} alt="add" />
             Add Biological Information
           </Link>
@@ -115,7 +116,7 @@ const ViewAllBiologicalInformation = () => {
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
                             <Link
-                              to={`/ViewBiologicalInformation?id=${item._id}`}
+                              to={`${paths.viewBiologicalInformation}?id=${item._id}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
@@ -130,7 +131,7 @@ const ViewAllBiologicalInformation = () => {
                           </td>
                           <td>
                             <Link
-                              to={`/EditBiologicalInformation?id=${item._id}`}
+                              to={`${paths.editBiologicalInformation}?id=${item._id}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}

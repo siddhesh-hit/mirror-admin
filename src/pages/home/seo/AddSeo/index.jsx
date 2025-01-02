@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import back from "assets/back.svg";
 import { postApi } from "services/axiosInterceptors";
 import { websiteName } from "data/RouteStructure";
+import { paths } from "services/paths";
 
 const AddSeo = () => {
   const [data, setData] = useState({
@@ -36,7 +37,7 @@ const AddSeo = () => {
         if (res.data.success) {
           toast.success("SEO created!");
           setTimeout(() => {
-            navigate("/ViewSEO");
+            navigate(paths.viewSeo);
           }, 1100);
         }
       })
@@ -49,7 +50,7 @@ const AddSeo = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link className="addpagess" to={"/Viewseo"}>
+        <Link className="addpagess" to={paths.viewSeo}>
           <img src={back} alt="back" style={{ width: 25 }} />
           Go back
         </Link>

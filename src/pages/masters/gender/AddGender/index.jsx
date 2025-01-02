@@ -7,6 +7,7 @@ import back from "assets/back.svg";
 import addwhite from "assets/addwhite.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddGender = () => {
   const [divCount, setDivCount] = useState(1);
@@ -78,7 +79,7 @@ const AddGender = () => {
         if (res.data.success) {
           toast.success("Added gender");
           setTimeout(() => {
-            navigate("/ViewGender");
+            navigate(paths.viewGender);
           }, 1100);
         }
       })
@@ -93,7 +94,7 @@ const AddGender = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewGender" className="addpagess">
+        <Link to={paths.viewGender} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import { getApiById } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewRequest = () => {
   const [data, setData] = useState({});
@@ -51,7 +52,7 @@ const ViewRequest = () => {
                         <td>{data.isRejected ? "Yes" : "No"}</td>
                         <td>{data.isAccepted ? "Yes" : "No"}</td>
                         <td>
-                          <Link to={`/EditRequest?id=${data._id}`}>
+                          <Link to={`${paths.editRequest}?id=${data._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

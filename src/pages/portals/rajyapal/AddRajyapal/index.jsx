@@ -12,6 +12,7 @@ import back from "assets/back.svg";
 import { postApi } from "services/axiosInterceptors";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { paths } from "services/paths";
 
 const AddRajyapal = () => {
   const [isSubmitted, setSubmit] = useState(false);
@@ -235,7 +236,7 @@ const AddRajyapal = () => {
       .then((res) => {
         if (res.data.success) {
           toast.success("Rajyapal Member added successfully.");
-          navigate("/ViewAllRajyapal");
+          navigate(paths.viewAllRajyapal);
         }
       })
       .catch((err) => {
@@ -264,7 +265,7 @@ const AddRajyapal = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllRajyapal" className="addpagess">
+        <Link to={paths.viewAllRajyapal} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>
@@ -465,23 +466,6 @@ const AddRajyapal = () => {
                             )
                           }
                         />
-                        {/* <textarea
-                          type="text"
-                          style={{
-                            height: "100px",
-                          }}
-                          name="english_politicalCareer"
-                          onChange={handleChange}
-                          className="form-control mb-3"
-                          placeholder="Enter Political Career"
-                        />
-                        <textarea
-                          type="text"
-                          name="marathi_politicalCareer"
-                          onChange={handleChange}
-                          className="form-control"
-                          placeholder="राजकीय करिअरमध्ये प्रवेश करा"
-                        /> */}
                       </div>
                     </div>
                     <div className="form-group row">

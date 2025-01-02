@@ -1,9 +1,9 @@
 export const portalPaths = [
   {
     name: "VidhanMandal",
-    path: "/ViewAllMandal",
+    path: "/ViewAllVidhanMandal",
     child: [
-      "/ViewAllMandal",
+      "/ViewAllVidhanMandal",
       "/AddVidhanMandal",
       "/EditVidhanMandal",
       "/ViewVidhanMandal",
@@ -31,10 +31,10 @@ export const portalPaths = [
   },
   {
     name: "Legislative Member",
-    path: "/ViewAllLegislativeMembers",
+    path: "/ViewAllLegislativeMember",
     child: [
-      "/ViewAllLegislativeMembers",
-      "/AddLegislativeMembers",
+      "/ViewAllLegislativeMember",
+      "/AddLegislativeMember",
       "/EditLegislativeMember",
       "/ViewLegislativeMember",
       "/Viewmemberprofile",
@@ -57,9 +57,9 @@ export const portalPaths = [
   },
   {
     name: "Session Calendar",
-    path: "/ViewAllCalendar",
+    path: "/ViewAllSessionCalendar",
     child: [
-      "/ViewAllCalendar",
+      "/ViewAllSessionCalendar",
       "/AddSessionCalendar",
       "/EditSessionCalendar",
       "/ViewCalendar",
@@ -77,8 +77,8 @@ export const portalPaths = [
   },
   {
     name: "Faq's",
-    path: "/ViewAllFaqs",
-    child: ["/ViewAllFaqs", "/AddFaqs", "/EditFaqs", "/ViewFaqs"],
+    path: "/ViewAllFaq",
+    child: ["/ViewAllFaq", "/AddFaq", "/EditFaq", "/ViewFaq"],
   },
   {
     name: "Gallery",
@@ -105,9 +105,9 @@ export const masterPaths = [
   },
   {
     name: "Political Parties",
-    path: "/ViewPoliticalParties",
+    path: "/ViewPoliticalParty",
     child: [
-      "/ViewPoliticalParties",
+      "/ViewPoliticalParty",
       "/AddPoliticalParties",
       "/EditPoliticalParties",
     ],
@@ -154,29 +154,29 @@ export const masterPaths = [
   },
   {
     name: "Legislative Positions",
-    path: "/ViewLegislativePositions",
+    path: "/ViewLegislativePosition",
     child: [
-      "/ViewLegislativePositions",
-      "/AddLegislativePositions",
-      "/EditLegislativePositions",
+      "/ViewLegislativePosition",
+      "/AddLegislativePosition",
+      "/EditLegislativePosition",
     ],
   },
   {
     name: "Presiding Officer",
-    path: "/ViewPresidingOfficers",
+    path: "/ViewPresidingOfficer",
     child: [
-      "/AddPresidingOfficers",
-      "/ViewPresidingOfficers",
-      "/EditPresidingOfficers",
+      "/AddPresidingOfficer",
+      "/ViewPresidingOfficer",
+      "/EditPresidingOfficer",
     ],
   },
   {
     name: "Constituency Types",
-    path: "/ViewConstituencyTypes",
+    path: "/ViewConstituencyType",
     child: [
-      "/AddConstituencyTypes",
-      "/ViewConstituencyTypes",
-      "/EditConstituencyTypes",
+      "/AddConstituencyType",
+      "/ViewConstituencyType",
+      "/EditConstituencyType",
     ],
   },
   {
@@ -194,24 +194,13 @@ export const masterPaths = [
 export const homePaths = [
   {
     name: "Portal User",
-    path: "/ViewPortalUsers",
-    child: [
-      "/ViewPortalUsers",
-      "/EditPortalUsers",
-      "/AddPortalUsers",
-      "/BlockUsers",
-      "/UserReset",
-      "/UploadPortalUsers",
-    ],
+    path: "/ViewPortalUser",
+    child: ["/ViewPortalUser", "/EditPortalUser", "/AddPortalUser", "/BlockUser", "/UserReset", "/UploadPortalUser"],
   },
   {
     name: "Portal Department",
     path: "/ViewPortalDepartment",
-    child: [
-      "/ViewPortalDepartment",
-      "/AddPortalDepartment",
-      "/EditPortalDepartment",
-    ],
+    child: ["/ViewPortalDepartment", "/AddPortalDepartment", "/EditPortalDepartment"],
   },
   {
     name: "Portal Branch",
@@ -290,8 +279,8 @@ export const homePaths = [
   },
   {
     name: "Feedback",
-    path: "/ViewAllFeedbacks",
-    child: ["/ViewAllFeedbacks", "/ViewFeedbacks", "/EditFeedbacks"],
+    path: "/ViewAllFeedback",
+    child: ["/ViewAllFeedback", "/ViewFeedback", "/EditFeedback"],
   },
   {
     name: "Helpdesk",

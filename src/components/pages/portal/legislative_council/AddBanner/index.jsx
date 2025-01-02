@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { paths } from "services/paths";
 
 const AddBanner = ({
   data,
@@ -11,7 +12,7 @@ const AddBanner = ({
 }) => {
   return (
     <div className="contentofpages">
-      <Link to="/ViewAllLegislativeCouncil" className="addpagess">
+      <Link to={paths.viewAllLegislativeCouncil} className="addpagess">
         <img src={back} style={{ width: "25px" }} alt="add" />
         Go back
       </Link>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import add from "assets/add.svg";
 
 import { getApiById } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewHouse = () => {
   const [data, setData] = useState([]);
@@ -26,7 +27,7 @@ const ViewHouse = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/Add_houses" className="addpagess">
+        <Link to={paths.addHouse} className="addpagess">
           <img src={add} alt="add" />
           Add New
         </Link>
@@ -59,7 +60,7 @@ const ViewHouse = () => {
                           style={{ fontSize: "20px" }}
                         ></i>
                       </a>
-                      <Link to="/Edit_houses">
+                      <Link to={paths.editHouse}>
                         <i
                           className="fa fa-edit"
                           style={{ fontSize: "20px" }}
@@ -72,100 +73,6 @@ const ViewHouse = () => {
             </div>
           </div>
         </div>
-        {/* <div className="card card-info mt-5">
-          <div className="row">
-            <div className="col-lg-12">
-              <table className="table mb-0 gallery_photo">
-                <thead>
-                  <tr>
-                    <th>Sr No</th>
-                    <th>Photos and Videos Gallery</th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <h4>1</h4>
-                    </td>
-                    <td>
-                      <h4>Maharashtra Legislative Secretariat</h4>
-                    </td>
-                    <td>
-                      <button>View</button>
-                    </td>
-                    <td>
-                      <Link to="/Edit_vidhan_mandal">
-                        <i
-                          className="fa fa-edit"
-                          style={{ fontSize: "20px" }}
-                        ></i>
-                      </Link>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h4>1</h4>
-                    </td>
-                    <td>
-                      <h4>Maharashtra Legislative Secretariat</h4>
-                    </td>
-                    <td>
-                      <button>View</button>
-                    </td>
-                    <td>
-                      <Link to="/Edit_vidhan_mandal">
-                        <i
-                          className="fa fa-edit"
-                          style={{ fontSize: "20px" }}
-                        ></i>
-                      </Link>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h4>1</h4>
-                    </td>
-                    <td>
-                      <h4>Maharashtra Legislative Secretariat</h4>
-                    </td>
-                    <td>
-                      <button>View</button>
-                    </td>
-                    <td>
-                      <Link to="/Edit_vidhan_mandal">
-                        <i
-                          className="fa fa-edit"
-                          style={{ fontSize: "20px" }}
-                        ></i>
-                      </Link>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h4>1</h4>
-                    </td>
-                    <td>
-                      <h4>Maharashtra Legislative Secretariat</h4>
-                    </td>
-                    <td>
-                      <button>View</button>
-                    </td>
-                    <td>
-                      <Link to="/Edit_vidhan_mandal">
-                        <i
-                          className="fa fa-edit"
-                          style={{ fontSize: "20px" }}
-                        ></i>
-                      </Link>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

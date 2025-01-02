@@ -14,6 +14,7 @@ import {
   getApi,
 } from "services/axiosInterceptors";
 import { formatDateForInput } from "lib/dateEnUsFormat";
+import { paths } from "services/paths";
 
 const EditSessionCalendar = () => {
   const [divCount, setDivCount] = useState(1);
@@ -82,19 +83,19 @@ const EditSessionCalendar = () => {
     if (index) {
       if (files) {
         if (files[0]?.type.startsWith("application/pdf")) {
-          if (files[0].size > maxAllowedSize) {
-            alert("Upload the file of size less than 2MB.");
-          } else {
-            setData((prev) => ({
-              ...prev,
-              [field]: [
-                ...prev[field].map((item, ind) => {
-                  // console.log(+index === ind);
-                  return ind === +index ? { ...item, [lang]: files[0] } : item;
-                }),
-              ],
-            }));
-          }
+          // if (files[0].size > maxAllowedSize) {
+          //   alert("Upload the file of size less than 2MB.");
+          // } else {
+          setData((prev) => ({
+            ...prev,
+            [field]: [
+              ...prev[field].map((item, ind) => {
+                // console.log(+index === ind);
+                return ind === +index ? { ...item, [lang]: files[0] } : item;
+              }),
+            ],
+          }));
+          // }
         } else {
           alert("Only upload JPEG/JPG/PNG format assets");
         }
@@ -138,7 +139,7 @@ const EditSessionCalendar = () => {
         if (res.data.success) {
           toast.success("Session updated successfully.");
           setTimeout(() => {
-            navigate("/ViewAllCalendar");
+            navigate(paths.viewAllSessionCalendar);
           }, 1100);
         }
       })
@@ -179,7 +180,7 @@ const EditSessionCalendar = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllCalendar" className="addpagess">
+        <Link to={paths.viewAllSessionCalendar} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>
@@ -373,7 +374,8 @@ const EditSessionCalendar = () => {
                                     date: date.format(),
                                   };
 
-                                  return documents;
+                                  prev.documents = documents;
+                                  return prev;
                                 });
                               }}
                               format="DD/MM/YYYY"

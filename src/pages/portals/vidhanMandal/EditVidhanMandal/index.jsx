@@ -7,6 +7,7 @@ import back from "assets/back.svg";
 import { getApiById, putApi } from "services/axiosInterceptors";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { paths } from "services/paths";
 
 const EditVidhanMandal = () => {
   const [data, setData] = useState([]);
@@ -188,9 +189,9 @@ const EditVidhanMandal = () => {
         .then((res) => {
           if (res.data.success) {
             toast.success("Vidhanmandal updated successfully");
-            // setTimeout(() => {
-            //   navigate(`/ViewVidhanMandal?id=${data._id}`);
-            // }, 1000);
+            setTimeout(() => {
+              navigate(`${paths.viewVidhanMandal}?id=${data._id}`);
+            }, 1000);
           }
         })
         .catch((err) => {
@@ -228,7 +229,7 @@ const EditVidhanMandal = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllMandal" className="addpagess">
+        <Link to={paths.viewAllVidhanMandal} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

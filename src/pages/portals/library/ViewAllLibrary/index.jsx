@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewAllLibrary = () => {
   const [data, setData] = useState([]);
@@ -90,7 +91,7 @@ const ViewAllLibrary = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/AddLibrary" className="addpagess">
+          <Link to={paths.addLibrary} className="addpagess">
             <img src={add} alt="add" />
             Add Library
           </Link>
@@ -118,7 +119,7 @@ const ViewAllLibrary = () => {
                           </td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link to={`/ViewLibrary?id=${item._id}`}>
+                            <Link to={`${paths.viewLibrary}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -131,7 +132,7 @@ const ViewAllLibrary = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`/EditLibrary?id=${item._id}`}>
+                            <Link to={`${paths.editLibrary}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

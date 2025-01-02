@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 import { API } from "lib/api";
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewWorkflowLegislativeAssembly = () => {
   const [data, setData] = useState({});
@@ -54,7 +55,7 @@ const ViewWorkflowLegislativeAssembly = () => {
           // toast.success("Updated pending");
           toast.success(`Status ${status}!`);
           setTimeout(() => {
-            navigate(`/ViewAllWorkflow`);
+            navigate(paths.viewAllWorkflow);
           }, 1100);
         }
       })
@@ -74,10 +75,10 @@ const ViewWorkflowLegislativeAssembly = () => {
           <Link
             to={
               history === "true"
-                ? "/ViewWorkflowHistory"
+                ? paths.viewWorkflowHistory
                 : history === "false"
-                  ? "/ViewWorkflowHistory"
-                  : "/ViewAllWorkflow"
+                  ? paths.viewWorkflowHistory
+                  : paths.viewAllWorkflow
             }
             className="addpagess"
           >

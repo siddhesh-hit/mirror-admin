@@ -7,6 +7,7 @@ import back from "assets/back.svg";
 
 import { API } from "lib/api";
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewWorkflowSessionCalendar = () => {
   const [data, setData] = useState({});
@@ -53,7 +54,7 @@ const ViewWorkflowSessionCalendar = () => {
         if (res.data.success) {
           toast.success(`Status ${status}!`);
           setTimeout(() => {
-            navigate(`/ViewAllWorkflow`);
+            navigate(paths.viewAllWorkflow);
           }, 1100);
         }
       })
@@ -93,10 +94,10 @@ const ViewWorkflowSessionCalendar = () => {
           <Link
             to={
               history === "true"
-                ? "/ViewWorkflowHistory"
+                ? paths.viewWorkflowHistory
                 : history === "false"
-                  ? "/ViewWorkflowHistory"
-                  : "/ViewAllWorkflow"
+                  ? paths.viewWorkflowHistory
+                  : paths.viewAllWorkflow
             }
             className="addpagess"
           >

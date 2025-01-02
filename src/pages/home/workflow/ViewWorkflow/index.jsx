@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import add from "assets/add.svg";
 
 import { getApiById } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewWorkflow = () => {
   const [data, setData] = useState([]);
@@ -29,7 +30,7 @@ const ViewWorkflow = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        {/* <Link to="/AddFaqs" className="addpagess">
+        {/* <Link to="/AddFaq" className="addpagess">
           <img src={add} alt="add" />
           Add Pending
         </Link> */}
@@ -56,7 +57,7 @@ const ViewWorkflow = () => {
                       <td>{data.action}</td>
                       <td>
                         <Link
-                          to={`/EditWorkflow?id=${data._id}&action=${data.action}`}
+                          to={`${paths.editWorkflow}?id=${data._id}&action=${data.action}`}
                         >
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}

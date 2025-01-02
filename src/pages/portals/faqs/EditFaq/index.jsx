@@ -7,6 +7,7 @@ import back from "assets/back.svg";
 import { getApiById, putApi } from "services/axiosInterceptors";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { paths } from "services/paths";
 
 const EditFaq = () => {
   const [data, setData] = useState({});
@@ -68,7 +69,7 @@ const EditFaq = () => {
         if (res.data.success) {
           toast.success("Updated FAQ");
           setTimeout(() => {
-            navigate(`/ViewFaqs?id=${id}`);
+            navigate(`${paths.viewFaq}?id=${id}`);
           }, 1100);
         }
       })
@@ -93,7 +94,7 @@ const EditFaq = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllFaqs" className="addpagess">
+        <Link to={paths.viewAllFaq} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

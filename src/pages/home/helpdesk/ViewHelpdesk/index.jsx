@@ -4,6 +4,7 @@ import { useLocation, Link } from "react-router-dom";
 import back from "assets/back.svg";
 
 import { getApiById } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewHelpdesk = () => {
   const [data, setData] = useState([]);
@@ -30,7 +31,7 @@ const ViewHelpdesk = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllHelpdesk" className="addpagess">
+        <Link to={paths.viewAllHelpdesk} className="addpagess">
           <img src={back} alt="back" style={{ width: "25px" }} />
           Go back
         </Link>

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import add from "assets/add.svg";
 
 import { getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewLegislativeMember = () => {
   const [data, setData] = useState([]);
@@ -26,7 +27,7 @@ const ViewLegislativeMember = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddLegislativeMembers" className="addpagess">
+        <Link to={paths.addLegislativeMember} className="addpagess">
           <img src={add} alt="add" />
           Add Legislative Member
         </Link>
@@ -55,7 +56,7 @@ const ViewLegislativeMember = () => {
                             <h4>{item.basic_info.name}</h4>
                           </td>
                           <td>
-                            <Link to={`/Viewmemberprofile?id=${item._id}`}>
+                            <Link to={`${paths.viewMemberProfile}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -68,7 +69,7 @@ const ViewLegislativeMember = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`/EditLegislativeMember?id=${item._id}`}>
+                            <Link to={`${paths.editLegislativeMember}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

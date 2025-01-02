@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import add from "assets/back.svg";
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddPresidingOfficer = () => {
   const [data, setData] = useState("");
@@ -23,7 +24,7 @@ const AddPresidingOfficer = () => {
         if (res.data.success) {
           toast.success("officer created!");
           setTimeout(() => {
-            navigate("/ViewPresidingOfficers");
+            navigate(paths.viewPresidingOfficer);
           }, 1100);
         }
       })
@@ -39,7 +40,7 @@ const AddPresidingOfficer = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link className="addpagess" to={"/ViewPresidingOfficers"}>
+          <Link className="addpagess" to={paths.viewPresidingOfficer}>
             <img src={add} alt="add" style={{ width: 25 }} />
             Go back
           </Link>

@@ -7,6 +7,7 @@ import back from "assets/back.svg";
 
 import { formatEnUsDate } from "lib/dateEnUsFormat";
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewWorkflowMantriMandal = () => {
   const [data, setData] = useState({});
@@ -142,7 +143,7 @@ const ViewWorkflowMantriMandal = () => {
         if (res.data.success) {
           toast.success(`Status ${status}!`);
           setTimeout(() => {
-            navigate(`/ViewAllWorkflow`);
+            navigate(paths.viewAllWorkflow);
           }, 1100);
         }
       })
@@ -196,10 +197,10 @@ const ViewWorkflowMantriMandal = () => {
           <Link
             to={
               history === "true"
-                ? "/ViewWorkflowHistory"
+                ? paths.viewWorkflowHistory
                 : history === "false"
-                  ? "/ViewWorkflowHistory"
-                  : "/ViewAllWorkflow"
+                  ? paths.viewWorkflowHistory
+                  : paths.viewAllWorkflow
             }
             className="addpagess"
           >

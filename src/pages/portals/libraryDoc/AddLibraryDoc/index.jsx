@@ -6,6 +6,7 @@ import add from "assets/add.svg";
 import remove from "assets/remove.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddLibraryDoc = () => {
   const [divCount, setDivCount] = useState(1);
@@ -61,7 +62,7 @@ const AddLibraryDoc = () => {
         if (res.data.success) {
           toast.success("Library docs added successfully");
           setTimeout(() => {
-            navigate("/ViewGallery");
+            navigate(paths.viewAllLibrary);
           }, 1000);
         }
       })

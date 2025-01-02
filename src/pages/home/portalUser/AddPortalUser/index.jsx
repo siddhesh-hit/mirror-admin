@@ -7,6 +7,7 @@ import dayjs, { Dayjs } from "dayjs";
 import add from "assets/back.svg";
 
 import { getApi, postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddPortalUser = () => {
   const [isSubmitted, setSubmit] = useState(false);
@@ -89,7 +90,7 @@ const AddPortalUser = () => {
       .then((res) => {
         if (res.data.success) {
           toast.success("User Added Successfully");
-          navigate("/ViewPortalUsers");
+          navigate(paths.viewPortalUser);
         }
       })
       .catch((err) => {
@@ -151,7 +152,7 @@ const AddPortalUser = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link className="addpagess" to={"/ViewPortalUsers"}>
+        <Link className="addpagess" to={paths.viewPortalUser}>
           <img src={add} alt="back" style={{ width: 25 }} />
           Go back
         </Link>

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewSessionField = () => {
   const [data, setData] = useState([]);
@@ -35,7 +36,7 @@ const ViewSessionField = () => {
           if (res.status === 204) {
             toast.success("Deleted the session field.");
             setTimeout(() => {
-              navigate("/ViewSessionField");
+              navigate(paths.viewSessionField);
               fetchData();
             }, 1100);
           }
@@ -56,7 +57,7 @@ const ViewSessionField = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddSessionField" className="addpagess">
+        <Link to={paths.addSessionField} className="addpagess">
           <img src={add} alt="add" />
           Add Session Field
         </Link>
@@ -88,7 +89,7 @@ const ViewSessionField = () => {
                             <h4>{item?.english?.name}</h4>
                           </td>
                           <td>
-                            <Link to={`/EditSessionField?id=${item._id}`}>
+                            <Link to={`${paths.editSessionField}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

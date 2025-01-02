@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import add from "assets/back.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddPortalBranch = () => {
   const [data, setData] = useState({
@@ -40,7 +41,7 @@ const AddPortalBranch = () => {
         if (res.data.success) {
           toast.success("Portal Branch created!");
           setTimeout(() => {
-            navigate("/ViewPortalBranch");
+            navigate(paths.viewPortalBranch);
           }, 1100);
         }
       })
@@ -56,7 +57,7 @@ const AddPortalBranch = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link className="addpagess" to={"/ViewPortalBranch"}>
+          <Link className="addpagess" to={paths.viewPortalBranch}>
             <img src={add} alt="add" style={{ width: 25 }} />
             Go back
           </Link>

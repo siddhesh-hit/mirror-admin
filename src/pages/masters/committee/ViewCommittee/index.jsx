@@ -9,6 +9,7 @@ import add from "assets/add.svg";
 
 import { API } from "lib/api";
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewCommittee = () => {
   const [data, setData] = useState([]);
@@ -51,7 +52,7 @@ const ViewCommittee = () => {
           if (res.status === 204) {
             toast.success("Deleted the Committee.");
             setTimeout(() => {
-              navigate("/ViewCommittee");
+              navigate(paths.viewCommittee);
               fetchData();
             }, 1100);
           }
@@ -73,7 +74,7 @@ const ViewCommittee = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddCommittee" className="addpagess">
+        <Link to={paths.addCommittee} className="addpagess">
           <img src={add} alt="add" />
           Add Committee
         </Link>
@@ -115,7 +116,7 @@ const ViewCommittee = () => {
                           </td>
 
                           <td>
-                            <Link to={`/EditCommittee?id=${item._id}`}>
+                            <Link to={`${paths.editCommittee}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

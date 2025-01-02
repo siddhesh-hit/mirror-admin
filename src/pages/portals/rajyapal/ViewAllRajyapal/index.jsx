@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewAllRajyapal = () => {
   const [isSubmitted, setSubmit] = useState({
@@ -88,7 +89,7 @@ const ViewAllRajyapal = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/AddRajyapal" className="addpagess">
+          <Link to={paths.addRajyapal} className="addpagess">
             <img src={add} alt="add" />
             Add Rajyapal
           </Link>
@@ -122,7 +123,7 @@ const ViewAllRajyapal = () => {
                           <td>{item.isCurrent ? "Active" : "Inactive"}</td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link to={`/ViewRajyapal?id=${item._id}`}>
+                            <Link to={`${paths.viewRajyapal}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -135,7 +136,7 @@ const ViewAllRajyapal = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`/EditRajyapal?id=${item._id}`}>
+                            <Link to={`${paths.editRajyapal}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

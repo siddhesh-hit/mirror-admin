@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewPortalBranch = () => {
   const [data, setData] = useState([]);
@@ -33,7 +34,7 @@ const ViewPortalBranch = () => {
           if (res.status === 204) {
             toast.success("Deleted the Portal Branch.");
             setTimeout(() => {
-              navigate("/ViewPortalBranch");
+              navigate(paths.viewPortalBranch);
               fetchData();
             }, 1100);
           }
@@ -54,7 +55,7 @@ const ViewPortalBranch = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddPortalBranch" className="addpagess">
+        <Link to={paths.addPortalBranch} className="addpagess">
           <img src={add} alt="add" />
           Add Portal Branch
         </Link>
@@ -90,7 +91,7 @@ const ViewPortalBranch = () => {
                             <h4>{item.for}</h4>
                           </td>
                           <td>
-                            <Link to={`/EditPortalBranch?id=${item._id}`}>
+                            <Link to={`${paths.editPortalBranch}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

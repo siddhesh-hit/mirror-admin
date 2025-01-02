@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import back from "assets/back.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddDesignation = () => {
   const [data, setData] = useState({
@@ -31,7 +32,7 @@ const AddDesignation = () => {
         if (res.data.success) {
           toast.success("Designation created!");
           setTimeout(() => {
-            navigate("/ViewDesignation");
+            navigate(paths.viewDesignation);
           }, 1100);
         }
       })
@@ -45,7 +46,7 @@ const AddDesignation = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <a className="addpagess" href="/ViewDesignation">
+          <a className="addpagess" href={paths.viewDesignation}>
             <img src={back} alt="add" style={{ width: 25 }} />
             Go back
           </a>
@@ -87,7 +88,7 @@ const AddDesignation = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

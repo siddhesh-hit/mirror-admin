@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewNavigation = () => {
   const [data, setData] = useState([]);
@@ -35,7 +36,7 @@ const ViewNavigation = () => {
           if (res.status === 204) {
             toast.success("Deleted the navigation.");
             setTimeout(() => {
-              navigate("/ViewNavigation");
+              navigate(paths.viewNavigation);
               fetchData();
             }, 1100);
           }
@@ -56,7 +57,7 @@ const ViewNavigation = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddNavigation" className="addpagess">
+        <Link to={paths.addNavigation} className="addpagess">
           <img src={add} alt="add" />
           Add Navigation
         </Link>
@@ -118,7 +119,7 @@ const ViewNavigation = () => {
                             </h4>
                           </td>
                           <td>
-                            <Link to={`/EditNavigation?id=${item._id}`}>
+                            <Link to={`${paths.editNavigation}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

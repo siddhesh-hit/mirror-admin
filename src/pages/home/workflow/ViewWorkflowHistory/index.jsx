@@ -11,6 +11,7 @@ import { getApi, postApi } from "services/axiosInterceptors";
 import { newPageName } from "data/fileName";
 import { toast } from "react-toastify";
 import { formatEnUsDateTime } from "lib/dateEnUsFormat";
+import { paths } from "services/paths";
 
 const ViewWorkflowHistory = () => {
   const [data, setData] = useState([]);
@@ -70,7 +71,7 @@ const ViewWorkflowHistory = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllWorkflow" className="addpagess pl-4">
+        <Link to={paths.viewAllWorkflow} className="addpagess pl-4">
           <img src={back} style={{ width: "25px" }} alt="back" />
           Go back
         </Link>

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import back from "assets/back.svg";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditDistrict = () => {
   const [data, setData] = useState({});
@@ -43,7 +44,7 @@ const EditDistrict = () => {
         if (res.data.success) {
           toast.success("Updated district");
           setTimeout(() => {
-            navigate("/ViewDistrict");
+            navigate(paths.viewDistrict);
           }, 1100);
         }
       })
@@ -63,7 +64,7 @@ const EditDistrict = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewDistrict" className="addpagess">
+        <Link to={paths.viewDistrict} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

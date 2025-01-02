@@ -8,6 +8,7 @@ import remove from "assets/remove.svg";
 import addwhite from "assets/addwhite.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddCommittee = () => {
   const [name, setName] = useState("");
@@ -25,7 +26,7 @@ const AddCommittee = () => {
         if (res && res.data && res.data.success) {
           toast.success("Added Committee");
           setTimeout(() => {
-            navigate("/ViewCommittee");
+            navigate(paths.viewCommittee);
           }, 1100);
         }
       })
@@ -37,7 +38,7 @@ const AddCommittee = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewCommittee" className="addpagess">
+        <Link to={paths.viewCommittee} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

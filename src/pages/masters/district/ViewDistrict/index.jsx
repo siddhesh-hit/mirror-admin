@@ -8,6 +8,7 @@ import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewDistrict = () => {
   const [data, setData] = useState([]);
@@ -52,7 +53,7 @@ const ViewDistrict = () => {
           if (res.status === 204) {
             toast.success("Deleted the district.");
             setTimeout(() => {
-              navigate("/ViewDistrict");
+              navigate(paths.viewDistrict);
               fetchData();
             }, 1100);
           }
@@ -73,7 +74,7 @@ const ViewDistrict = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddDistrict" className="addpagess">
+        <Link to={paths.addDistrict} className="addpagess">
           <img src={add} alt="add" />
           Add District
         </Link>
@@ -118,7 +119,7 @@ const ViewDistrict = () => {
                             <h4>{item.english.district}</h4>
                           </td>
                           <td>
-                            <Link to={`/EditDistrict?id=${item._id}`}>
+                            <Link to={`${paths.editDistrict}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditHelpdesk = () => {
   const [data, setData] = useState([]);
@@ -44,7 +45,7 @@ const EditHelpdesk = () => {
         if (res.data.success) {
           toast.success("Helpdesk updated successfully!");
           setTimeout(() => {
-            navigate("/ViewAllHelpdesk");
+            navigate(paths.viewAllHelpdesk);
           }, 1110);
         }
       })

@@ -7,6 +7,7 @@ import { API } from "lib/api";
 
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
+import { paths } from "services/paths";
 
 const ViewRajyapal = () => {
   const { data, loading, error } = useDataFetchingForBothApis("rajyapal");
@@ -17,7 +18,7 @@ const ViewRajyapal = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllRajyapal" className="addpagess">
+        <Link to={paths.viewAllRajyapal} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>
@@ -108,7 +109,7 @@ const ViewRajyapal = () => {
                     <p>{data.url}</p>
                   </td>
                   <td>
-                    <Link to={`/EditRajyapal?id=${data._id}`}>
+                    <Link to={`${paths.editRajyapal}?id=${data._id}`}>
                       <OverlayTrigger
                         delay={{ hide: 450, show: 300 }}
                         overlay={(props) => (

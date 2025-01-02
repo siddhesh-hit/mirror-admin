@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { getApi, putApi } from "services/axiosInterceptors";
 import { toast } from "react-toastify";
+import { paths } from "services/paths";
 
 const EditRole = () => {
   const [role, setRole] = useState({});
@@ -52,7 +53,7 @@ const EditRole = () => {
     await putApi(`/user/roletask`, id, role)
       .then((res) => {
         if (res.data.success) {
-          navigate("/UserRole");
+          navigate(paths.userRole);
           toast.success("Updated permission");
         }
       })

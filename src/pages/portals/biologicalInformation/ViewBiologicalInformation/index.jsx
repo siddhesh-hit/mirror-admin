@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import add from "assets/add.svg";
 
 import { getApiById } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewBiologicalInformation = () => {
   const [data, setData] = useState([]);
@@ -127,7 +128,7 @@ const ViewBiologicalInformation = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddBiologicalInformation" className="addpagess">
+        <Link to={paths.addBiologicalInformation} className="addpagess">
           <img src={add} alt="add" />
           Add Biographical Information
         </Link>

@@ -6,6 +6,7 @@ import remove from "assets/remove.svg";
 import addwhite from "assets/addwhite.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddHouse = () => {
   const [divCount, setDivCount] = useState(1);
@@ -76,7 +77,7 @@ const AddHouse = () => {
         if (res.data.success) {
           toast.success("Added a FAQ");
           setTimeout(() => {
-            navigate("/ViewFaqs");
+            navigate(paths.viewHouse);
           }, 1100);
         }
       })

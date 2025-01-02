@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import { getApiById } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewInterest = () => {
   const [data, setData] = useState({});
@@ -47,7 +48,7 @@ const ViewInterest = () => {
                         <td>{data.userId.full_name}</td>
                         <td>{data.description}</td>
                         <td>
-                          <Link to={`/EditInterest?id=${data._id}`}>
+                          <Link to={`${paths.editInterest}?id=${data._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

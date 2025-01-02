@@ -13,6 +13,7 @@ import back from "assets/back.svg";
 import BasicInformation from "components/pages/portal/legislative_members/BasicInformation";
 import PoliticalJourney from "components/pages/portal/legislative_members/PoliticalJourney";
 import ElectionData from "components/pages/portal/legislative_members/EditElectionData";
+import { paths } from "services/paths";
 
 const AddLegislativeMember = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -377,7 +378,7 @@ const AddLegislativeMember = () => {
         if (res.data.success) {
           toast.success("Legislative Member added successfully.");
           setTimeout(() => {
-            navigate("/ViewAllLegislativeMembers");
+            navigate(paths.viewAllLegislativeMember);
           }, 1100);
         }
       })
@@ -396,7 +397,7 @@ const AddLegislativeMember = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewAllLegislativeMembers" className="addpagess">
+        <Link to={paths.viewAllLegislativeMember} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

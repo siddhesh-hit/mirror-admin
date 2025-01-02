@@ -10,6 +10,7 @@ import useDebounce from "lib/useDebounce";
 import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import Loader from "components/common/Loader";
+import { paths } from "services/paths";
 
 const ViewAudit = () => {
   const [search, setSearch] = useState({
@@ -43,7 +44,7 @@ const ViewAudit = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/ViewAllUserAudit" className="addpagess">
+          <Link to={paths.viewAllUserAudit} className="addpagess">
             <img style={{ width: "25px" }} src={add} alt="add" />
             View User Specific Audit
           </Link>

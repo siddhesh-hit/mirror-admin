@@ -7,6 +7,7 @@ import add from "assets/add.svg";
 import { API } from "lib/api";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
+import { paths } from "services/paths";
 
 const ViewVidhanMandal = () => {
   const { data, loading, error } = useDataFetchingForBothApis("mandal");
@@ -17,7 +18,7 @@ const ViewVidhanMandal = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddVidhanMandal" className="addpagess">
+        <Link to={paths.addVidhanMandal} className="addpagess">
           <img src={add} alt="add" />
           Add Vidhan Mandal
         </Link>
@@ -122,7 +123,7 @@ const ViewVidhanMandal = () => {
                           </span>
                         </td>
                         <td>
-                          <Link to={`/EditVidhanMandal?id=${data._id}`}>
+                          <Link to={`${paths.editVidhanMandal}?id=${data._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

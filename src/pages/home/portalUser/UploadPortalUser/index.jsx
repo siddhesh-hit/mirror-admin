@@ -5,6 +5,7 @@ import back from "assets/back.svg";
 
 import { postApi } from "services/axiosInterceptors";
 import { toast } from "react-toastify";
+import { paths } from "services/paths";
 
 const UploadPortalUser = () => {
   const [json, setJs] = useState({});
@@ -24,7 +25,7 @@ const UploadPortalUser = () => {
       .then((res) => {
         if (res.data.success) {
           toast.success("User Uploaded");
-          navigate("/ViewPortalUsers");
+          navigate(paths.viewPortalUser);
         }
       })
       .catch(
@@ -44,7 +45,7 @@ const UploadPortalUser = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/ViewPortalUsers" className="addpagess">
+          <Link to={paths.viewPortalUser} className="addpagess">
             <img style={{ width: "25px" }} src={back} alt="add" />
             Go back
           </Link>

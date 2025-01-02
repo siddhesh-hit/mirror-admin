@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import add from "assets/back.svg";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditPortalBranch = () => {
   const [data, setData] = useState({
@@ -51,7 +52,7 @@ const EditPortalBranch = () => {
         if (res.data.success) {
           toast.success("Updated Portal Branch");
           setTimeout(() => {
-            navigate("/ViewPortalBranch");
+            navigate(paths.viewPortalBranch);
           }, 1100);
         }
       })
@@ -72,7 +73,7 @@ const EditPortalBranch = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link className="addpagess" to={"/ViewPortalBranch"}>
+          <Link className="addpagess" to={paths.viewPortalBranch}>
             <img src={add} alt="add" style={{ width: 25 }} />
             Go back
           </Link>

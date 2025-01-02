@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import add from "assets/back.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddPortalDepartment = () => {
   const [data, setData] = useState({
@@ -39,7 +40,7 @@ const AddPortalDepartment = () => {
         if (res.data.success) {
           toast.success("Portal Department created!");
           setTimeout(() => {
-            navigate("/ViewPortalDepartment");
+            navigate(paths.viewPortalDepartment);
           }, 1100);
         }
       })
@@ -54,7 +55,7 @@ const AddPortalDepartment = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link className="addpagess" to={"/ViewPortalDepartment"}>
+          <Link className="addpagess" to={paths.viewPortalDepartment}>
             <img src={add} alt="add" style={{ width: 25 }} />
             Go back
           </Link>

@@ -8,6 +8,7 @@ import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
 import { deleteApi, postApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewAllFaq = () => {
   const [data, setData] = useState([]);
@@ -107,7 +108,7 @@ const ViewAllFaq = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/AddFaqs" className="addpagess">
+          <Link to={paths.addFaq} className="addpagess">
             <img src={add} alt="add" />
             Add FAQs
           </Link>
@@ -154,7 +155,7 @@ const ViewAllFaq = () => {
                           </td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link to={`/ViewFaqs?id=${item._id}`}>
+                            <Link to={`${paths.viewFaq}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -167,7 +168,7 @@ const ViewAllFaq = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`/EditFaqs?id=${item._id}`}>
+                            <Link to={`${paths.editFaq}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

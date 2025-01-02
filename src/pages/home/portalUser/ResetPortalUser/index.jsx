@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/back.svg";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ResetPortalUser = () => {
   const [passwordType, setPasswordType] = useState("password");
@@ -69,7 +70,7 @@ const ResetPortalUser = () => {
         if (res.data.success) {
           toast.success("User password changed!");
           setTimeout(() => {
-            navigate(`/ViewPortalUsers`);
+            navigate(paths.viewPortalUser);
           }, 1110);
         }
       })
@@ -86,7 +87,7 @@ const ResetPortalUser = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewPortalUsers" className="addpagess">
+        <Link to={paths.viewPortalUser} className="addpagess">
           <img src={add} style={{ width: "25px" }} alt="back" />
           Go back
         </Link>

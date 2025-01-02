@@ -9,6 +9,7 @@ import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
+import { paths } from "services/paths";
 
 const ViewAssembly = () => {
   const [data, setData] = useState([]);
@@ -78,7 +79,7 @@ const ViewAssembly = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddAssembly" className="addpagess">
+        <Link to={paths.addAssembly} className="addpagess">
           <img src={add} alt="add" />
           Add Assembly
         </Link>
@@ -131,7 +132,7 @@ const ViewAssembly = () => {
                             <h4>{formatEnUsDate(item.end_date)}</h4>
                           </td>
                           <td>
-                            <Link to={`/EditAssembly?id=${item._id}`}>
+                            <Link to={`${paths.editAssembly}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

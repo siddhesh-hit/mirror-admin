@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditBiologicalInformation = () => {
   const [graph, setGraph] = useState({
@@ -167,7 +168,7 @@ const EditBiologicalInformation = () => {
         if (res.data.success) {
           toast.success("Information updated successfully");
           setTimeout(() => {
-            navigate("/ViewLegislativeAssembly");
+            navigate(paths.viewAllBiologicalInformation);
           }, 1000);
         }
       })

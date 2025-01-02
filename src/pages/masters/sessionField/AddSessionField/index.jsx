@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import add from "assets/back.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddSessionField = () => {
   const [isSubmitted, setSubmit] = useState(false);
@@ -39,7 +40,7 @@ const AddSessionField = () => {
     await postApi("sessionField", data)
       .then((res) => {
         if (res.data.success) {
-          navigate("/ViewSessionField");
+          navigate(paths.viewSessionField);
           toast.success("Session Field created!");
         }
       })
@@ -51,7 +52,7 @@ const AddSessionField = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <a className="addpagess" href="/ViewSessionField">
+          <a className="addpagess" href={paths.viewSessionField}>
             <img src={add} alt="add" style={{ width: 25 }} />
             Go back
           </a>

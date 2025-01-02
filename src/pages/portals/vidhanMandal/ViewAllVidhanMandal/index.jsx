@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewAllVidhanMandal = () => {
   const [data, setData] = useState([]);
@@ -90,7 +91,7 @@ const ViewAllVidhanMandal = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link to="/AddVidhanMandal" className="addpagess">
+          <Link to={paths.addVidhanMandal} className="addpagess">
             <img src={add} alt="add" />
             Add Vidhan Mandal
           </Link>
@@ -118,7 +119,7 @@ const ViewAllVidhanMandal = () => {
                           </td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link to={`/ViewVidhanMandal?id=${item._id}`}>
+                            <Link to={`${paths.viewVidhanMandal}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -131,7 +132,7 @@ const ViewAllVidhanMandal = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`/EditVidhanMandal?id=${item._id}`}>
+                            <Link to={`${paths.editVidhanMandal}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

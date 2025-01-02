@@ -9,6 +9,7 @@ import add from "assets/add.svg";
 
 import { API } from "lib/api";
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewBranch = () => {
   const [data, setData] = useState([]);
@@ -50,7 +51,7 @@ const ViewBranch = () => {
           if (res.status === 204) {
             toast.success("Deleted the Branch.");
             setTimeout(() => {
-              navigate("/Viewbranch");
+              navigate(paths.viewBranch);
               fetchData();
             }, 1100);
           }
@@ -72,7 +73,7 @@ const ViewBranch = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/Addbranch" className="addpagess">
+        <Link to={paths.addBranch} className="addpagess">
           <img src={add} alt="add" />
           Add Branch
         </Link>
@@ -115,7 +116,7 @@ const ViewBranch = () => {
                           </td>
 
                           <td>
-                            <Link to={`/Editbranch?id=${item._id}`}>
+                            <Link to={`${paths.editBranch}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

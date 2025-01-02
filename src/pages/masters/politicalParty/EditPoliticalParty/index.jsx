@@ -4,6 +4,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 
 import back from "assets/back.svg";
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditPoliticalParty = () => {
   const [data, setData] = useState({});
@@ -78,7 +79,7 @@ const EditPoliticalParty = () => {
         if (res.data.success) {
           toast.success("Updated Party");
           setTimeout(() => {
-            navigate("/ViewPoliticalParties");
+            navigate(paths.viewPoliticalParty);
           }, 1100);
         }
       })
@@ -98,7 +99,7 @@ const EditPoliticalParty = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewPoliticalParties" className="addpagess">
+        <Link to={paths.viewPoliticalParty} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

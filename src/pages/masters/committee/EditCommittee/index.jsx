@@ -4,6 +4,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 
 import back from "assets/back.svg";
 import { getApiById, putApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const EditCommittee = () => {
   const [Name, setName] = useState({});
@@ -29,7 +30,7 @@ const EditCommittee = () => {
         if (res.data && res.data.success) {
           toast.success("Updated committee");
           setTimeout(() => {
-            navigate("/Viewcommittee");
+            navigate(paths.viewCommittee);
           }, 1100);
         } else {
           console.log("error", res);
@@ -52,7 +53,7 @@ const EditCommittee = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/Viewcommittee" className="addpagess">
+        <Link to={paths.viewCommittee} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

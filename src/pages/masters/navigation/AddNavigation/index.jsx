@@ -7,6 +7,7 @@ import back from "assets/back.svg";
 import remove from "assets/remove.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddNavigation = () => {
   const [divCount, setDivCount] = useState(1);
@@ -129,7 +130,7 @@ const AddNavigation = () => {
         if (res.data.success) {
           toast.success("Added navigation");
           setTimeout(() => {
-            navigate("/ViewNavigation");
+            navigate(paths.viewNavigation);
           }, 1100);
         }
       })
@@ -142,7 +143,7 @@ const AddNavigation = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewNavigation" className="addpagess">
+        <Link to={paths.viewNavigation} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="back" />
           Go back
         </Link>

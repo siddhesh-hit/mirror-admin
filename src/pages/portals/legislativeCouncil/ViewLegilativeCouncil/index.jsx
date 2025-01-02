@@ -6,6 +6,7 @@ import add from "assets/add.svg";
 import { API } from "lib/api";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
+import { paths } from "services/paths";
 
 const ViewLegislativeCouncil = () => {
   const { data, loading, error } = useDataFetchingForBothApis("parishad");
@@ -16,7 +17,7 @@ const ViewLegislativeCouncil = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddLegislativeCouncil" className="addpagess">
+        <Link to={paths.addLegislativeCouncil} className="addpagess">
           <img src={add} alt="add" />
           Add Legislative Council
         </Link>
@@ -83,7 +84,7 @@ const ViewLegislativeCouncil = () => {
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`/EditLegislativeCouncil?id=${data?._id}`}>
+                        <Link to={`${paths.editLegislativeCouncil}?id=${data?._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (
@@ -175,7 +176,7 @@ const ViewLegislativeCouncil = () => {
                             <p>{item.marathi.name}</p>
                           </td>
                           <td>
-                            <Link to={`/EditLegislativeCouncil?id=${data._id}`}>
+                            <Link to={`${paths.editLegislativeCouncil}?id=${data._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -271,7 +272,7 @@ const ViewLegislativeCouncil = () => {
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`/EditLegislativeCouncil?id=${data?._id}`}>
+                        <Link to={`${paths.editLegislativeCouncil}?id=${data?._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (
@@ -373,7 +374,7 @@ const ViewLegislativeCouncil = () => {
                           </p>
                         </td>
                         <td>
-                          <Link to={`/EditLegislativeCouncil?id=${data?._id}`}>
+                          <Link to={`${paths.editLegislativeCouncil}?id=${data?._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

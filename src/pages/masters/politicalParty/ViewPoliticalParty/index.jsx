@@ -9,6 +9,7 @@ import add from "assets/add.svg";
 
 import { API } from "lib/api";
 import { deleteApi, getApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const ViewPoliticalParty = () => {
   const [data, setData] = useState([]);
@@ -51,7 +52,7 @@ const ViewPoliticalParty = () => {
           if (res.status === 204) {
             toast.success("Deleted the party.");
             setTimeout(() => {
-              navigate("/ViewParty");
+              navigate(paths.viewPoliticalParty);
               fetchData();
             }, 1100);
           }
@@ -77,7 +78,7 @@ const ViewPoliticalParty = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddPoliticalParties" className="addpagess">
+        <Link to={paths.addPoliticalParty} className="addpagess">
           <img src={add} alt="add" />
           Add Political Parties
         </Link>
@@ -176,7 +177,7 @@ const ViewPoliticalParty = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`/EditPoliticalParties?id=${item._id}`}>
+                            <Link to={`${paths.editPoliticalParty}?id=${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

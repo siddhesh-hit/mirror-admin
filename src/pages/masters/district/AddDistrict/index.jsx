@@ -7,6 +7,7 @@ import addwhite from "assets/addwhite.svg";
 import back from "assets/back.svg";
 
 import { postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddDistrict = () => {
   const [divCount, setDivCount] = useState(1);
@@ -79,7 +80,7 @@ const AddDistrict = () => {
         if (res.data.success) {
           toast.success("Added District");
           setTimeout(() => {
-            navigate("/ViewDistrict");
+            navigate(paths.viewDistrict);
           }, 1100);
         }
       })
@@ -95,7 +96,7 @@ const AddDistrict = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/ViewDistrict" className="addpagess">
+        <Link to={paths.viewDistrict} className="addpagess">
           <img src={back} style={{ width: "25px" }} alt="add" />
           Go back
         </Link>

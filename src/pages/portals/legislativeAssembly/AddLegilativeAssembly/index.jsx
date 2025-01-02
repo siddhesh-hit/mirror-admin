@@ -11,6 +11,7 @@ import AddBanner from "components/pages/portal/legislative_assembly/AddBanner";
 import AddPublication from "components/pages/portal/legislative_assembly/AddPublication";
 import AddStructure from "components/pages/portal/legislative_assembly/AddStructure";
 import AddProfile from "components/pages/portal/legislative_assembly/AddProfile";
+import { paths } from "services/paths";
 
 const AddLegislativeAssembly = () => {
   const [divCount4, setDivCount4] = useState(1);
@@ -356,7 +357,7 @@ const AddLegislativeAssembly = () => {
         if (res.data.success) {
           toast.success("VidhanSabha added successfully");
           setTimeout(() => {
-            navigate("/ViewAllLegislativeAssembly");
+            navigate(paths.viewAllLegislativeAssembly);
           }, 1000);
         }
       })

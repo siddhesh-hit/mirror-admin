@@ -6,6 +6,7 @@ import ReactDatePicker from "react-datepicker";
 import add from "assets/back.svg";
 
 import { getApi, postApi } from "services/axiosInterceptors";
+import { paths } from "services/paths";
 
 const AddDepartment = () => {
   const [designation, setDesignation] = useState([]);
@@ -36,7 +37,7 @@ const AddDepartment = () => {
         if (res.data.success) {
           toast.success("Department created!");
           setTimeout(() => {
-            navigate("/ViewDepartment");
+            navigate(paths.viewDepartment);
           }, 1100);
         }
       })

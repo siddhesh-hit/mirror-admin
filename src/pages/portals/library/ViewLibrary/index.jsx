@@ -6,6 +6,7 @@ import add from "assets/add.svg";
 import { API } from "lib/api";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
+import { paths } from "services/paths";
 
 const ViewLibrary = () => {
   const { data, loading, error } = useDataFetchingForBothApis("library");
@@ -17,7 +18,7 @@ const ViewLibrary = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to="/AddLibrary" className="addpagess">
+        <Link to={paths.addLibrary} className="addpagess">
           <img src={add} alt="add" />
           Add Library
         </Link>
@@ -85,7 +86,7 @@ const ViewLibrary = () => {
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`/EditLibrary?id=${data._id}`}>
+                        <Link to={`${paths.editLibrary}?id=${data._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (
@@ -108,7 +109,7 @@ const ViewLibrary = () => {
         </div>
       </div>
       <div className="contentofpages">
-        <Link to="/AddLibraryDoc" className="addpagess">
+        <Link to={paths.addLibraryDoc} className="addpagess">
           <img src={add} alt="add" />
           Add Library Document
         </Link>
@@ -176,7 +177,7 @@ const ViewLibrary = () => {
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`/EditLibraryDoc`}>
+                        <Link to={`${paths.editLibraryDoc}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (
