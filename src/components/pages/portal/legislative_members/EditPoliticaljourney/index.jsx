@@ -49,8 +49,8 @@ function EditPoliticalJourney({
                           ...politicals[index],
                           date: date.format(),
                         };
-
-                        return politicals;
+                        prev.political_journey = politicals;
+                        return prev;
                       })
                     }
                     format="DD/MM/YYYY"

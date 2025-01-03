@@ -472,13 +472,13 @@ const ViewWorkflowMemberProfile = () => {
                                     </h3>
                                     <p>Title : {item.title}</p>
                                     <p>
-                                      Presiding Officer : {item.presiding.name}
+                                      Presiding Officer : {item?.presiding?.name}
                                     </p>
                                     <p>
                                       Legislative Position :
-                                      {item.legislative_position.name}
+                                      {item?.legislative_position?.name}
                                     </p>
-                                    <p>Designation : {item.designation.name}</p>
+                                    <p>Designation : {item?.designation?.name}</p>
                                   </div>
                                 </li>
                               )
