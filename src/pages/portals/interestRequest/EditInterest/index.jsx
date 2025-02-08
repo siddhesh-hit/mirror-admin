@@ -12,7 +12,8 @@ const EditInterest = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const id = location.search.split("=")[1];
+  const pathnameArray = location.pathname?.split("/");
+  const id = location.pathname?.split("/")[pathnameArray.length - 1];
 
   const fetchData = async () => {
     await getApiById("interest", id)
@@ -39,7 +40,7 @@ const EditInterest = () => {
         if (res.data.success) {
           toast.success("Interest updated successfully!");
           setTimeout(() => {
-            navigate(`${paths.viewInterest}?id=${id}`);
+            navigate(`${paths.viewInterest}/${id}`);
           }, 1110);
         }
       })

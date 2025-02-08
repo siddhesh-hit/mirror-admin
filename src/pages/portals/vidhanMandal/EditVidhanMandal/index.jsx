@@ -19,7 +19,8 @@ const EditVidhanMandal = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const id = location.search.split("=")[1];
+  const pathnameArray = location.pathname?.split("/");
+  const id = location.pathname?.split("/")[pathnameArray.length - 1];
 
   const [serverData, setServerData] = useState({});
 
@@ -190,7 +191,7 @@ const EditVidhanMandal = () => {
           if (res.data.success) {
             toast.success("Vidhanmandal updated successfully");
             setTimeout(() => {
-              navigate(`${paths.viewVidhanMandal}?id=${data._id}`);
+              navigate(`${paths.viewVidhanMandal}/${data._id}`);
             }, 1000);
           }
         })

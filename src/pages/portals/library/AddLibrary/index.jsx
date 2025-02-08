@@ -73,7 +73,7 @@ const AddLibrary = () => {
         if (res.data.success) {
           toast.success("Library Added Successfully");
           setTimeout(() => {
-            navigate(`${paths.viewLibrary}?id=${res.data.data._id}`);
+            navigate(`${paths.viewLibrary}/${res.data.data._id}`);
           }, 1100);
         }
       })

@@ -5,6 +5,7 @@ import add from "assets/add.svg";
 
 import { getApiById } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewHouse = () => {
   const [data, setData] = useState([]);
@@ -60,7 +61,7 @@ const ViewHouse = () => {
                           style={{ fontSize: "20px" }}
                         ></i>
                       </a>
-                      <Link to={paths.editHouse}>
+                      <Link to={removeTailingId(paths.editHouse)}>
                         <i
                           className="fa fa-edit"
                           style={{ fontSize: "20px" }}

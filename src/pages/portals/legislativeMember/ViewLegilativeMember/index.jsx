@@ -6,6 +6,7 @@ import add from "assets/add.svg";
 
 import { getApi } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewLegislativeMember = () => {
   const [data, setData] = useState([]);
@@ -56,7 +57,7 @@ const ViewLegislativeMember = () => {
                             <h4>{item.basic_info.name}</h4>
                           </td>
                           <td>
-                            <Link to={`${paths.viewMemberProfile}?id=${item._id}`}>
+                            <Link to={`${paths.viewMemberProfile}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -69,7 +70,7 @@ const ViewLegislativeMember = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`${paths.editLegislativeMember}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editLegislativeMember)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

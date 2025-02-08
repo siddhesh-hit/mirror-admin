@@ -8,6 +8,7 @@ import { API } from "lib/api";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewVidhanMandal = () => {
   const { data, loading, error } = useDataFetchingForBothApis("mandal");
@@ -123,7 +124,7 @@ const ViewVidhanMandal = () => {
                           </span>
                         </td>
                         <td>
-                          <Link to={`${paths.editVidhanMandal}?id=${data._id}`}>
+                          <Link to={`${removeTailingId(paths.editVidhanMandal)}/${data._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

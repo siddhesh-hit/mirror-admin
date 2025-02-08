@@ -29,22 +29,20 @@ const Layout = ({ children }) => {
 
 export default function RoutesData() {
   return (
-    <>
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/Captcha" element={<Captcha />} />
-            {routes.map((route) => (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={<ProtectedRoute element={route} />}
-              />
-            ))}
-          </Routes>
-        </Layout>
-      </Router>
-    </>
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/Captcha" element={<Captcha />} />
+          {routes.map((route) => (
+            <Route
+              key={route.name}
+              path={route.path}
+              element={<ProtectedRoute element={route} />}
+            />
+          ))}
+        </Routes>
+      </Layout>
+    </Router>
   );
 }

@@ -9,6 +9,7 @@ import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewAllSessionCalendar = () => {
   const [data, setData] = useState([]);
@@ -149,7 +150,7 @@ const ViewAllSessionCalendar = () => {
                           </td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link to={`${paths.viewSessionCalendar}?id=${item._id}`}>
+                            <Link to={`${paths.viewSessionCalendar}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -162,7 +163,7 @@ const ViewAllSessionCalendar = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`${paths.editSessionCalendar}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editSessionCalendar)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

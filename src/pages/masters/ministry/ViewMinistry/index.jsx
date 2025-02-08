@@ -9,6 +9,7 @@ import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewMinistry = () => {
   const [data, setData] = useState([]);
@@ -128,7 +129,7 @@ const ViewMinistry = () => {
                             </h4>
                           </td>
                           <td>
-                            <Link to={`${paths.editMinistry}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editMinistry)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

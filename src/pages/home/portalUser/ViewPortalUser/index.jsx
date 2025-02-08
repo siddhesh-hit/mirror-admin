@@ -9,6 +9,7 @@ import add from "assets/add.svg";
 import { getApi } from "services/axiosInterceptors";
 import { API } from "lib/api";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewPortalUser = () => {
   const [data, setData] = useState([]);
@@ -217,7 +218,7 @@ const ViewPortalUser = () => {
                           )}
                         </td>
                         <td>
-                          <Link to={`${paths.editPortalUser}?id=${item._id}`}>
+                          <Link to={`${removeTailingId(paths.editPortalUser)}/${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (
@@ -235,7 +236,7 @@ const ViewPortalUser = () => {
                           </Link>
                         </td>
                         <td>
-                          <Link to={`${paths.blockPortalUser}?id=${item._id}`}>
+                          <Link to={`${paths.blockPortalUser}/${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (
@@ -256,7 +257,7 @@ const ViewPortalUser = () => {
                           </Link>
                         </td>
                         <td>
-                          <Link to={`${paths.resetPortalUser}?id=${item._id}`}>
+                          <Link to={`${paths.resetPortalUser}/${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

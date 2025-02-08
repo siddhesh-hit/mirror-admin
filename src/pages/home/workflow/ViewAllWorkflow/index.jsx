@@ -10,6 +10,7 @@ import { getApi } from "services/axiosInterceptors";
 import { newPageName } from "data/fileName";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewAllFaqs = () => {
   const [data, setData] = useState([]);
@@ -121,7 +122,7 @@ const ViewAllFaqs = () => {
                           <td>{formatEnUsDate(item.createdAt)}</td>
                           <td>
                             <Link
-                              to={`/${newPageName[item?.modelName]}?id=${item._id
+                              to={`/${newPageName[item?.modelName]}/${item._id
                                 }&action=${item.action}`}
                             >
                               <OverlayTrigger
@@ -138,7 +139,7 @@ const ViewAllFaqs = () => {
                           </td>
                           <td>
                             <Link
-                              to={`${paths.editWorkflow}?id=${item._id}&action=${item.action}`}
+                              to={`${removeTailingId(paths.editWorkflow)}/${item._id}&action=${item.action}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}

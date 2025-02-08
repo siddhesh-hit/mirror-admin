@@ -7,6 +7,7 @@ import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewPortalBranch = () => {
   const [data, setData] = useState([]);
@@ -91,7 +92,7 @@ const ViewPortalBranch = () => {
                             <h4>{item.for}</h4>
                           </td>
                           <td>
-                            <Link to={`${paths.editPortalBranch}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editPortalBranch)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

@@ -7,6 +7,7 @@ import { API } from "lib/api";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewLibrary = () => {
   const { data, loading, error } = useDataFetchingForBothApis("library");
@@ -68,25 +69,21 @@ const ViewLibrary = () => {
                         {/* Display description for English */}
                         <p>
                           <span
-                            dangerouslySetInnerHTML={{
-                              __html: data.english.description,
-                            }}
-                          ></span>
+                            dangerouslySetInnerHTML={{ __html: data.english.description, }}
+                          />
                         </p>
                       </td>
                       <td className="scrolltabss">
                         {/* Display description for Marathi */}
                         <p>
                           <span
-                            dangerouslySetInnerHTML={{
-                              __html: data.marathi.description,
-                            }}
-                          ></span>
+                            dangerouslySetInnerHTML={{ __html: data.marathi.description, }}
+                          />
                         </p>
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`${paths.editLibrary}?id=${data._id}`}>
+                        <Link to={`${removeTailingId(paths.editLibrary)}/${data._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (
@@ -177,7 +174,7 @@ const ViewLibrary = () => {
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`${paths.editLibraryDoc}`}>
+                        <Link to={`${removeTailingId(paths.editLibraryDoc)}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (

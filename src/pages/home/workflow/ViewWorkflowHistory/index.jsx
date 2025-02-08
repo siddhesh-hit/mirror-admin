@@ -162,7 +162,7 @@ const ViewWorkflowHistory = () => {
                         {/* <td>{item.modelId}</td> */}
                         <td>
                           <Link
-                            to={`/${newPageName[item?.modelName]}?id=${item._id
+                            to={`/${newPageName[item?.modelName]}/${item._id
                               }&pending=update&history=${status === "Approved"}`}
                           >
                             <OverlayTrigger

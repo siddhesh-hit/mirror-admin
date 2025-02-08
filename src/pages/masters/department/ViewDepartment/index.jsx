@@ -7,6 +7,7 @@ import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewDepartment = () => {
   const [data, setData] = useState([]);
@@ -92,7 +93,7 @@ const ViewDepartment = () => {
                             <h4>{item?.designation?.name}</h4>
                           </td>
                           <td>
-                            <Link to={`${paths.editDepartment}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editDepartment)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

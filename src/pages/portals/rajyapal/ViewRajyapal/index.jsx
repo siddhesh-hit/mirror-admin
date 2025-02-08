@@ -8,6 +8,7 @@ import { API } from "lib/api";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewRajyapal = () => {
   const { data, loading, error } = useDataFetchingForBothApis("rajyapal");
@@ -109,7 +110,7 @@ const ViewRajyapal = () => {
                     <p>{data.url}</p>
                   </td>
                   <td>
-                    <Link to={`${paths.editRajyapal}?id=${data._id}`}>
+                    <Link to={`${removeTailingId(paths.editRajyapal)}/${data._id}`}>
                       <OverlayTrigger
                         delay={{ hide: 450, show: 300 }}
                         overlay={(props) => (

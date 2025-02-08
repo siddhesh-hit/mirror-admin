@@ -6,6 +6,7 @@ import back from "assets/back.svg";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewFaq = () => {
   const { data, loading, error } = useDataFetchingForBothApis("faq");
@@ -51,7 +52,7 @@ const ViewFaq = () => {
                         }}
                       ></td>
                       <td>
-                        <Link to={`${paths.editFaq}?id=${data._id}`}>
+                        <Link to={`${removeTailingId(paths.editFaq)}/${data._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (

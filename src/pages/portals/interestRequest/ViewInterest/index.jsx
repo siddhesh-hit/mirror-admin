@@ -4,12 +4,14 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import { getApiById } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewInterest = () => {
   const [data, setData] = useState({});
 
   const location = useLocation();
-  const id = location.search.split("=")[1];
+  const pathnameArray = location.pathname?.split("/");
+  const id = location.pathname?.split("/")[pathnameArray.length - 1];
 
   const fetchData = async () => {
     await getApiById("interest", id)
@@ -48,7 +50,7 @@ const ViewInterest = () => {
                         <td>{data.userId.full_name}</td>
                         <td>{data.description}</td>
                         <td>
-                          <Link to={`${paths.editInterest}?id=${data._id}`}>
+                          <Link to={`${removeTailingId(paths.editInterest)}/${data._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

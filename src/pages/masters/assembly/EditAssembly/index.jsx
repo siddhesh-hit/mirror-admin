@@ -18,7 +18,8 @@ const EditAssembly = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const id = location.search.split("=")[1];
+  const pathnameArray = location.pathname?.split("/");
+  const id = location.pathname?.split("/")[pathnameArray.length - 1];
 
   const fetchData = async () => {
     await getApiById("assembly", id)

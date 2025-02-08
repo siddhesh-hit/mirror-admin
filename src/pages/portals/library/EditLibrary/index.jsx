@@ -20,7 +20,8 @@ const EditLibrary = () => {
   const location = useLocation();
 
   const fetchData = async () => {
-    const id = location.search.split("=")[1];
+    const pathnameArray = location.pathname?.split("/");
+    const id = location.pathname?.split("/")[pathnameArray.length - 1];
     await getApiById("library", id)
       .then((res) => {
         console.log(res);
@@ -99,7 +100,7 @@ const EditLibrary = () => {
         if (res.data.success) {
           toast.success("Library updated Successfully");
           setTimeout(() => {
-            navigate(`${paths.viewAllLibrary}?id=${data._id}`);
+            navigate(`${paths.viewAllLibrary}/${data._id}`);
           }, 1100);
         }
       })

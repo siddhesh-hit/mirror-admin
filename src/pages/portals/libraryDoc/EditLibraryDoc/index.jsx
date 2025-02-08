@@ -24,7 +24,8 @@ const EditLibraryDoc = () => {
   const location = useLocation();
 
   const fetchData = async () => {
-    const id = location.search.split("=")[1];
+    const pathnameArray = location.pathname?.split("/");
+    const id = location.pathname?.split("/")[pathnameArray.length - 1];
     await getApiById("library", id)
       .then((res) => {
         console.log(res);

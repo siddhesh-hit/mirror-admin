@@ -114,7 +114,7 @@ const ViewAllUserAudit = () => {
                           <p>{item.email}</p>
                         </td>
                         <td>
-                          <Link to={`${paths.viewUserAudit}?id=${item._id}`}>
+                          <Link to={`${paths.viewUserAudit}/${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

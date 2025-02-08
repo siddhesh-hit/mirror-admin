@@ -13,7 +13,8 @@ const EditSessionField = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const id = location.search.split("=")[1];
+  const pathnameArray = location.pathname?.split("/");
+  const id = location.pathname?.split("/")[pathnameArray.length - 1];
 
   const handleChange = (e) => {
     let { name, value } = e.target;

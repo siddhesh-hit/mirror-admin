@@ -10,6 +10,7 @@ import add from "assets/add.svg";
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
 import { API } from "lib/api";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewGallery = () => {
   const [data, setData] = useState([]);
@@ -151,7 +152,7 @@ const ViewGallery = () => {
                           <h4>{item?.filename}</h4>
                         </td>
                         <td>
-                          <Link to={`${paths.viewGalleryImage}?id=${item._id}`}>
+                          <Link to={`${paths.viewGalleryImage}/${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (
@@ -164,7 +165,7 @@ const ViewGallery = () => {
                           </Link>
                         </td>
                         <td>
-                          <Link to={`${paths.editGallery}?id=${item._id}`}>
+                          <Link to={`${removeTailingId(paths.editGallery)}/${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

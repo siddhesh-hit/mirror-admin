@@ -15,7 +15,8 @@ const EditFaq = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const id = location.search.split("=")[1];
+  const pathnameArray = location.pathname?.split("/");
+  const id = location.pathname?.split("/")[pathnameArray.length - 1];
 
   const fetchData = async () => {
     await getApiById("faq", id)
@@ -69,7 +70,7 @@ const EditFaq = () => {
         if (res.data.success) {
           toast.success("Updated FAQ");
           setTimeout(() => {
-            navigate(`${paths.viewFaq}?id=${id}`);
+            navigate(`${paths.viewFaq}/${id}`);
           }, 1100);
         }
       })

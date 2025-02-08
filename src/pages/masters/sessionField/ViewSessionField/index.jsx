@@ -7,6 +7,7 @@ import add from "assets/add.svg";
 
 import { deleteApi, getApi } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewSessionField = () => {
   const [data, setData] = useState([]);
@@ -89,7 +90,7 @@ const ViewSessionField = () => {
                             <h4>{item?.english?.name}</h4>
                           </td>
                           <td>
-                            <Link to={`${paths.editSessionField}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editSessionField)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

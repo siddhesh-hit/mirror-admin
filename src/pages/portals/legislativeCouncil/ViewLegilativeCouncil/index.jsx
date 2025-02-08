@@ -7,6 +7,7 @@ import { API } from "lib/api";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewLegislativeCouncil = () => {
   const { data, loading, error } = useDataFetchingForBothApis("parishad");
@@ -84,7 +85,7 @@ const ViewLegislativeCouncil = () => {
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`${paths.editLegislativeCouncil}?id=${data?._id}`}>
+                        <Link to={`${removeTailingId(paths.editLegislativeCouncil)}/${data?._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (
@@ -176,7 +177,7 @@ const ViewLegislativeCouncil = () => {
                             <p>{item.marathi.name}</p>
                           </td>
                           <td>
-                            <Link to={`${paths.editLegislativeCouncil}?id=${data._id}`}>
+                            <Link to={`${removeTailingId(paths.editLegislativeCouncil)}/${data._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -272,7 +273,7 @@ const ViewLegislativeCouncil = () => {
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`${paths.editLegislativeCouncil}?id=${data?._id}`}>
+                        <Link to={`${removeTailingId(paths.editLegislativeCouncil)}/${data?._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (
@@ -374,7 +375,7 @@ const ViewLegislativeCouncil = () => {
                           </p>
                         </td>
                         <td>
-                          <Link to={`${paths.editLegislativeCouncil}?id=${data?._id}`}>
+                          <Link to={`${removeTailingId(paths.editLegislativeCouncil)}/${data?._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

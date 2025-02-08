@@ -7,6 +7,7 @@ import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewAllLegislativeAssembly = () => {
   const [data, setData] = useState([]);
@@ -119,7 +120,7 @@ const ViewAllLegislativeAssembly = () => {
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
                             <Link
-                              to={`${paths.viewLegislativeAssembly}?id=${item._id}`}
+                              to={`${paths.viewLegislativeAssembly}/${item._id}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
@@ -134,7 +135,7 @@ const ViewAllLegislativeAssembly = () => {
                           </td>
                           <td>
                             <Link
-                              to={`${paths.editLegislativeAssembly}?id=${item._id}`}
+                              to={`${removeTailingId(paths.editLegislativeAssembly)}/${item._id}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}

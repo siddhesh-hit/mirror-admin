@@ -6,7 +6,7 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 
 import { getApi } from "services/axiosInterceptors";
-import { routes } from "data/RouteStructure";
+import { removeTailingId, routes } from "data/RouteStructure";
 import { paths } from "services/paths";
 
 const ViewTask = () => {
@@ -126,7 +126,7 @@ const ViewTask = () => {
                             </OverlayTrigger>
                           </td> */}
                           <td>
-                            <Link to={`${paths.editTask}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editTask)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

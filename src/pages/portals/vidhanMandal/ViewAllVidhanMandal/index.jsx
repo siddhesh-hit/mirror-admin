@@ -7,6 +7,7 @@ import add from "assets/add.svg";
 
 import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewAllVidhanMandal = () => {
   const [data, setData] = useState([]);
@@ -119,7 +120,7 @@ const ViewAllVidhanMandal = () => {
                           </td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link to={`${paths.viewVidhanMandal}?id=${item._id}`}>
+                            <Link to={`${paths.viewVidhanMandal}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -132,7 +133,7 @@ const ViewAllVidhanMandal = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`${paths.editVidhanMandal}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editVidhanMandal)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

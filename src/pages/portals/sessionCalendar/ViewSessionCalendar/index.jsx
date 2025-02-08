@@ -11,6 +11,7 @@ import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewSessionCalendar = () => {
   const { data, loading, error } = useDataFetchingForBothApis("session");
@@ -95,7 +96,7 @@ const ViewSessionCalendar = () => {
                     )}
                   </td>
                   <td>
-                    <Link to={`${paths.editSessionCalendar}?id=${data._id}`}>
+                    <Link to={`${removeTailingId(paths.editSessionCalendar)}/${data._id}`}>
                       <OverlayTrigger
                         delay={{ hide: 450, show: 300 }}
                         overlay={(props) => (

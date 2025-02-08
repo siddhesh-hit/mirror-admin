@@ -5,6 +5,7 @@ import add from "assets/add.svg";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { getApi } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewContact = () => {
   const [data, setData] = useState([]);
@@ -72,7 +73,7 @@ const ViewContact = () => {
                             <h4>{item?.isActive ? "Active" : "Inactive"}</h4>
                           </td>
                           <td>
-                            <Link to={`${paths.editContact}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editContact)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

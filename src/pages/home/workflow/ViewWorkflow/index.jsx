@@ -6,12 +6,14 @@ import add from "assets/add.svg";
 
 import { getApiById } from "services/axiosInterceptors";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewWorkflow = () => {
   const [data, setData] = useState([]);
 
   const location = useLocation();
-  const id = location.search.split("=")[1];
+  const pathnameArray = location.pathname?.split("/");
+  const id = location.pathname?.split("/")[pathnameArray.length - 1];
 
   const fetchData = async () => {
     await getApiById("pending", id)
@@ -57,7 +59,7 @@ const ViewWorkflow = () => {
                       <td>{data.action}</td>
                       <td>
                         <Link
-                          to={`${paths.editWorkflow}?id=${data._id}&action=${data.action}`}
+                          to={`${removeTailingId(paths.editWorkflow)}/${data._id}&action=${data.action}`}
                         >
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}

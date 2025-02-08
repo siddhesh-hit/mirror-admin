@@ -102,7 +102,7 @@ const ViewArchive = () => {
                               </Link>
                             ) : (
                               <Link
-                                to={`/${pageName[item?.modelName]}?id=${item.modelId
+                                to={`/${pageName[item?.modelName]}/${item.modelId
                                   }`}
                               >
                                 <OverlayTrigger
@@ -122,7 +122,7 @@ const ViewArchive = () => {
                           </td>
                           {/* <td>
                             <Link
-                              to={`/EditWorkflow?id=${item._id}&action=${item.action}`}
+                              to={`/EditWorkflow/${item._id}&action=${item.action}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}

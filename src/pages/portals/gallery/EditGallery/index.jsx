@@ -18,7 +18,8 @@ const EditGallery = () => {
   const [serverData, setServerData] = useState([]);
 
   const fetchData = async () => {
-    const id = location.search.split("=")[1];
+    const pathnameArray = location.pathname?.split("/");
+    const id = location.pathname?.split("/")[pathnameArray.length - 1];
     await getApiById("gallery", id)
       .then((res) => {
         console.log(res);
