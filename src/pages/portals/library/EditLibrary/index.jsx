@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import back from "assets/back.svg";
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { paths } from "services/paths";
@@ -12,16 +12,12 @@ const EditLibrary = () => {
   const [data, setData] = useState([]);
   const [isToggled, setIsToggled] = useState(false);
   const [isSubmitted, setSubmit] = useState(false);
-
-  const navigate = useNavigate();
-
   const [serverData, setServerData] = useState({});
 
-  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const fetchData = async () => {
-    const pathnameArray = location.pathname?.split("/");
-    const id = location.pathname?.split("/")[pathnameArray.length - 1];
     await getApiById("library", id)
       .then((res) => {
         console.log(res);

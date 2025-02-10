@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
-import add from "assets/add.svg";
+import back from "assets/back.svg";
 
-import { API } from "lib/api";
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { paths } from "services/paths";
@@ -19,9 +18,9 @@ const ViewLibrary = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to={paths.addLibrary} className="addpagess">
-          <img src={add} alt="add" />
-          Add Library
+        <Link to={paths.viewAllLibrary} className="addpagess">
+          <img src={back} style={{ width: "25px" }} alt="add" />
+          Go back
         </Link>
         <h4 className="page-title">• View Library</h4>
         <div className="card card-info">
@@ -46,7 +45,7 @@ const ViewLibrary = () => {
                       <td>
                         <a
                           href={
-                            API.baseUrl +
+                            process.env.REACT_APP_IMG_URL +
                             data.banner.destination +
                             "/" +
                             data.banner.filename
@@ -106,9 +105,9 @@ const ViewLibrary = () => {
         </div>
       </div>
       <div className="contentofpages">
-        <Link to={paths.addLibraryDoc} className="addpagess">
-          <img src={add} alt="add" />
-          Add Library Document
+        <Link to={paths.viewAllLibrary} className="addpagess">
+          <img src={back} style={{ width: "25px" }} alt="add" />
+          Go back
         </Link>
         <h4 className="page-title">• View Library Documents</h4>
         <div className="card card-info">
@@ -133,7 +132,7 @@ const ViewLibrary = () => {
                       <td>
                         <a
                           href={
-                            API.baseUrl +
+                            process.env.REACT_APP_IMG_URL +
                             data.banner.destination +
                             "/" +
                             data.banner.filename

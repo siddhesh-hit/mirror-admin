@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import add from "assets/back.svg";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const EditSessionField = () => {
@@ -12,9 +12,7 @@ const EditSessionField = () => {
   const [isSubmitted, setSubmit] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const pathnameArray = location.pathname?.split("/");
-  const id = location.pathname?.split("/")[pathnameArray.length - 1];
+  const { id } = useParams();
 
   const handleChange = (e) => {
     let { name, value } = e.target;

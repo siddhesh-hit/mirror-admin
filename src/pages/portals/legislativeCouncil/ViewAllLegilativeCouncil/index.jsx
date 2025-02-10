@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import add from "assets/add.svg";
 
-import { deleteApi, getApi, postApi } from "services/axiosInterceptors";
+import { deleteApi, getApi, postApi } from "services/axios";
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";
 
@@ -118,7 +118,7 @@ const ViewAllLegislativeCouncil = () => {
                           </td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link to={`${paths.viewLegislativeCouncil}/${item._id}`}>
+                            <Link to={`${removeTailingId(paths.viewLegislativeCouncil)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

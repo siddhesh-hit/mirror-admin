@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 
-import { portalPaths, masterPaths, homePaths } from "data/RouteStructure";
+import { portalPaths, masterPaths, homePaths, removeIdFromPathname } from "data/RouteStructure";
 import logo from "assets/logo.svg";
 
 const Menu = () => {
@@ -10,39 +10,24 @@ const Menu = () => {
   const [masterOpen, setMasterOpen] = useState(false);
   const [portalOpen, setPortalOpen] = useState(false);
 
-  const [navbar, setNavbar] = useState({
-    master: false,
-    portal: false,
-  });
+  const [navbar, setNavbar] = useState({ master: false, portal: false });
 
   const handleChange = (arg) => {
     if (arg === "master") {
-      setNavbar((prev) => ({
-        ...prev,
-        master: !navbar.master,
-      }));
+      setNavbar((prev) => ({ ...prev, master: !navbar.master }));
     } else {
-      setNavbar((prev) => ({
-        ...prev,
-        portal: !navbar.portal,
-      }));
+      setNavbar((prev) => ({ ...prev, portal: !navbar.portal }));
     }
   };
 
   useEffect(() => {
-    if (
-      (location && portalPaths.some((obj) => obj.path === location.pathname)) ||
-      portalPaths.some((path) => path.child.includes(location.pathname))
-    ) {
+    if ((location && portalPaths.some((obj) => obj.path === location.pathname)) || portalPaths.some((path) => path.child.includes(removeIdFromPathname(location.pathname)))) {
       setPortalOpen(true);
     } else {
       setPortalOpen(false);
     }
 
-    if (
-      (location && masterPaths.some((obj) => obj.path === location.pathname)) ||
-      masterPaths.some((path) => path.child.includes(location.pathname))
-    ) {
+    if ((location && masterPaths.some((obj) => obj.path === location.pathname)) || masterPaths.some((path) => path.child.includes(removeIdFromPathname(location.pathname)))) {
       setMasterOpen(true);
     } else {
       setMasterOpen(false);
@@ -107,8 +92,7 @@ const Menu = () => {
 
               <li
                 onClick={() => handleChange("master")}
-                className={`nav-item has-treeview borders ${navbar.master ? "menu-open" : ""
-                  }`}
+                className={`nav-item has-treeview borders ${navbar.master ? "menu-open" : ""}`}
                 style={{ cursor: "pointer" }}
               >
                 <a className="nav-link main">
@@ -143,17 +127,9 @@ const Menu = () => {
                     Master <i className="fas fa-angle-right right" />
                   </p>
                 </a>
-                <ul
-                  className={`nav nav-treeview dots ${masterOpen ? "d-block" : ""
-                    } `}
-                >
+                <ul className={`nav nav-treeview dots ${masterOpen ? "d-block" : ""}`}>
                   {masterPaths.map((item, index) => {
-                    let active = null;
-
-                    location && item.child.includes(location.pathname)
-                      ? (active = true)
-                      : (active = false);
-
+                    let active = location && item.child.includes(removeIdFromPathname(location.pathname));
                     return (
                       <Link
                         key={index}
@@ -171,11 +147,9 @@ const Menu = () => {
               </li>
 
               <li className="navs-header">CMS</li>
-
               <li
                 onClick={() => handleChange("portal")}
-                className={`nav-item has-treeview borders ${navbar.portal ? "menu-open" : ""
-                  }`}
+                className={`nav-item has-treeview borders ${navbar.portal ? "menu-open" : ""}`}
                 style={{ cursor: "pointer" }}
               >
                 <a className="nav-link main">
@@ -185,17 +159,9 @@ const Menu = () => {
                     MLS Portal pages <i className="fas fa-angle-right right" />
                   </p>
                 </a>
-                <ul
-                  className={`nav nav-treeview dots ${portalOpen ? "d-block" : ""
-                    }`}
-                >
+                <ul className={`nav nav-treeview dots ${portalOpen ? "d-block" : ""}`}>
                   {portalPaths.map((item, index) => {
-                    let active = null;
-
-                    location && item.child.includes(location.pathname)
-                      ? (active = true)
-                      : (active = false);
-
+                    let active = location && item.child.includes(removeIdFromPathname(location.pathname));
                     return (
                       <Link
                         key={index}
@@ -213,11 +179,7 @@ const Menu = () => {
               </li>
 
               {homePaths?.map((item, index) => {
-                let active = null;
-
-                location && item.child.includes(location.pathname)
-                  ? (active = true)
-                  : (active = false);
+                let active = location && item.child.includes(removeIdFromPathname(location.pathname));
                 return (
                   <li
                     className={`nav-item borders ${active ? "active" : ""}`}

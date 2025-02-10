@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import back from "assets/back.svg";
 
-import { getApiById } from "services/axiosInterceptors";
+import { getApiById } from "services/axios";
 import { paths } from "services/paths";
 
 const ViewHelpdesk = () => {
   const [data, setData] = useState([]);
 
-  const location = useLocation();
-  const pathnameArray = location.pathname?.split("/");
-  const id = location.pathname?.split("/")[pathnameArray.length - 1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("helpdesk", id)

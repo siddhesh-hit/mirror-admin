@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import add from "assets/back.svg";
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const EditContact = () => {
@@ -14,11 +14,8 @@ const EditContact = () => {
 
   const [isToggled, setIsToggled] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const pathnameArray = location.pathname?.split("/");
-  const id = location.pathname?.split("/")[pathnameArray.length - 1];
+  const { id } = useParams();
 
   const handleChange = (e) => {
     const { name, value } = e.target;

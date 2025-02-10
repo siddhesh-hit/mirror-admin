@@ -13,11 +13,11 @@ export const paths = {
 
   addFaq: "/faq/add",
   editFaq: "/faq/edit/:id",
-  viewFaq: "/faq/edit/:id",
+  viewFaq: "/faq/view/:id",
   viewAllFaq: "/faq",
 
   addGallery: "/gallery/add",
-  viewAllGallery: "/gallery",
+  viewAllGallery: "/gallery/all",
   viewGallery: "/gallery",
   editGallery: "/gallery/edit/:id",
   viewGalleryImage: "/gallery/image/edit/:id",
@@ -64,7 +64,7 @@ export const paths = {
 
   addRajyapal: "/rajyapal/add",
   editRajyapal: "/rajyapal/edit/:id",
-  viewRajyapal: "/rajyapal/edit/:id",
+  viewRajyapal: "/rajyapal/view/:id",
   viewAllRajyapal: "/rajyapal",
 
   addSessionCalendar: "/session-calendar/add",
@@ -148,7 +148,7 @@ export const paths = {
   editContact: "/contact/edit/:id",
   viewContact: "/contact",
 
-  viewFeedback: "/feedback",
+  viewFeedback: "/feedback/:id",
   editFeedback: "/feedback/edit/:id",
   viewAllFeedback: "/feedback",
 
@@ -170,10 +170,10 @@ export const paths = {
 
   addPortalUser: "/portal-user/add",
   editPortalUser: "/portal-user/edit/:id",
-  viewPortalUser: "/portal-user/edit/:id",
-  blockPortalUser: "/portal-user/block/edit/:id",
-  resetPortalUser: "/portal-user/reset/edit/:id",
-  uploadPortalUser: "/portal-user/upload/edit/:id",
+  viewPortalUser: "/portal-user/",
+  blockPortalUser: "/portal-user/block/:id",
+  resetPortalUser: "/portal-user/reset/:id",
+  uploadPortalUser: "/portal-user/upload/:id",
 
   addSeo: "/seo/add",
   editSeo: "/seo/edit/:id",
@@ -182,8 +182,9 @@ export const paths = {
   addTask: "/task/add",
   editTask: "/task/edit/:id",
   viewTask: "/task",
-  userRole: "/role/user",
-  editRole: "/role/edit/:id",
+
+  userRole: "/user-role",
+  editRole: "/user-role/edit/:id",
 
   viewAllUserDocument: "/user-document",
   viewUserDocument: "/user-document/edit/:id",
@@ -198,18 +199,18 @@ export const paths = {
   viewArchive: "/workflow/archive",
 
   // pendings
-  viewWorkflowBiologicalInformation: "/workflow/bio-info",
-  viewWorkflowContactUs: "/workflow/contact",
-  viewWorkflowFaq: "/workflow/faq",
-  viewWorkflowGallery: "/workflow/gallery",
-  viewWorkflowGalleryImage: "/workflow/gallery/image",
-  viewWorkflowInterestRequest: "/workflow/interest-request",
-  viewWorkflowLegislativeAssembly: "/workflow/legislative-assembly",
-  viewWorkflowLegislativeCouncil: "/workflow/legislative-council",
-  viewWorkflowLibrary: "/workflow/library",
-  viewWorkflowMantriMandal: "/workflow/mantri-mandal",
-  viewWorkflowMemberProfile: "/workflow/member",
-  viewWorkflowRajyapal: "/workflow/rajyapal",
-  viewWorkflowSessionCalendar: "/workflow/session-calendar",
-  viewWorkflowVidhanMandal: "/workflow/vidhan-mandal",
+  viewWorkflowBiologicalInformation: "/workflow/bio-info/:id",
+  viewWorkflowContactUs: "/workflow/contact/:id",
+  viewWorkflowFaq: "/workflow/faq/:id",
+  viewWorkflowGallery: "/workflow/gallery/:id",
+  viewWorkflowGalleryImage: "/workflow/gallery/image/:id",
+  viewWorkflowInterestRequest: "/workflow/interest-request/:id",
+  viewWorkflowLegislativeAssembly: "/workflow/legislative-assembly/:id",
+  viewWorkflowLegislativeCouncil: "/workflow/legislative-council/:id",
+  viewWorkflowLibrary: "/workflow/library/:id",
+  viewWorkflowMantriMandal: "/workflow/mantri-mandal/:id",
+  viewWorkflowMemberProfile: "/workflow/member/:id",
+  viewWorkflowRajyapal: "/workflow/rajyapal/:id",
+  viewWorkflowSessionCalendar: "/workflow/session-calendar/:id",
+  viewWorkflowVidhanMandal: "/workflow/vidhan-mandal/:id",
 };

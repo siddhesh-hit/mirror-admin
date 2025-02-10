@@ -9,7 +9,7 @@ import add from "assets/add.svg";
 import remove from "assets/remove.svg";
 import back from "assets/back.svg";
 
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { paths } from "services/paths";

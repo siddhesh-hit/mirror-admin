@@ -7,7 +7,7 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { deleteApi, postApi, getApi } from "services/axiosInterceptors";
+import { deleteApi, postApi, getApi } from "services/axios";
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";
 
@@ -156,7 +156,7 @@ const ViewAllFaq = () => {
                           </td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link to={`${paths.viewFaq}/${item._id}`}>
+                            <Link to={`${removeTailingId(paths.viewFaq)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

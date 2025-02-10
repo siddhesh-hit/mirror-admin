@@ -2,7 +2,7 @@ import { useState } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import { auth, removeTailingId } from "data/RouteStructure";
-import { getApi } from "services/axiosInterceptors";
+import { getApi } from "services/axios";
 import { Link } from "react-router-dom";
 import { paths } from "services/paths";
 

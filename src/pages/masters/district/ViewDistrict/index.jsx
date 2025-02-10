@@ -7,7 +7,7 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { deleteApi, getApi } from "services/axiosInterceptors";
+import { deleteApi, getApi } from "services/axios";
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";
 
@@ -25,9 +25,7 @@ const ViewDistrict = () => {
   const navigate = useNavigate();
 
   const fetchData = async () => {
-    await getApi(
-      `district?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&marathi.district=${pageOptions["marathi.district"]}`
-    )
+    await getApi(`district?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&marathi.district=${pageOptions["marathi.district"]}`)
       .then((res) => {
         if (res.data.success) {
           setData(res.data.data);

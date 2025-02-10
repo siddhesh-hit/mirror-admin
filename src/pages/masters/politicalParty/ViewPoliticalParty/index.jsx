@@ -7,8 +7,8 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { API } from "lib/api";
-import { deleteApi, getApi } from "services/axiosInterceptors";
+
+import { deleteApi, getApi } from "services/axios";
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";
 
@@ -136,7 +136,7 @@ const ViewPoliticalParty = () => {
                           <td>
                             <Link
                               to={
-                                API.baseUrl +
+                                process.env.REACT_APP_IMG_URL +
                                 item.party_flag.destination +
                                 "/" +
                                 item.party_flag.filename
@@ -158,7 +158,7 @@ const ViewPoliticalParty = () => {
                           <td>
                             <Link
                               to={
-                                API.baseUrl +
+                                process.env.REACT_APP_IMG_URL +
                                 item.party_symbol.destination +
                                 "/" +
                                 item.party_symbol.filename

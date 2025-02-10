@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
-import add from "assets/add.svg";
+import back from "assets/back.svg";
 
-import { API } from "lib/api";
+
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { paths } from "services/paths";
@@ -18,9 +18,9 @@ const ViewLegislativeAssembly = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to={paths.addLegislativeAssembly} className="addpagess">
-          <img src={add} alt="add" />
-          Add Legislative Assembly
+        <Link to={paths.viewAllLegislativeAssembly} className="addpagess">
+          <img src={back} style={{ width: "25px" }} alt="add" />
+          Go back
         </Link>
         <h4 className="page-title">• View Legislative Assembly</h4>
         <div className="card card-info">
@@ -41,7 +41,7 @@ const ViewLegislativeAssembly = () => {
                       <td>
                         <a
                           href={
-                            API.baseUrl +
+                            process.env.REACT_APP_IMG_URL +
                             data.banner_image.destination +
                             "/" +
                             data.banner_image.filename
@@ -129,7 +129,7 @@ const ViewLegislativeAssembly = () => {
                           <td>
                             <a
                               href={
-                                API.baseUrl +
+                                process.env.REACT_APP_IMG_URL +
                                 item.english.document.destination +
                                 "/" +
                                 item.english.document.filename
@@ -154,7 +154,7 @@ const ViewLegislativeAssembly = () => {
                           <td>
                             <a
                               href={
-                                API.baseUrl +
+                                process.env.REACT_APP_IMG_URL +
                                 item.marathi.document.destination +
                                 "/" +
                                 item.marathi.document.filename
@@ -228,7 +228,7 @@ const ViewLegislativeAssembly = () => {
                       <td>
                         <a
                           href={
-                            API.baseUrl +
+                            process.env.REACT_APP_IMG_URL +
                             data.structure_profile.destination +
                             "/" +
                             data.structure_profile.filename
@@ -317,7 +317,7 @@ const ViewLegislativeAssembly = () => {
                         <td>
                           <a
                             href={
-                              API.baseUrl +
+                              process.env.REACT_APP_IMG_URL +
                               item.council_profile.destination +
                               "/" +
                               item.council_profile.filename

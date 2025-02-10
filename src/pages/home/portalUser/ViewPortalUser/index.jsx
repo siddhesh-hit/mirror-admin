@@ -6,8 +6,8 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { getApi } from "services/axiosInterceptors";
-import { API } from "lib/api";
+import { getApi } from "services/axios";
+
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";
 
@@ -22,9 +22,7 @@ const ViewPortalUser = () => {
   });
 
   const fetchData = async () => {
-    await getApi(
-      `user?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&role_taskId.role=${pageOptions.action}&full_name=${pageOptions.full_name}`
-    )
+    await getApi(`user?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&role_taskId.role=${pageOptions.action}&full_name=${pageOptions.full_name}`)
       .then((res) => {
         if (res.data.success) {
           setData(res.data.data);
@@ -184,7 +182,7 @@ const ViewPortalUser = () => {
                             item.user_image.filename ? (
                             <a
                               href={
-                                API.baseUrl +
+                                process.env.REACT_APP_IMG_URL +
                                 item.user_image?.destination +
                                 "/" +
                                 item.user_image?.filename
@@ -236,7 +234,7 @@ const ViewPortalUser = () => {
                           </Link>
                         </td>
                         <td>
-                          <Link to={`${paths.blockPortalUser}/${item._id}`}>
+                          <Link to={`${removeTailingId(paths.blockPortalUser)}/${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (
@@ -257,7 +255,7 @@ const ViewPortalUser = () => {
                           </Link>
                         </td>
                         <td>
-                          <Link to={`${paths.resetPortalUser}/${item._id}`}>
+                          <Link to={`${removeTailingId(paths.resetPortalUser)}/${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

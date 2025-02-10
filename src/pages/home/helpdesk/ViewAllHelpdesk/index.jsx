@@ -3,7 +3,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { getApi, deleteApi } from "services/axiosInterceptors";
+import { getApi, deleteApi } from "services/axios";
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";
 

@@ -5,7 +5,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 
-import { getApi } from "services/axiosInterceptors";
+import { getApi } from "services/axios";
 import { removeTailingId, routes } from "data/RouteStructure";
 import { paths } from "services/paths";
 

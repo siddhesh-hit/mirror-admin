@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 
 import addwhite from "assets/addwhite.svg";
 import remove from "assets/remove.svg";

@@ -7,8 +7,8 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { API } from "lib/api";
-import { deleteApi, getApi } from "services/axiosInterceptors";
+
+import { deleteApi, getApi } from "services/axios";
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";
 
@@ -117,7 +117,7 @@ const ViewBranch = () => {
                           </td>
 
                           <td>
-                            <Link to={`${removeTailingId(paths.editAssembly)}/${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editBranch)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

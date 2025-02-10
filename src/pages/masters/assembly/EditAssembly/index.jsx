@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 
 import back from "assets/back.svg";
 
 import { formatDateForInput } from "lib/dateEnUsFormat";
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const EditAssembly = () => {
@@ -15,11 +15,9 @@ const EditAssembly = () => {
   const [updatedField, setUpdatedField] = useState([]);
   const [isSubmitted, setSubmit] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
 
-  const pathnameArray = location.pathname?.split("/");
-  const id = location.pathname?.split("/")[pathnameArray.length - 1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("assembly", id)

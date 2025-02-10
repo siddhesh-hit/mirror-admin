@@ -3,7 +3,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import back from "assets/back.svg";
 
-import { API } from "lib/api";
+
 
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
@@ -51,7 +51,7 @@ const ViewRajyapal = () => {
                   <td>
                     <a
                       href={
-                        API.baseUrl +
+                        process.env.REACT_APP_IMG_URL +
                         data.image.destination +
                         "/" +
                         data.image.filename

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import add from "assets/add.svg";
 
-import { getApiById } from "services/axiosInterceptors";
+import { getApiById } from "services/axios";
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";
 

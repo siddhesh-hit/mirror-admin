@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 
 import back from "assets/back.svg";
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const EditBranch = () => {
   const [Name, setName] = useState({});
   const [isSubmitted, setSubmit] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const pathnameArray = location.pathname?.split("/");
-  const id = location.pathname?.split("/")[pathnameArray.length - 1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("branch", id)

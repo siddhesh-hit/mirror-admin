@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import add from "assets/add.svg";
 
-import { deleteApi, getApi } from "services/axiosInterceptors";
+import { deleteApi, getApi } from "services/axios";
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";
 

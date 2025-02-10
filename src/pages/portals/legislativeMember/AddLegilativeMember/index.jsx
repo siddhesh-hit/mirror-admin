@@ -6,7 +6,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 
-import { getApi, postApi } from "services/axiosInterceptors";
+import { getApi, postApi } from "services/axios";
 import { basicInfoSchema, politicalJourneySchema, electionDataSchema } from "lib/validator";
 
 import back from "assets/back.svg";

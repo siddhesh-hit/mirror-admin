@@ -13,16 +13,16 @@ export const pageName = {
 };
 
 export const newPageName = {
-  VidhanMandal: "ViewWorkflowVidhanMandal",
-  VidhanParishad: "ViewWorkflowLegislativeCouncil",
-  VidhanSabha: "ViewWorkflowLegislativeAssembly",
-  Member: "ViewWorkflowMemberProfile",
-  Library: "ViewWorkflowLibrary",
-  SessionCalendar: "ViewWorkflowSessionCalendar",
-  RajyapalMember: "ViewWorkflowRajyapal",
-  Faq: "ViewWorkflowFaq",
-  Minister: "ViewWorkflowMantriMandal",
-  MandalGallery: "ViewWorkflowGalleryImage",
+  VidhanMandal: "workflow/vidhan-mandal",
+  VidhanParishad: "workflow/legislative-council",
+  VidhanSabha: "workflow/legislative-assembly",
+  Member: "workflow/member",
+  Library: "workflow/library",
+  SessionCalendar: "workflow/session-calendar",
+  RajyapalMember: "workflow/rajyapal",
+  Faq: "workflow/faq",
+  Minister: "workflow/mantri-mandal",
+  MandalGallery: "workflow/gallery",
   Debate: "",
-  ContactUs: "ViewWorkflowContactUs",
+  ContactUs: "workflow/contact",
 };

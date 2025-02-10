@@ -6,7 +6,7 @@ import dayjs, { Dayjs } from "dayjs";
 
 import add from "assets/back.svg";
 
-import { getApi, postApi } from "services/axiosInterceptors";
+import { getApi, postApi } from "services/axios";
 import { paths } from "services/paths";
 
 const AddPortalUser = () => {

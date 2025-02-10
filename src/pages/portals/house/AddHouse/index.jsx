@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import remove from "assets/remove.svg";
 import addwhite from "assets/addwhite.svg";
 
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 import { paths } from "services/paths";
 
 const AddHouse = () => {

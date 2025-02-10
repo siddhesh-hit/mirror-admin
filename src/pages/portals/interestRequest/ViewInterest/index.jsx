@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
-import { getApiById } from "services/axiosInterceptors";
+import { getApiById } from "services/axios";
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";
 
 const ViewInterest = () => {
   const [data, setData] = useState({});
 
-  const location = useLocation();
-  const pathnameArray = location.pathname?.split("/");
-  const id = location.pathname?.split("/")[pathnameArray.length - 1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("interest", id)

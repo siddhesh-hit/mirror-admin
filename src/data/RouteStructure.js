@@ -1,13 +1,20 @@
 import { paths } from "services/paths";
 
 export const removeTailingId = (path = "") => path.replace("/:id", "");
+export const removeIdFromPathname = (path = "") => {
+  const splitPath = path.split("/");
+  if (splitPath.length < 3) return path;
+
+  splitPath.length = splitPath.length - 1;
+  return splitPath.join("/");
+}
 
 export const portalPaths = [
-  {
-    name: "Biological Information",
-    path: paths.viewAllBiologicalInformation,
-    child: [paths.viewAllBiologicalInformation, paths.addBiologicalInformation, removeTailingId(paths.editBiologicalInformation), removeTailingId(paths.viewBiologicalInformation)],
-  },
+  // {
+  //   name: "Biological Information",
+  //   path: paths.viewAllBiologicalInformation,
+  //   child: [paths.viewAllBiologicalInformation, paths.addBiologicalInformation, removeTailingId(paths.editBiologicalInformation), removeTailingId(paths.viewBiologicalInformation)],
+  // },
   {
     name: "Faq",
     path: paths.viewAllFaq,
@@ -16,7 +23,7 @@ export const portalPaths = [
   {
     name: "Gallery",
     path: paths.viewGallery,
-    child: [paths.viewGallery, paths.addGallery, removeTailingId(paths.editGallery), paths.viewGallery, removeTailingId(paths.viewGalleryImage)],
+    child: [paths.viewGallery, paths.addGallery, removeTailingId(paths.editGallery), paths.viewAllGallery, removeTailingId(paths.viewGalleryImage)],
   },
   {
     name: "Legislative Assembly",
@@ -137,7 +144,7 @@ export const homePaths = [
   {
     name: "Portal User",
     path: paths.viewPortalUser,
-    child: [paths.viewPortalUser, removeTailingId(paths.editPortalUser), paths.addPortalUser, removeTailingId(paths.blockPortalUser), removeTailingId(paths.blockPortalUser), removeTailingId(paths.uploadPortalUser)],
+    child: [paths.viewPortalUser, removeTailingId(paths.editPortalUser), paths.addPortalUser, removeTailingId(paths.resetPortalUser), removeTailingId(paths.blockPortalUser), removeTailingId(paths.uploadPortalUser)],
   },
   {
     name: "Portal Department",
@@ -151,7 +158,7 @@ export const homePaths = [
   },
   {
     name: "User Management",
-    path: "/UserRole",
+    path: paths.userRole,
     child: [paths.userRole, removeTailingId(paths.editRole)],
   },
   {

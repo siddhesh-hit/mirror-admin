@@ -11,9 +11,7 @@ import { removeTailingId } from "data/RouteStructure";
 const ViewFaq = () => {
   const { data, loading, error } = useDataFetchingForBothApis("faq");
 
-  if (loading) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
 
   return (
     <div className="content-wrapper pt-4">
@@ -41,16 +39,8 @@ const ViewFaq = () => {
                     <tr>
                       <td>{data.english.question}</td>
                       <td>{data.marathi.question}</td>
-                      <td
-                        dangerouslySetInnerHTML={{
-                          __html: data.english.answer,
-                        }}
-                      ></td>
-                      <td
-                        dangerouslySetInnerHTML={{
-                          __html: data.marathi.answer,
-                        }}
-                      ></td>
+                      <td dangerouslySetInnerHTML={{ __html: data.english.answer }} />
+                      <td dangerouslySetInnerHTML={{ __html: data.marathi.answer }} />
                       <td>
                         <Link to={`${removeTailingId(paths.editFaq)}/${data._id}`}>
                           <OverlayTrigger

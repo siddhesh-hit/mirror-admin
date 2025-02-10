@@ -1,4 +1,4 @@
-import { API } from "lib/api";
+
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
@@ -76,7 +76,7 @@ const ViewMemberProfile = () => {
                         <img
                           style={{ width: "100%" }}
                           src={
-                            API.baseUrl +
+                            process.env.REACT_APP_IMG_URL +
                             data.basic_info.profile.destination +
                             "/" +
                             data.basic_info.profile.filename
@@ -176,7 +176,7 @@ const ViewMemberProfile = () => {
                         <img
                           style={{ width: "100%" }}
                           src={
-                            API.baseUrl +
+                            process.env.REACT_APP_IMG_URL +
                             data.basic_info.profile.destination +
                             "/" +
                             data.basic_info.profile.filename

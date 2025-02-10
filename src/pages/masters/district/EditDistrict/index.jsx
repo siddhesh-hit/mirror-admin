@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import back from "assets/back.svg";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const EditDistrict = () => {
   const [data, setData] = useState({});
   const [isSubmitted, setSubmit] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const pathnameArray = location.pathname?.split("/");
-  const id = location.pathname?.split("/")[pathnameArray.length - 1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("district", id)

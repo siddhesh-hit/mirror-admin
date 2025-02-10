@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 
 import avatarUser from "assets/user.png";
 
-import { getApiById, postApi, putApi } from "services/axiosInterceptors";
+import { getApiById, postApi, putApi } from "services/axios";
 import { logout } from "sredux/authSlice";
 import { decrypt } from "lib/encrypt";
-import { API } from "lib/api";
+
 import { formatEnUsDateTime } from "lib/dateEnUsFormat";
 
 export default function Header() {
@@ -132,7 +132,7 @@ export default function Header() {
                   src={
                     userProfile?.user_image?.destination &&
                       userProfile?.user_image?.filename
-                      ? API.baseUrl +
+                      ? process.env.REACT_APP_IMG_URL +
                       userProfile?.user_image?.destination +
                       "/" +
                       userProfile?.user_image?.filename

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 
 import add from "assets/back.svg";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { routes, auth, authDesc } from "data/RouteStructure";
 import { toast } from "react-toastify";
 import { paths } from "services/paths";
@@ -30,9 +30,7 @@ const EditTask = () => {
   });
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const pathnameArray = location.pathname?.split("/");
-  const id = location.pathname?.split("/")[pathnameArray.length - 1];
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {

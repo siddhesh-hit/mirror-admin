@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import history from "assets/history.svg";
 
-import { getApi, postApi, putApi } from "services/axiosInterceptors";
+import { getApi, postApi, putApi } from "services/axios";
 import { pageName } from "data/fileName";
 import { toast } from "react-toastify";
 import { formatEnUsDateTime } from "lib/dateEnUsFormat";

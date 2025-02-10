@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 import logo from "assets/logo.svg";
 
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 import { login } from "sredux/authSlice";
 import { encrypt } from "lib/encrypt";
 import Captcha from "components/common/Captcha";

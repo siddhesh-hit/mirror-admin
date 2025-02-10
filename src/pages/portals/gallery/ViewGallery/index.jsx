@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
-import { API } from "lib/api";
+import { getApi, postApi, deleteApi } from "services/axios";
+
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";
 
@@ -27,9 +27,7 @@ const ViewGallery = () => {
   });
 
   const fetchData = async () => {
-    await getApi(
-      `gallery?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&filename=${pageOptions.name}`
-    )
+    await getApi(`gallery?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&filename=${pageOptions.name}`)
       .then((res) => {
         if (res.data.success) {
           setData(res.data.data);
@@ -152,12 +150,10 @@ const ViewGallery = () => {
                           <h4>{item?.filename}</h4>
                         </td>
                         <td>
-                          <Link to={`${paths.viewGalleryImage}/${item._id}`}>
+                          <Link to={`${removeTailingId(paths.viewGalleryImage)}/${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
-                              overlay={(props) => (
-                                <Tooltip {...props}>View the data.</Tooltip>
-                              )}
+                              overlay={(props) => <Tooltip {...props}>View the data.</Tooltip>}
                               placement="bottom"
                             >
                               <i className="fa fa-eye" aria-hidden="true"></i>
@@ -168,9 +164,7 @@ const ViewGallery = () => {
                           <Link to={`${removeTailingId(paths.editGallery)}/${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
-                              overlay={(props) => (
-                                <Tooltip {...props}>Edit the data.</Tooltip>
-                              )}
+                              overlay={(props) => <Tooltip {...props}>Edit the data.</Tooltip>}
                               placement="bottom"
                             >
                               <i className="fa fa-edit"></i>
@@ -181,9 +175,7 @@ const ViewGallery = () => {
                           <Link onClick={() => handleDelete(item._id)}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
-                              overlay={(props) => (
-                                <Tooltip {...props}>Delete the data.</Tooltip>
-                              )}
+                              overlay={(props) => <Tooltip {...props}>Delete the data.</Tooltip>}
                               placement="top"
                             >
                               <i className="fa fa-trash"></i>
@@ -194,9 +186,7 @@ const ViewGallery = () => {
                           <button onClick={() => handleArchiveSubmit(item)}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
-                              overlay={(props) => (
-                                <Tooltip {...props}>Archive the data.</Tooltip>
-                              )}
+                              overlay={(props) => <Tooltip {...props}>Archive the data.</Tooltip>}
                               placement="bottom"
                             >
                               <i class="fa fa-archive" aria-hidden="true"></i>

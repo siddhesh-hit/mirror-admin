@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { toast } from "react-toastify";
 import { paths } from "services/paths";
 
@@ -10,10 +10,8 @@ const EditInterest = () => {
   const [isToggled, setIsToggled] = useState(false);
   const [isSubmitted, setSubmit] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
-  const pathnameArray = location.pathname?.split("/");
-  const id = location.pathname?.split("/")[pathnameArray.length - 1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("interest", id)

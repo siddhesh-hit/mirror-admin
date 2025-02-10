@@ -8,7 +8,7 @@ import remove from "assets/remove.svg";
 import back from "assets/back.svg";
 import addwhite from "assets/addwhite.svg";
 
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 import { addMinistry } from "validations/masters/ministry";
 import { paths } from "services/paths";
 

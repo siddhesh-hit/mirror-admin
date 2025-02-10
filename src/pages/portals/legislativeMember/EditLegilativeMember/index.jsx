@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 
-import { getApi, getApiById, putApi } from "services/axiosInterceptors";
+import { getApi, getApiById, putApi } from "services/axios";
 import { basicInfoSchema, politicalJourneySchema, electionDataSchema } from "lib/validator";
 
 import back from "assets/back.svg";
@@ -87,10 +87,7 @@ const EditLegislativeMember = () => {
   });
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const pathnameArray = location.pathname?.split("/");
-  const id = location.pathname?.split("/")[pathnameArray.length - 1];
+  const { id } = useParams();
 
   const validateStep = async (step, data) => {
     let errors;

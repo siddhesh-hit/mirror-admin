@@ -5,7 +5,7 @@ import add from "assets/add.svg";
 import frame from "assets/Frame.svg";
 import back from "assets/back.svg";
 
-import { API } from "lib/api";
+
 
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
@@ -71,7 +71,7 @@ const ViewSessionCalendar = () => {
                           <a
                             key={index}
                             href={
-                              API.baseUrl +
+                              process.env.REACT_APP_IMG_URL +
                               doc?.document.destination +
                               "/" +
                               doc?.document.filename

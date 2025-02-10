@@ -7,7 +7,7 @@ import back from "assets/back.svg";
 import remove from "assets/remove.svg";
 import addwhite from "assets/addwhite.svg";
 
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 import { paths } from "services/paths";
 
 const AddBranch = () => {

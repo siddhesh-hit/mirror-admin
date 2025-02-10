@@ -1,25 +1,23 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import back from "assets/back.svg";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
-import { API } from "lib/api";
+import { getApiById, putApi } from "services/axios";
+
 import { paths } from "services/paths";
 
 const EditGallery = () => {
   const [data, setData] = useState({});
   const [isSubmitted, setSubmit] = useState(false);
 
-  const location = useLocation();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [serverData, setServerData] = useState([]);
 
   const fetchData = async () => {
-    const pathnameArray = location.pathname?.split("/");
-    const id = location.pathname?.split("/")[pathnameArray.length - 1];
     await getApiById("gallery", id)
       .then((res) => {
         console.log(res);
@@ -144,7 +142,7 @@ const EditGallery = () => {
                         <img
                           className="mt-5"
                           src={
-                            API.baseUrl + data.destination + "/" + data.filename
+                            process.env.REACT_APP_IMG_URL + data.destination + "/" + data.filename
                           }
                           style={{ width: "200px" }}
                           alt="img"

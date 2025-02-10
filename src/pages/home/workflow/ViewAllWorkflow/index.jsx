@@ -6,7 +6,7 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import history from "assets/history.svg";
 
-import { getApi } from "services/axiosInterceptors";
+import { getApi } from "services/axios";
 import { newPageName } from "data/fileName";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";

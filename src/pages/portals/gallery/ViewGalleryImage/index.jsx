@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import back from "assets/back.svg";
 
-import { API } from "lib/api";
-import { getApiById } from "services/axiosInterceptors";
+
+import { getApiById } from "services/axios";
 import { paths } from "services/paths";
 
 const ViewGalleryAsset = () => {
   const [data, setData] = useState({});
 
-  const location = useLocation();
-  const pathnameArray = location.pathname?.split("/");
-  const id = location.pathname?.split("/")[pathnameArray.length - 1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("gallery", id)
@@ -28,7 +26,7 @@ const ViewGalleryAsset = () => {
     <div>
       <div className="content-wrapper pt-4">
         <div className="contentofpages">
-          <Link className="addpagess" to={paths.viewAllGallery}>
+          <Link className="addpagess" to={paths.viewGallery}>
             <img src={back} alt="back" style={{ width: 25 }} />
             Go back
           </Link>
@@ -44,7 +42,7 @@ const ViewGalleryAsset = () => {
                     marginRight: "auto",
                     display: "block",
                   }}
-                  src={API.baseUrl + data?.destination + "/" + data?.filename}
+                  src={process.env.REACT_APP_IMG_URL + data?.destination + "/" + data?.filename}
                   alt="gallery"
                 />
               </>
@@ -59,7 +57,7 @@ const ViewGalleryAsset = () => {
                     marginRight: "auto",
                     display: "block",
                   }}
-                  src={API.baseUrl + data?.destination + "/" + data?.filename}
+                  src={process.env.REACT_APP_IMG_URL + data?.destination + "/" + data?.filename}
                 ></video>
               </>
             )}

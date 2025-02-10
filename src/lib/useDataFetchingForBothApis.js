@@ -1,21 +1,20 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
-import { getApiById } from "../services/axiosInterceptors";
+import { getApiById } from "../services/axios";
 
 const useDataFetchingForBothApis = (route) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const location = useLocation();
+  const { id } = useParams();
+  const [searchParams, _] = useSearchParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const and = location.search.split("&");
-        const id = and[0].split("=")[1];
-        const pending = and[1]?.includes("pending");
+        const pending = searchParams.get("pending");
 
         const response = pending
           ? await getApiById("pending", id)

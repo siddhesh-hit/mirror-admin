@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import { getApi } from "services/axiosInterceptors";
+import { getApi } from "services/axios";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
 
 import add from "assets/view.svg";

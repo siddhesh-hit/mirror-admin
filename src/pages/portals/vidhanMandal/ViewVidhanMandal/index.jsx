@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
-import add from "assets/add.svg";
+import back from "assets/back.svg";
 
-import { API } from "lib/api";
+
 import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { paths } from "services/paths";
@@ -19,9 +19,9 @@ const ViewVidhanMandal = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to={paths.addVidhanMandal} className="addpagess">
-          <img src={add} alt="add" />
-          Add Vidhan Mandal
+        <Link to={paths.viewAllVidhanMandal} className="addpagess">
+          <img src={back} style={{ width: "25px" }} alt="add" />
+          Go back
         </Link>
 
         <h4 className="page-title">• View Vidhan Mandal</h4>
@@ -55,7 +55,7 @@ const ViewVidhanMandal = () => {
                           >
                             <a
                               href={
-                                API.baseUrl +
+                                process.env.REACT_APP_IMG_URL +
                                 data.mandal_image[index].image.destination +
                                 "/" +
                                 data.mandal_image[index].image.filename
@@ -100,7 +100,7 @@ const ViewVidhanMandal = () => {
                           {/* Display file name for Marathi */}
                           <a
                             href={
-                              API.baseUrl +
+                              process.env.REACT_APP_IMG_URL +
                               data.mandal_image[index].documents.destination +
                               "/" +
                               data.mandal_image[index].documents.filename

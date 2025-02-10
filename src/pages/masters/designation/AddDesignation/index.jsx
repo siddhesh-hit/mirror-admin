@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import back from "assets/back.svg";
 
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 import { paths } from "services/paths";
 
 const AddDesignation = () => {

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import back from "assets/back.svg";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { Form } from "react-bootstrap";
 import { paths } from "services/paths";
 
@@ -19,11 +19,11 @@ const EditWorkflow = () => {
     Delete: "updateDel",
   };
 
-  const location = useLocation();
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [searchParams, _] = useSearchParams();
 
-  const id = location.search.split("&")[0].split("=")[1];
-  const action = location.search.split("&")[1].split("=")[1];
+  const action = searchParams.get("action");
 
   const fetchData = async () => {
     await getApiById("pending", id)
