@@ -24,9 +24,7 @@ const ViewAllFaqs = () => {
 
   const fetchData = async () => {
     await getApi(
-      `pending?perPage=${pageOptions.current}&perLimit=${pageOptions.page
-      }&isPending=${true}&action=${pageOptions.action}&modelName=${pageOptions.modelName
-      }`
+      `pending?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&isPending=${true}&action=${pageOptions.action}&modelName=${pageOptions.modelName}`
     )
       .then((res) => {
         if (res.data.success) {
@@ -113,23 +111,16 @@ const ViewAllFaqs = () => {
                       data?.map((item, index) => (
                         <tr key={index}>
                           <td>
-                            <h4>
-                              {pageOptions.current * pageOptions.page + index + 1}
-                            </h4>
+                            <h4>  {pageOptions.current * pageOptions.page + index + 1}  </h4>
                           </td>
                           <td>{item?.action}</td>
                           <td>{item?.modelName}</td>
                           <td>{formatEnUsDate(item.createdAt)}</td>
                           <td>
-                            <Link
-                              to={`/${newPageName[item?.modelName]}/${item._id
-                                }&action=${item.action}`}
-                            >
+                            <Link to={`/${newPageName[item?.modelName]}/${item._id}?action=${item.action}`}  >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
-                                overlay={(props) => (
-                                  <Tooltip {...props}>View the data.</Tooltip>
-                                )}
+                                overlay={(props) => <Tooltip {...props}>View the data.</Tooltip>}
                                 placement="bottom"
                               >
                                 <i className="fa fa-eye" aria-hidden="true"></i>
@@ -138,14 +129,10 @@ const ViewAllFaqs = () => {
                             {/* )} */}
                           </td>
                           <td>
-                            <Link
-                              to={`${removeTailingId(paths.editWorkflow)}/${item._id}&action=${item.action}`}
-                            >
+                            <Link to={`${removeTailingId(paths.editWorkflow)}/${item._id}?action=${item.action}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
-                                overlay={(props) => (
-                                  <Tooltip {...props}>Edit the data.</Tooltip>
-                                )}
+                                overlay={(props) => <Tooltip {...props}>Edit the data.</Tooltip>}
                                 placement="bottom"
                               >
                                 <i className="fa fa-edit"></i>

@@ -145,9 +145,9 @@ import EditSessionField from "pages/masters/sessionField/EditSessionField";
 
 // HOME ROUTES
 
-import ViewAudit from "pages/home/auditTrail/ViewAudit";
-import ViewAllUserAudit from "pages/home/auditTrail/ViewAllUserAudit";
-import ViewUserAudit from "pages/home/auditTrail/ViewUserAudit";
+import ViewAudit from "pages/home/audit-trail/ViewAudit";
+import ViewAllUserAudit from "pages/home/audit-trail/ViewAllUserAudit";
+import ViewUserAudit from "pages/home/audit-trail/ViewUserAudit";
 
 import AddContact from "pages/home/contactUs/AddContact";
 import EditContact from "pages/home/contactUs/EditContact";

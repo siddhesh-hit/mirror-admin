@@ -3,7 +3,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import back from "assets/back.svg";
 
-import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
+import { useDataFetchingForBothApis } from "hooks/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";

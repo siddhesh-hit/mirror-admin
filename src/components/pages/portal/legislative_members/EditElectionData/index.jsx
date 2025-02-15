@@ -30,7 +30,7 @@ function EditElectionData({
               <select
                 className="form-control"
                 name="election_data.constituency"
-                value={data?.election_data?.constituency || ""}
+                value={data?.election_data?.constituency?._id || ""}
                 onChange={handleChange}
               >
                 <option hidden>Select Constituency</option>
@@ -135,7 +135,7 @@ function EditElectionData({
                         <select
                           className="form-control"
                           name={`election_data.member_election_result.party.${index}`}
-                          value={item?.party || ""}
+                          value={item?.party?._id || ""}
                           onChange={handleChange}
                         >
                           <option hidden>Select Party</option>

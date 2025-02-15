@@ -1,5 +1,5 @@
 
-import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
+import { useDataFetchingForBothApis } from "hooks/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
 

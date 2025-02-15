@@ -12,7 +12,7 @@ import { basicInfoSchema, politicalJourneySchema, electionDataSchema } from "lib
 import back from "assets/back.svg";
 import BasicInformation from "components/pages/portal/legislative_members/BasicInformation";
 import PoliticalJourney from "components/pages/portal/legislative_members/PoliticalJourney";
-import ElectionData from "components/pages/portal/legislative_members/EditElectionData";
+import ElectionData from "components/pages/portal/legislative_members/ElectionData";
 import { paths } from "services/paths";
 
 const AddLegislativeMember = () => {

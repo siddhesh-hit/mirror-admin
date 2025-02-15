@@ -21,16 +21,17 @@ axiosInstance.interceptors.response.use(
         // case 500:
         //   toast.error("Server error, please try again later");
         //   break;
-        default:
-          toast.error(data.error || "Something went wrong");
+        // default:
+        //   toast.error(data.error || "Something went wrong");
       }
-    } else if (error.request) {
-      // Request was made but no response received
-      toast.error("No response from server");
-    } else {
-      // Something happened in setting up the request
-      toast.error("Error setting up request");
     }
+    // else if (error.request) {
+    //   // Request was made but no response received
+    //   toast.error("No response from server");
+    // } else {
+    //   // Something happened in setting up the request
+    //   toast.error("Error setting up request");
+    // }
 
     return Promise.reject(error);
   }

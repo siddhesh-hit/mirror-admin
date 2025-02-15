@@ -5,7 +5,7 @@ import back from "assets/back.svg";
 
 
 
-import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
+import { useDataFetchingForBothApis } from "hooks/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { paths } from "services/paths";
 import { removeTailingId } from "data/RouteStructure";

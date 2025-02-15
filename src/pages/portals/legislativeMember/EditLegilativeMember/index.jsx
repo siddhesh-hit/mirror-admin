@@ -341,51 +341,50 @@ const EditLegislativeMember = () => {
   };
 
   const handleSubmit = async () => {
-    let errors = await electionDataSchema(data.election_data);
+    try {
+      let errors = await electionDataSchema(data.election_data);
+      if (errors) {
+        toast.error(errors);
+        return;
+      }
+      if (isSubmitted) return;
+      setSubmit(true);
 
-    if (errors) {
-      toast.error(errors);
-      return;
+      if (data.basic_info.house === "Council") {
+        data.basic_info.assembly_number = "";
+      }
+
+      const formData = new FormData();
+      formData.append("profile", data.basic_info.profile);
+      formData.append("basic_info", JSON.stringify(data.basic_info));
+      formData.append("political_journey", JSON.stringify(data.political_journey));
+      formData.append("election_data", JSON.stringify(data.election_data));
+
+      const res = await putApi("member", id, formData);
+      if (res.data.success) {
+        toast.success("Legislative Member updated successfully.");
+        setTimeout(() => {
+          navigate(paths.viewAllLegislativeMember);
+        }, 1100);
+      };
+
+    } catch (error) {
+      const errors = error.response.data.details;
+      if (errors.length > 0) {
+        errors.forEach(errMsg => toast.error(errMsg.message));
+      } else {
+        toast.error(error.response.data.message);
+      }
+    } finally {
+      setSubmit(false);
     }
-    if (isSubmitted) return;
-    setSubmit(true);
-
-    const formData = new FormData();
-
-    if (data.basic_info.house === "Council") {
-      data.basic_info.assembly_number = "";
-    }
-
-    formData.append("profile", data.basic_info.profile);
-    formData.append("basic_info", JSON.stringify(data.basic_info));
-    formData.append(
-      "political_journey",
-      JSON.stringify(data.political_journey)
-    );
-    formData.append("election_data", JSON.stringify(data.election_data));
-
-    await putApi("member", id, formData)
-      .then((res) => {
-        if (res.data.success) {
-          toast.success("Legislative Member updated successfully.");
-          setTimeout(() => {
-            navigate(paths.viewAllLegislativeMember);
-          }, 1100);
-        }
-      })
-      .catch((err) => console.log(err));
-
-    setSubmit(false);
   };
 
-  const handleKeyDown = (e) =>
-    ["e", "E", "+"].includes(e.key) && e.preventDefault();
+  const handleKeyDown = (e) => ["e", "E", "+"].includes(e.key) && e.preventDefault();
 
   useEffect(() => {
     fetchData();
   }, []);
-
-  console.log(data);
 
   return (
     <div className="content-wrapper pt-4">
