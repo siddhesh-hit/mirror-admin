@@ -14,6 +14,13 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       const { status, data } = error.response;
 
+      if (data.logout && status == 401) {
+        console.log(data.message)
+        alert(data.message);
+        localStorage.removeItem("userInfo");
+        window.location.href = "/";
+      };
+
       switch (status) {
         case 429:
           toast.error(data.error || "Too many requests, please try again later");

@@ -119,6 +119,7 @@ const Login = () => {
                   placeholder="Email ID"
                   aria-label="Email ID"
                   aria-describedby="basic-addon1"
+                  autoComplete="off"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 // onBlur={validateForm} // Validate on blur
@@ -134,6 +135,7 @@ const Login = () => {
                   placeholder="Password"
                   aria-label="Password"
                   aria-describedby="basic-addon1"
+                  autoComplete="off"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 // onBlur={validateForm} // Validate on blur
