@@ -109,6 +109,11 @@ export const masterPaths = [
     child: [paths.viewLegislativePosition, paths.addLegislativePosition, removeTailingId(paths.editLegislativePosition)],
   },
   {
+    name: "Member Name",
+    path: paths.viewMemberName,
+    child: [paths.viewMemberName, paths.addMemberName, removeTailingId(paths.editMemberName)],
+  },
+  {
     name: "Ministry",
     path: paths.viewMinistry,
     child: [paths.viewMinistry, paths.addMinistry, removeTailingId(paths.editMinistry)],

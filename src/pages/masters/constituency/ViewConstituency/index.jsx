@@ -17,7 +17,7 @@ const ViewConstituency = () => {
     current: 0,
     page: 10,
     count: 0,
-    assembly_name: "",
+    name: "",
   });
   const [isSubmitted, setSubmit] = useState(false);
 
@@ -25,7 +25,7 @@ const ViewConstituency = () => {
 
   const fetchData = async () => {
     await getApi(
-      `constituency?perPage=${pageOptions.current}&perLimit=${pageOptions.page}`
+      `constituency?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&name=${pageOptions.name}`
     )
       .then((res) => {
         if (res.data.success) {
@@ -67,7 +67,7 @@ const ViewConstituency = () => {
 
   useEffect(() => {
     fetchData();
-  }, [pageOptions.page, pageOptions.current, pageOptions.assembly_name]);
+  }, [pageOptions.page, pageOptions.current, pageOptions.name]);
 
   console.log(data);
 
@@ -90,7 +90,7 @@ const ViewConstituency = () => {
           returnSearch={(data) =>
             setPageOptions((prev) => ({
               ...prev,
-              assembly_name: data,
+              name: data,
             }))
           }
           searchQuery="the Constituency Name"

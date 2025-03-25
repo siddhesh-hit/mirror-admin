@@ -183,8 +183,7 @@ const ViewPortalUser = () => {
                             <a
                               href={
                                 process.env.REACT_APP_IMG_URL +
-                                item.user_image?.destination +
-                                "/" +
+                                item.user_image?.destination + "/" +
                                 item.user_image?.filename
                               }
                               // onError={}

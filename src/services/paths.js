@@ -1,7 +1,7 @@
 // portals
 export const paths = {
   addBiologicalInformation: "/bio-info/add",
-  viewBiologicalInformation: "/bio-info/edit/:id",
+  viewBiologicalInformation: "/bio-info/view/:id",
   editBiologicalInformation: "/bio-info/edit/:id",
   viewAllBiologicalInformation: "/bio-info",
 
@@ -20,7 +20,7 @@ export const paths = {
   viewAllGallery: "/gallery/all",
   viewGallery: "/gallery",
   editGallery: "/gallery/edit/:id",
-  viewGalleryImage: "/gallery/image/edit/:id",
+  viewGalleryImage: "/gallery/view/:id",
 
   addHouse: "/house/add",
   viewHouse: "/house",
@@ -28,28 +28,28 @@ export const paths = {
 
   editInterest: "/interest-request/interest/edit/:id",
   editRequest: "/interest-request/request/edit/:id",
-  viewInterest: "/interest-request/interest/edit/:id",
-  viewRequest: "/interest-request/request/edit/:id",
+  viewInterest: "/interest-request/interest/view/:id",
+  viewRequest: "/interest-request/request/view/:id",
   viewInterestRequest: "/interest-request",
 
   viewAllLegislativeAssembly: "/legislative-assembly",
   addLegislativeAssembly: "/legislative-assembly/add",
-  viewLegislativeAssembly: "/legislative-assembly/edit/:id",
+  viewLegislativeAssembly: "/legislative-assembly/view/:id",
   editLegislativeAssembly: "/legislative-assembly/edit/:id",
 
   viewAllLegislativeCouncil: "/legislative-council",
   addLegislativeCouncil: "/legislative-council/add",
-  viewLegislativeCouncil: "/legislative-council/edit/:id",
+  viewLegislativeCouncil: "/legislative-council/view/:id",
   editLegislativeCouncil: "/legislative-council/edit/:id",
 
   viewAllLegislativeMember: "/legislative-member",
-  viewLegislativeMember: "/legislative-member/edit/:id",
+  viewLegislativeMember: "/legislative-member/view/:id",
   addLegislativeMember: "/legislative-member/add",
   editLegislativeMember: "/legislative-member/edit/:id",
-  viewMemberProfile: "/legislative-member/profile/edit/:id",
+  viewMemberProfile: "/legislative-member/profile/view/:id",
 
   addLibrary: "/library/add",
-  viewLibrary: "/library/edit/:id",
+  viewLibrary: "/library/view/:id",
   editLibrary: "/library/edit/:id",
   viewAllLibrary: "/library",
 
@@ -59,7 +59,7 @@ export const paths = {
 
   addMantriMandal: "/mantri-mandal/add",
   viewAllMantriMandal: "/mantri-mandal",
-  viewMantriMandal: "/mantri-mandal/edit/:id",
+  viewMantriMandal: "/mantri-mandal/view/:id",
   editMantriMandal: "/mantri-mandal/edit/:id",
 
   addRajyapal: "/rajyapal/add",
@@ -69,12 +69,12 @@ export const paths = {
 
   addSessionCalendar: "/session-calendar/add",
   editSessionCalendar: "/session-calendar/edit/:id",
-  viewSessionCalendar: "/session-calendar/edit/:id",
+  viewSessionCalendar: "/session-calendar/view/:id",
   viewAllSessionCalendar: "/session-calendar",
 
   viewAllVidhanMandal: "/vidhan-mandal",
   addVidhanMandal: "/vidhan-mandal/add",
-  viewVidhanMandal: "/vidhan-mandal/edit/:id",
+  viewVidhanMandal: "/vidhan-mandal/view/:id",
   editVidhanMandal: "/vidhan-mandal/edit/:id",
 
   // masters
@@ -123,6 +123,10 @@ export const paths = {
   viewMinistry: "/ministry",
   editMinistry: "/ministry/edit/:id",
 
+  addMemberName: "/member-name/add",
+  editMemberName: "/member-name/edit/:id",
+  viewMemberName: "/member-name",
+
   addNavigation: "/navigation/add",
   viewNavigation: "/navigation",
   editNavigation: "/navigation/edit/:id",
@@ -170,14 +174,14 @@ export const paths = {
 
   addPortalUser: "/portal-user/add",
   editPortalUser: "/portal-user/edit/:id",
-  viewPortalUser: "/portal-user/",
+  viewPortalUser: "/portal-user",
   blockPortalUser: "/portal-user/block/:id",
   resetPortalUser: "/portal-user/reset/:id",
   uploadPortalUser: "/portal-user/upload/:id",
 
   addSeo: "/seo/add",
   editSeo: "/seo/edit/:id",
-  viewSeo: "/seo/",
+  viewSeo: "/seo",
 
   addTask: "/task/add",
   editTask: "/task/edit/:id",
@@ -193,10 +197,10 @@ export const paths = {
 
   addWorkflow: "/workflow/add",
   editWorkflow: "/workflow/edit/:id",
-  viewWorkflow: "/workflow/edit/:id",
+  viewWorkflow: "/workflow/view/:id",
   viewAllWorkflow: "/workflow",
   viewWorkflowHistory: "/workflow/history",
-  viewArchive: "/workflow/archive",
+  viewArchive: "/archive",
 
   // pendings
   viewWorkflowBiologicalInformation: "/workflow/bio-info/:id",

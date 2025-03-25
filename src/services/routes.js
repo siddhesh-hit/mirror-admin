@@ -123,6 +123,10 @@ import AddLegislativePosition from "pages/masters/legislativePosition/AddLegisla
 import EditLegislativePosition from "pages/masters/legislativePosition/EditLegislativePosition";
 import ViewLegislativePosition from "pages/masters/legislativePosition/ViewLegislativePosition";
 
+import AddMemberName from "pages/masters/memberName/AddMemberName";
+import EditMemberName from "pages/masters/memberName/EditMemberName";
+import ViewMemberName from "pages/masters/memberName/ViewMemberName";
+
 import AddMinistry from "pages/masters/ministry/AddMinistry";
 import ViewMinistry from "pages/masters/ministry/ViewMinistry";
 import EditMinistry from "pages/masters/ministry/EditMinistry";
@@ -872,6 +876,27 @@ export const routes = [
     exact: true,
     access: ["SuperAdmin", "Admin", "ContentCreator"],
     element: <ViewLegislativePosition />,
+  },
+  {
+    name: "Member Names",
+    path: paths.viewMemberName,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <ViewMemberName />,
+  },
+  {
+    name: "Member Names",
+    path: paths.editMemberName,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <EditMemberName />,
+  },
+  {
+    name: "Member Names",
+    path: paths.addMemberName,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <AddMemberName />,
   },
   {
     name: "Ministry",

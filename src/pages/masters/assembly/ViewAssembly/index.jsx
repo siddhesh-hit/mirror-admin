@@ -26,9 +26,7 @@ const ViewAssembly = () => {
   const navigate = useNavigate();
 
   const fetchData = async () => {
-    await getApi(
-      `assembly?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&assembly_name=${pageOptions.assembly_name}`
-    )
+    await getApi(`assembly?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&assembly_name=${pageOptions.assembly_name}`)
       .then((res) => {
         if (res.data.success) {
           setData(res.data.data);

@@ -15,7 +15,6 @@ axiosInstance.interceptors.response.use(
       const { status, data } = error.response;
 
       if (data.logout && status == 401) {
-        console.log(data.message)
         alert(data.message);
         localStorage.removeItem("userInfo");
         window.location.href = "/";

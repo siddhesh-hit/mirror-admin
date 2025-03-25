@@ -84,9 +84,7 @@ const ViewArchive = () => {
                           {/* <td>{item?.state}</td> */}
                           <td>
                             {item?.modelName === "MandalGallery" ? (
-                              <Link
-                                to={`https://mlsapi.sblcorp.com/assets/mandal/${item?.modelId}`}
-                              >
+                              <Link to={`https://mlsapi.sblcorp.com/assets/mandal/${item?.modelId}`} >
                                 <OverlayTrigger
                                   delay={{ hide: 450, show: 300 }}
                                   overlay={(props) => (
@@ -101,10 +99,7 @@ const ViewArchive = () => {
                                 </OverlayTrigger>
                               </Link>
                             ) : (
-                              <Link
-                                to={`/${pageName[item?.modelName]}/${item.modelId
-                                  }`}
-                              >
+                              <Link to={`${pageName[item?.modelName]}/${item.modelId}`} >
                                 <OverlayTrigger
                                   delay={{ hide: 450, show: 300 }}
                                   overlay={(props) => (

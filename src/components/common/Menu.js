@@ -180,6 +180,7 @@ const Menu = () => {
 
               {homePaths?.map((item, index) => {
                 let active = location && item.child.includes(removeIdFromPathname(location.pathname));
+
                 return (
                   <li
                     className={`nav-item borders ${active ? "active" : ""}`}

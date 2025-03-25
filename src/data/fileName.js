@@ -1,15 +1,18 @@
+import { paths } from "services/paths";
+import { removeTailingId } from "./RouteStructure";
+
 export const pageName = {
   Debate: "",
-  Faq: "ViewFaq",
-  MandalGallery: "ViewGallery",
-  Library: "ViewLibrary",
-  VidhanMandal: "ViewVidhanMandal",
-  Member: "ViewLegislativeMember",
-  Minister: "ViewMantriMandal",
-  VidhanParishad: "ViewLegislativeCouncil",
-  RajyapalMember: "ViewRajyapal",
-  VidhanSabha: "ViewLegislativeAssembly",
-  SessionCalendar: "ViewCalendar",
+  Faq: removeTailingId(paths.viewFaq),
+  MandalGallery: removeTailingId(paths.viewFaq),
+  Library: removeTailingId(paths.viewGalleryImage),
+  VidhanMandal: removeTailingId(paths.viewVidhanMandal),
+  Member: removeTailingId(paths.viewMemberProfile),
+  Minister: removeTailingId(paths.viewMantriMandal),
+  VidhanParishad: removeTailingId(paths.viewLegislativeCouncil),
+  RajyapalMember: removeTailingId(paths.viewRajyapal),
+  VidhanSabha: removeTailingId(paths.viewLegislativeAssembly),
+  SessionCalendar: removeTailingId(paths.viewSessionCalendar),
 };
 
 export const newPageName = {
