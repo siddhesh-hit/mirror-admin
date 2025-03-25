@@ -17,6 +17,7 @@ function ElectionData({
     return null;
   }
 
+  const arrayName = data.election_data?.member_election_result?.length > 0 ? data.election_data?.member_election_result : [...Array(divCount)];
   return (
     <div className="mb-5">
       <h2 className="stepper-form">• Election Data</h2>
@@ -30,7 +31,7 @@ function ElectionData({
               <select
                 className="form-control"
                 name="election_data.constituency"
-                value={data?.election_data?.constituency || ""}
+                value={data?.election_data?.constituency?._id || data?.election_data?.constituency}
                 onChange={handleChange}
               >
                 <option hidden value={""}>
@@ -83,7 +84,7 @@ function ElectionData({
             </div>
           </div>
         </div>
-        {[...Array(divCount)].map((_, index) => (
+        {arrayName.map((_, index) => (
           <div className="border_name" key={index}>
             <div className="" style={{ padding: "0px 20px" }}>
               <h2 className="stepper-form mb-2 mt-5">
@@ -102,10 +103,7 @@ function ElectionData({
                       <input
                         type="text"
                         name={`election_data.member_election_result.candidate_name.${index}`}
-                        defaultValue={
-                          data.election_data.member_election_result[index]
-                            .candidate_name
-                        }
+                        defaultValue={data.election_data.member_election_result[index].candidate_name}
                         onChange={handleChange}
                         className="form-control"
                         placeholder="Enter Candidate Name"
@@ -123,9 +121,7 @@ function ElectionData({
                       <input
                         type="string"
                         name={`election_data.member_election_result.votes.${index}`}
-                        defaultValue={
-                          data.election_data.member_election_result[index].votes
-                        }
+                        defaultValue={data.election_data.member_election_result[index].votes}
                         onChange={handleChange}
                         className="form-control"
                         placeholder=" Enter Votes"
@@ -143,10 +139,7 @@ function ElectionData({
                       <select
                         className="form-control"
                         name={`election_data.member_election_result.party.${index}`}
-                        value={
-                          data?.election_data?.member_election_result[index]
-                            ?.party || ""
-                        }
+                        value={data?.election_data?.member_election_result[index]?.party?._id || data?.election_data?.member_election_result[index]?.party}
                         onChange={handleChange}
                       >
                         <option hidden value={""}>
@@ -170,18 +163,11 @@ function ElectionData({
 
             {index === 0 && (
               <div onClick={addDiv} className="addSubButton mb-4">
-                <img
-                  src={addwhite}
-                  // style={{ height: "25px", width: "25px" }}
-                  alt="add"
-                />
+                <img src={addwhite} alt="add" />
               </div>
             )}
             {index !== 0 && (
-              <div
-                onClick={() => removeDiv(index)}
-                className="addSubButton mb-4"
-              >
+              <div onClick={() => removeDiv(index)} className="addSubButton mb-4" >
                 <img src={remove} alt="Remove" />
               </div>
             )}

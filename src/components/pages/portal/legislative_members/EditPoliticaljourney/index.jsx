@@ -21,8 +21,6 @@ function EditPoliticalJourney({
     return null;
   }
 
-  console.log(Data);
-
   return (
     <div className="mb-5">
       <h2 className="stepper-form">• Legislative Journey</h2>
