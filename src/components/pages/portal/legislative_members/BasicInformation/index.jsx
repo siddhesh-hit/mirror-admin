@@ -195,7 +195,7 @@ function BasicInformation({
                 htmlFor="customFile"
               >
                 Image -{" "}
-                {data.basic_info.profile ? data.basic_info.profile.name : ""}
+                {data.basic_info.profile ? data.basic_info.profile?.filename || data.basic_info.profile.name : ""}
               </label>
             </div>
             <p className="photo_disclaimer">
