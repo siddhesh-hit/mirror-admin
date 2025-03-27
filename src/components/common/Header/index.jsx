@@ -12,6 +12,7 @@ import { decrypt } from "lib/encrypt";
 import { formatEnUsDateTime } from "lib/dateEnUsFormat";
 
 export default function Header() {
+  const [userId, setUserID] = useState(null);
   const [userProfile, setUserProfile] = useState({});
   const [notify, setNt] = useState({});
   const [notification, setNotification] = useState([]);
@@ -63,18 +64,28 @@ export default function Header() {
       .catch((err) => console.log(err));
   };
 
+  const fetchUserProfile = async () => {
+    if (userId) {
+      const res = await getApiById("user", userId);
+
+      if (res.data.success) {
+        res.data.data.notificationId && fetchData(res.data.data.notificationId);
+        return setUserProfile(res.data.data);
+      }
+    }
+  };
+
   useEffect(() => {
     if (state && state.user && decrypt(state.user)) {
-      let deData = JSON.parse(decrypt(state.user));
-      deData && setUserProfile(deData);
+      setUserID(decrypt(state.user));
     } else {
       navigate("/");
     }
   }, [state]);
 
   useEffect(() => {
-    userProfile.notificationId && fetchData(userProfile.notificationId);
-  }, [userProfile]);
+    if (userId) fetchUserProfile();
+  }, [userId]);
 
   return (
     <nav className="main-header navbar navbar-expand navbar-white navbar-light">

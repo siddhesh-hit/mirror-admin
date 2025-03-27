@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, InputGroup, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,7 @@ import { login } from "sredux/authSlice";
 import { encrypt } from "lib/encrypt";
 import Captcha from "components/common/Captcha";
 import ReCAPTCHA from "react-google-recaptcha";
+import { paths } from "services/paths";
 
 const Login = () => {
   // const naviagte = useNavigate();
@@ -22,6 +23,7 @@ const Login = () => {
   const [isSubmitted, setSubmit] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const captchaRef = useRef();
 
   const togglePassword = () => {
@@ -76,12 +78,14 @@ const Login = () => {
             setErrors((pre) => ({ ...pre, error: false }));
             toast.success("Login Successfully");
 
-            let enData = encrypt(res.data.data);
+            let enData = encrypt(res.data.data._id);
             localStorage.setItem("userInfo", enData);
             dispatch(login(enData));
 
             setTimeout(() => {
-              window.location.href = "/Dashboard";
+              // window.location.href = "/Dashboard";
+              navigate(paths.dashboard, { replace: true });
+              // window.location.reload();
             }, 1100);
           }
         })

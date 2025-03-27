@@ -1,5 +1,7 @@
 // portals
 export const paths = {
+  dashboard: '/dashboard',
+
   addBiologicalInformation: "/bio-info/add",
   viewBiologicalInformation: "/bio-info/view/:id",
   editBiologicalInformation: "/bio-info/edit/:id",

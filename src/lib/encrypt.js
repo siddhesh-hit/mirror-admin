@@ -13,7 +13,7 @@ function decrypt(data) {
   if (!data) return;
   data = CryptoJS.AES.decrypt(data, SECRET_KEY);
   data = data.toString(CryptoJS.enc.Utf8);
-  return data;
+  return data.replaceAll(`"`, "");
 }
 
 export { encrypt, decrypt };
