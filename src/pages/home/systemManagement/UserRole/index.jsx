@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
-import { auth } from "data/RouteStructure";
-import { getApi } from "services/axiosInterceptors";
+import { auth, removeTailingId } from "data/RouteStructure";
+import { getApi } from "services/axios";
 import { Link } from "react-router-dom";
 import { paths } from "services/paths";
 
@@ -128,7 +128,7 @@ const UserRole = () => {
                         </div>
                       </td>
                       <td>
-                        <Link to={`${paths.editRole}?id=${item._id}`}>
+                        <Link to={`${removeTailingId(paths.editRole)}/${item._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (

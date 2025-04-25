@@ -5,8 +5,9 @@ import { toast } from "react-toastify";
 
 import add from "assets/add.svg";
 
-import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { getApi, postApi, deleteApi } from "services/axios";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewAllLibrary = () => {
   const [data, setData] = useState([]);
@@ -119,7 +120,7 @@ const ViewAllLibrary = () => {
                           </td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link to={`${paths.viewLibrary}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.viewLibrary)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -132,7 +133,7 @@ const ViewAllLibrary = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`${paths.editLibrary}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editLibrary)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

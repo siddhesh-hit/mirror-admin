@@ -7,8 +7,9 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { deleteApi, getApi } from "services/axiosInterceptors";
+import { deleteApi, getApi } from "services/axios";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewSEO = () => {
   const [data, setData] = useState([]);
@@ -121,7 +122,7 @@ const ViewSEO = () => {
                             <h4>{item.title}</h4>
                           </td>
                           <td>
-                            <Link to={`${paths.editSeo}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editSeo)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

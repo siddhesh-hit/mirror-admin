@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import add from "assets/add.svg";
 
-import { getApiById } from "services/axiosInterceptors";
+import { getApiById } from "services/axios";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewWorkflow = () => {
   const [data, setData] = useState([]);
 
-  const location = useLocation();
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("pending", id)
@@ -57,7 +57,7 @@ const ViewWorkflow = () => {
                       <td>{data.action}</td>
                       <td>
                         <Link
-                          to={`${paths.editWorkflow}?id=${data._id}&action=${data.action}`}
+                          to={`${removeTailingId(paths.editWorkflow)}/${data._id}&action=${data.action}`}
                         >
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import add from "assets/back.svg";
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 import { paths } from "services/paths";
 
 const AddLegislativePosition = () => {

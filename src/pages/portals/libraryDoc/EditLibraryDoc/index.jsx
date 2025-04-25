@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const EditLibraryDoc = () => {
@@ -10,6 +10,7 @@ const EditLibraryDoc = () => {
   const [isSubmitted, setSubmit] = useState(false);
 
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [serverData, setServerData] = useState({
     english: {
@@ -21,13 +22,10 @@ const EditLibraryDoc = () => {
     banner: {},
   });
 
-  const location = useLocation();
 
   const fetchData = async () => {
-    const id = location.search.split("=")[1];
     await getApiById("library", id)
       .then((res) => {
-        console.log(res);
         setData(res.data.data);
         setServerData((prev) => ({
           ...prev,

@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import back from "assets/back.svg";
 
-import { getApiById } from "services/axiosInterceptors";
+import { getApiById } from "services/axios";
 import { paths } from "services/paths";
 
 const ViewFeedback = () => {
   const [data, setData] = useState([]);
-  const location = useLocation();
-  const id = location.search.split("=")[1];
+
+  const { id } = useParams();
+
   const fetchData = async () => {
     await getApiById("feedback", id)
       .then((res) => {
@@ -20,11 +21,11 @@ const ViewFeedback = () => {
         console.log(err);
       });
   };
-  console.log(data);
 
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">

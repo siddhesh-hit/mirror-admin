@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import remove from "assets/remove.svg";
 import addwhite from "assets/addwhite.svg";
 
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 
 const EditHouse = () => {
   const [divCount, setDivCount] = useState(1);

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import back from "assets/back.svg";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { paths } from "services/paths";
@@ -13,9 +13,10 @@ const EditFaq = () => {
   const [data, setData] = useState({});
   const [isToggled, setIsToggled] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
+
+  console.log(id)
 
   const fetchData = async () => {
     await getApiById("faq", id)
@@ -69,7 +70,7 @@ const EditFaq = () => {
         if (res.data.success) {
           toast.success("Updated FAQ");
           setTimeout(() => {
-            navigate(`${paths.viewFaq}?id=${id}`);
+            navigate(`${paths.viewFaq}/${id}`);
           }, 1100);
         }
       })

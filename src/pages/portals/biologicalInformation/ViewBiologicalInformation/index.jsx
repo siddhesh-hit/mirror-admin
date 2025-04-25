@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import add from "assets/add.svg";
 
-import { getApiById } from "services/axiosInterceptors";
+import { getApiById } from "services/axios";
 import { paths } from "services/paths";
 
 const ViewBiologicalInformation = () => {
@@ -64,8 +64,7 @@ const ViewBiologicalInformation = () => {
     },
   });
 
-  const location = useLocation();
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("graph", id)

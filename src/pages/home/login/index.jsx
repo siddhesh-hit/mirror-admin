@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, InputGroup, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
 import logo from "assets/logo.svg";
 
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 import { login } from "sredux/authSlice";
 import { encrypt } from "lib/encrypt";
 import Captcha from "components/common/Captcha";
+import ReCAPTCHA from "react-google-recaptcha";
+import { paths } from "services/paths";
 
 const Login = () => {
   // const naviagte = useNavigate();
@@ -21,6 +23,8 @@ const Login = () => {
   const [isSubmitted, setSubmit] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const captchaRef = useRef();
 
   const togglePassword = () => {
     setPasswordType(passwordType === "password" ? "text" : "password");
@@ -46,11 +50,19 @@ const Login = () => {
 
     if (!email || !password) {
       toast.error("Fill the fields first!");
+      if (captchaRef.current) {
+        captchaRef.current?.reset();
+        setCaptcha(null);
+      }
       return;
     }
 
     if (!captcha) {
       toast.error("Captcha is filled wrong");
+      if (captchaRef.current) {
+        captchaRef.current?.reset();
+        setCaptcha(null);
+      }
       return;
     }
 
@@ -66,12 +78,14 @@ const Login = () => {
             setErrors((pre) => ({ ...pre, error: false }));
             toast.success("Login Successfully");
 
-            let enData = encrypt(res.data.data);
+            let enData = encrypt(res.data.data._id);
             localStorage.setItem("userInfo", enData);
             dispatch(login(enData));
 
             setTimeout(() => {
-              window.location.href = "/Dashboard";
+              // window.location.href = "/Dashboard";
+              navigate(paths.dashboard, { replace: true });
+              // window.location.reload();
             }, 1100);
           }
         })
@@ -79,18 +93,14 @@ const Login = () => {
           console.log(err);
           toast.error("Failed to Sign in");
           err.data && setErrors((pre) => ({ ...pre, error: true }));
+          if (captchaRef.current) {
+            captchaRef.current?.reset();
+            setCaptcha(null);
+          }
         });
     }
     setSubmit(false);
   };
-
-  const getIsCurrent = (data) => {
-    console.log(data);
-    setCaptcha(data);
-  };
-  // useEffect(() => {
-  //   getIsCurrent();
-  // }, [captcha]);
 
   return (
     <div className="container-fluid loginboxpage" style={{ height: "100vh" }}>
@@ -113,6 +123,7 @@ const Login = () => {
                   placeholder="Email ID"
                   aria-label="Email ID"
                   aria-describedby="basic-addon1"
+                  autoComplete="off"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 // onBlur={validateForm} // Validate on blur
@@ -128,6 +139,7 @@ const Login = () => {
                   placeholder="Password"
                   aria-label="Password"
                   aria-describedby="basic-addon1"
+                  autoComplete="off"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 // onBlur={validateForm} // Validate on blur
@@ -147,7 +159,8 @@ const Login = () => {
                 <p className="error">{"something went wromg"}</p>
               )}
 
-              <Captcha getIsCurrent={getIsCurrent} />
+              {/* <Captcha getIsCurrent={getIsCurrent} /> */}
+              <ReCAPTCHA ref={captchaRef} sitekey={process.env.REACT_APP_CAPTCHA_V2} onChange={data => setCaptcha(data)} />
 
               <Button type="submit" variant="primary" className="mt-3">
                 Sign In

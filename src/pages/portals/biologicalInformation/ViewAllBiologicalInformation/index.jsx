@@ -5,8 +5,9 @@ import { toast } from "react-toastify";
 
 import add from "assets/add.svg";
 
-import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { getApi, postApi, deleteApi } from "services/axios";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewAllBiologicalInformation = () => {
   const [data, setData] = useState([]);
@@ -115,9 +116,7 @@ const ViewAllBiologicalInformation = () => {
                           </td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link
-                              to={`${paths.viewBiologicalInformation}?id=${item._id}`}
-                            >
+                            <Link to={`${paths.viewBiologicalInformation}/${item._id}`} >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -130,9 +129,7 @@ const ViewAllBiologicalInformation = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link
-                              to={`${paths.editBiologicalInformation}?id=${item._id}`}
-                            >
+                            <Link to={`${removeTailingId(paths.editBiologicalInformation)}/${item._id}`} >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

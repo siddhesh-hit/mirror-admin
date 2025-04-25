@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { OverlayTrigger, Tooltip, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 import back from "assets/back.svg";
 
-import { API } from "lib/api";
-import { getApiById, putApi } from "services/axiosInterceptors";
+
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const ViewWorkflowContactUs = () => {
@@ -20,12 +20,12 @@ const ViewWorkflowContactUs = () => {
     Delete: "updateDel",
   };
 
-  const location = useLocation();
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [searchParams, _] = useSearchParams();
 
-  const id = location.search.split("&")[0].split("=")[1];
-  const action = location?.search?.split("&")[1]?.split("=")[1];
-  const history = location?.search?.split("&")[2]?.split("=")[1];
+  const action = searchParams.get("action");
+  const history = searchParams.get("history");
 
   const fetchData = async () => {
     try {

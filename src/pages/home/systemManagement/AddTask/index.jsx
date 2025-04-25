@@ -4,7 +4,7 @@ import Select from "react-select";
 
 import add from "assets/back.svg";
 import { routes, auth } from "data/RouteStructure";
-import { getApi } from "services/axiosInterceptors";
+import { getApi } from "services/axios";
 
 const AddTask = () => {
   const [user, setUser] = useState([]);

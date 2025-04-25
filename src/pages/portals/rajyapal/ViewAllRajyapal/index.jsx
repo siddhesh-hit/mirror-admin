@@ -5,8 +5,9 @@ import { toast } from "react-toastify";
 
 import add from "assets/add.svg";
 
-import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { getApi, postApi, deleteApi } from "services/axios";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewAllRajyapal = () => {
   const [isSubmitted, setSubmit] = useState({
@@ -123,7 +124,7 @@ const ViewAllRajyapal = () => {
                           <td>{item.isCurrent ? "Active" : "Inactive"}</td>
                           <td>{item.isActive ? "Active" : "Inactive"}</td>
                           <td>
-                            <Link to={`${paths.viewRajyapal}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.viewRajyapal)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -136,7 +137,7 @@ const ViewAllRajyapal = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`${paths.editRajyapal}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editRajyapal)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

@@ -8,7 +8,7 @@ import addwhite from "assets/addwhite.svg";
 import remove from "assets/remove.svg";
 import back from "assets/back.svg";
 
-import { getApi, postApi } from "services/axiosInterceptors";
+import { getApi, postApi } from "services/axios";
 import { paths } from "services/paths";
 
 const AddSessionCalendar = () => {

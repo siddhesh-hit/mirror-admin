@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import back from "assets/back.svg";
 
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams, useSearchParams } from "react-router-dom";
 import { OverlayTrigger, Tooltip, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 
-import { API } from "lib/api";
-import { getApiById, putApi } from "services/axiosInterceptors";
+
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const ViewWorkflowVidhanMandal = () => {
@@ -20,12 +20,12 @@ const ViewWorkflowVidhanMandal = () => {
     Delete: "updateDel",
   };
 
-  const location = useLocation();
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [searchParams, _] = useSearchParams();
 
-  const id = location.search.split("&")[0].split("=")[1];
-  const action = location?.search?.split("&")[1]?.split("=")[1];
-  const history = location?.search?.split("&")[2]?.split("=")[1];
+  const action = searchParams.get("action");
+  const history = searchParams.get("history");
 
   const fetchData = async () => {
     try {
@@ -116,7 +116,7 @@ const ViewWorkflowVidhanMandal = () => {
                             >
                               <a
                                 href={
-                                  API.baseUrl +
+                                  process.env.REACT_APP_IMG_URL +
                                   data?.data_object.mandal_image[index].image
                                     .destination +
                                   "/" +
@@ -166,7 +166,7 @@ const ViewWorkflowVidhanMandal = () => {
                             {/* Display file name for Marathi */}
                             <a
                               href={
-                                API.baseUrl +
+                                process.env.REACT_APP_IMG_URL +
                                 data?.data_object.mandal_image[index].documents
                                   .destination +
                                 "/" +

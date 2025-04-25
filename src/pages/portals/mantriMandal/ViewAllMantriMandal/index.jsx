@@ -7,8 +7,9 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { getApi, postApi, deleteApi } from "services/axiosInterceptors";
+import { getApi, postApi, deleteApi } from "services/axios";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewAllMantriMandal = () => {
   const [data, setData] = useState([]);
@@ -153,7 +154,7 @@ const ViewAllMantriMandal = () => {
                               item.member_name.basic_info.surname}
                           </td>
                           <td>
-                            <Link to={`${paths.viewMantriMandal}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.viewMantriMandal)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -166,7 +167,7 @@ const ViewAllMantriMandal = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link to={`${paths.editMantriMandal}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editMantriMandal)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

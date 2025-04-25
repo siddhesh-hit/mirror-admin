@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { getApi, putApi } from "services/axiosInterceptors";
+import { getApi, putApi } from "services/axios";
 import { toast } from "react-toastify";
 import { paths } from "services/paths";
 
@@ -10,8 +10,7 @@ const EditRole = () => {
   const [isSubmitted, setSubmit] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
 
   const handleChange = (e) => {
     let bool = e.target.checked;

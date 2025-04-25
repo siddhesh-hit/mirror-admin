@@ -6,8 +6,9 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { getApi } from "services/axiosInterceptors";
+import { getApi } from "services/axios";
 import { paths } from "services/paths";
+import { removeIdFromPathname, removeTailingId } from "data/RouteStructure";
 
 const ViewAllUserAudit = () => {
   const [data, setData] = useState([]);
@@ -114,7 +115,7 @@ const ViewAllUserAudit = () => {
                           <p>{item.email}</p>
                         </td>
                         <td>
-                          <Link to={`${paths.viewUserAudit}?id=${item._id}`}>
+                          <Link to={`${removeTailingId(paths.viewUserAudit)}/${item._id}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
                               overlay={(props) => (

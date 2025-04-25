@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
@@ -8,7 +8,7 @@ import remove from "assets/remove.svg";
 import back from "assets/back.svg";
 import addwhite from "assets/addwhite.svg";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { addMinistry } from "validations/masters/ministry";
 import { formatDateForInput } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";
@@ -18,10 +18,8 @@ const EditMinistry = () => {
   const [data, setData] = useState({});
   const [isSubmitted, setSubmit] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
 
   const addDiv = () => {
     let newData = {

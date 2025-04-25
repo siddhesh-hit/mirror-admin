@@ -19,11 +19,13 @@ function PoliticalJourney({
   if (currentStep !== 2) {
     return null;
   }
+
+  const arrayName = data.political_journey?.length > 0 ? data.political_journey : [...Array(divCount)];
   return (
     <div className="mb-5">
       <h2 className="stepper-form">• Political Journey</h2>
       <form>
-        {[...Array(divCount)].map((_, index) => (
+        {arrayName.map((_, index) => (
           <div className="formss border_names" key={index}>
             <div className="form-group row">
               <label
@@ -36,7 +38,7 @@ function PoliticalJourney({
                 <DatePicker
                   name={`political_journey.date.${index}`}
                   label="Select your date"
-                  defaultValue={dayjs("")}
+                  defaultValue={dayjs(data.political_journey[index]?.date) || dayjs("")}
                   onChange={(date) =>
                     setData((prev) => {
                       const politicals = [...prev.political_journey];
@@ -45,7 +47,8 @@ function PoliticalJourney({
                         date: date.format(),
                       };
 
-                      return politicals;
+                      prev.political_journey = politicals;
+                      return prev;
                     })
                   }
                   format="DD/MM/YYYY"
@@ -83,6 +86,7 @@ function PoliticalJourney({
               <div className="col-sm-8">
                 <select
                   className="form-control"
+                  value={data.political_journey[index].presiding?._id || data.political_journey[index].presiding}
                   name={`political_journey.presiding.${index}`}
                   onChange={handleChange}
                 >
@@ -109,6 +113,7 @@ function PoliticalJourney({
               <div className="col-sm-8">
                 <select
                   className="form-control"
+                  value={data.political_journey[index].legislative_position?._id || data.political_journey[index].legislative_position}
                   name={`political_journey.legislative_position.${index}`}
                   onChange={handleChange}
                 >
@@ -135,6 +140,7 @@ function PoliticalJourney({
               <div className="col-sm-8">
                 <select
                   className="form-control"
+                  value={data.political_journey[index].designation?._id || data.political_journey[index].designation}
                   name={`political_journey.designation.${index}`}
                   onChange={handleChange}
                 >

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const EditBiologicalInformation = () => {
@@ -117,9 +117,8 @@ const EditBiologicalInformation = () => {
     </tr>
   );
 
-  const location = useLocation();
   const navigate = useNavigate();
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
 
   const convertToNumber = (value) => {
     const match = value.match(/\[(\d+)\]/);

@@ -7,9 +7,10 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { deleteApi, getApi } from "services/axiosInterceptors";
+import { deleteApi, getApi } from "services/axios";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewAssembly = () => {
   const [data, setData] = useState([]);
@@ -25,9 +26,7 @@ const ViewAssembly = () => {
   const navigate = useNavigate();
 
   const fetchData = async () => {
-    await getApi(
-      `assembly?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&assembly_name=${pageOptions.assembly_name}`
-    )
+    await getApi(`assembly?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&assembly_name=${pageOptions.assembly_name}`)
       .then((res) => {
         if (res.data.success) {
           setData(res.data.data);
@@ -132,7 +131,7 @@ const ViewAssembly = () => {
                             <h4>{formatEnUsDate(item.end_date)}</h4>
                           </td>
                           <td>
-                            <Link to={`${paths.editAssembly}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editAssembly)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

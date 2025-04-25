@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 
@@ -12,7 +12,7 @@ import {
   getApiById,
   putApi,
   getApi,
-} from "services/axiosInterceptors";
+} from "services/axios";
 import { formatDateForInput } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";
 
@@ -41,9 +41,7 @@ const EditSessionCalendar = () => {
   });
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
 
   const addDocument = () => {
     let newDoc = {

@@ -6,12 +6,9 @@ function Loader() {
       {/* <Spinner animation="grow" /> */}
 
       <section className="wrapper">
-        <div className="card">
-          <div className="loading">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+        <div className="loading">
+          <div></div>
+          <div></div>
         </div>
       </section>
     </>

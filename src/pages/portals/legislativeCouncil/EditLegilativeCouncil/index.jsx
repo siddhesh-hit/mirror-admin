@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 
 import addwhite from "assets/addwhite.svg";
 import remove from "assets/remove.svg";
@@ -20,8 +20,7 @@ const EditLegislativeCouncil = () => {
   const [isToggled, setIsToggled] = useState(false);
   const [isSubmitted, setSubmit] = useState(false);
 
-  const location = useLocation();
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const addCouncil = () => {

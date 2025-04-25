@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import { getApi } from "services/axiosInterceptors";
+import { getApi } from "services/axios";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
 
 import add from "assets/view.svg";
-import useDebounce from "lib/useDebounce";
+import useDebounce from "hooks/useDebounce";
 import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import Loader from "components/common/Loader";

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import add from "assets/add.svg";
 import back from "assets/back.svg";
 import remove from "assets/remove.svg";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const EditNavigation = () => {
@@ -17,8 +17,7 @@ const EditNavigation = () => {
   const [data, setData] = useState({});
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("navigation", id)

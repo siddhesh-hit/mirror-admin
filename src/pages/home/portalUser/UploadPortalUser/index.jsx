@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import back from "assets/back.svg";
 
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 import { toast } from "react-toastify";
 import { paths } from "services/paths";
 

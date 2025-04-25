@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { toast } from "react-toastify";
 import { paths } from "services/paths";
 
@@ -11,9 +11,8 @@ const EditRequest = () => {
   const [isRejected, setIsRejected] = useState(false);
   const [isSubmitted, setSubmit] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("request", id)
@@ -76,7 +75,7 @@ const EditRequest = () => {
         if (res.data.success) {
           toast.success("Request updated successfully!");
           setTimeout(() => {
-            navigate(`${paths.viewRequest}?id=${id}`);
+            navigate(`${paths.viewRequest}/${id}`);
           }, 1110);
         }
       })

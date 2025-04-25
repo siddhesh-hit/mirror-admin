@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
-import add from "assets/add.svg";
+import back from "assets/back.svg";
 
-import { API } from "lib/api";
-import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
+import { useDataFetchingForBothApis } from "hooks/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewLibrary = () => {
   const { data, loading, error } = useDataFetchingForBothApis("library");
@@ -18,9 +18,9 @@ const ViewLibrary = () => {
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
-        <Link to={paths.addLibrary} className="addpagess">
-          <img src={add} alt="add" />
-          Add Library
+        <Link to={paths.viewAllLibrary} className="addpagess">
+          <img src={back} style={{ width: "25px" }} alt="add" />
+          Go back
         </Link>
         <h4 className="page-title">• View Library</h4>
         <div className="card card-info">
@@ -45,7 +45,7 @@ const ViewLibrary = () => {
                       <td>
                         <a
                           href={
-                            API.baseUrl +
+                            process.env.REACT_APP_IMG_URL +
                             data.banner.destination +
                             "/" +
                             data.banner.filename
@@ -68,25 +68,21 @@ const ViewLibrary = () => {
                         {/* Display description for English */}
                         <p>
                           <span
-                            dangerouslySetInnerHTML={{
-                              __html: data.english.description,
-                            }}
-                          ></span>
+                            dangerouslySetInnerHTML={{ __html: data.english.description, }}
+                          />
                         </p>
                       </td>
                       <td className="scrolltabss">
                         {/* Display description for Marathi */}
                         <p>
                           <span
-                            dangerouslySetInnerHTML={{
-                              __html: data.marathi.description,
-                            }}
-                          ></span>
+                            dangerouslySetInnerHTML={{ __html: data.marathi.description, }}
+                          />
                         </p>
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`${paths.editLibrary}?id=${data._id}`}>
+                        <Link to={`${removeTailingId(paths.editLibrary)}/${data._id}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (
@@ -109,9 +105,9 @@ const ViewLibrary = () => {
         </div>
       </div>
       <div className="contentofpages">
-        <Link to={paths.addLibraryDoc} className="addpagess">
-          <img src={add} alt="add" />
-          Add Library Document
+        <Link to={paths.viewAllLibrary} className="addpagess">
+          <img src={back} style={{ width: "25px" }} alt="add" />
+          Go back
         </Link>
         <h4 className="page-title">• View Library Documents</h4>
         <div className="card card-info">
@@ -136,7 +132,7 @@ const ViewLibrary = () => {
                       <td>
                         <a
                           href={
-                            API.baseUrl +
+                            process.env.REACT_APP_IMG_URL +
                             data.banner.destination +
                             "/" +
                             data.banner.filename
@@ -177,7 +173,7 @@ const ViewLibrary = () => {
                       </td>
                       <td>
                         {/* Display edit link */}
-                        <Link to={`${paths.editLibraryDoc}`}>
+                        <Link to={`${removeTailingId(paths.editLibraryDoc)}`}>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
                             overlay={(props) => (

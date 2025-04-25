@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -7,8 +7,8 @@ import dayjs, { Dayjs } from "dayjs";
 
 import back from "assets/back.svg";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
-import { API } from "lib/api";
+import { getApiById, putApi } from "services/axios";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { formatDateForInput } from "lib/dateEnUsFormat";
@@ -27,10 +27,8 @@ const EditRajyapal = () => {
     },
   ]);
 
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
 
   const fetchData = async () => {
     await getApiById("rajyapal", id)
@@ -577,7 +575,7 @@ const EditRajyapal = () => {
                                           <a
                                             className="dsldl"
                                             href={
-                                              API.baseUrl +
+                                              process.env.REACT_APP_IMG_URL +
                                               language.content.destination +
                                               "/" +
                                               language.content.filename

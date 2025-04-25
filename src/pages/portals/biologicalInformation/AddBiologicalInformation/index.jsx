@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import add from "assets/add.svg";
 import remove from "assets/remove.svg";
 
-import { postApi } from "services/axiosInterceptors";
+import { postApi } from "services/axios";
 import { paths } from "services/paths";
 
 const AddBiologicalInformation = () => {

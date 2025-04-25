@@ -7,7 +7,7 @@ import dayjs, { Dayjs } from "dayjs";
 
 import back from "assets/back.svg";
 
-import { getApi, postApi } from "services/axiosInterceptors";
+import { getApi, postApi } from "services/axios";
 import { paths } from "services/paths";
 
 const AddMantriMandal = () => {

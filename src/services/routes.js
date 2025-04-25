@@ -123,6 +123,10 @@ import AddLegislativePosition from "pages/masters/legislativePosition/AddLegisla
 import EditLegislativePosition from "pages/masters/legislativePosition/EditLegislativePosition";
 import ViewLegislativePosition from "pages/masters/legislativePosition/ViewLegislativePosition";
 
+import AddMemberName from "pages/masters/memberName/AddMemberName";
+import EditMemberName from "pages/masters/memberName/EditMemberName";
+import ViewMemberName from "pages/masters/memberName/ViewMemberName";
+
 import AddMinistry from "pages/masters/ministry/AddMinistry";
 import ViewMinistry from "pages/masters/ministry/ViewMinistry";
 import EditMinistry from "pages/masters/ministry/EditMinistry";
@@ -145,9 +149,9 @@ import EditSessionField from "pages/masters/sessionField/EditSessionField";
 
 // HOME ROUTES
 
-import ViewAudit from "pages/home/auditTrail/ViewAudit";
-import ViewAllUserAudit from "pages/home/auditTrail/ViewAllUserAudit";
-import ViewUserAudit from "pages/home/auditTrail/ViewUserAudit";
+import ViewAudit from "pages/home/audit-trail/ViewAudit";
+import ViewAllUserAudit from "pages/home/audit-trail/ViewAllUserAudit";
+import ViewUserAudit from "pages/home/audit-trail/ViewUserAudit";
 
 import AddContact from "pages/home/contactUs/AddContact";
 import EditContact from "pages/home/contactUs/EditContact";
@@ -874,6 +878,27 @@ export const routes = [
     element: <ViewLegislativePosition />,
   },
   {
+    name: "Member Names",
+    path: paths.viewMemberName,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <ViewMemberName />,
+  },
+  {
+    name: "Member Names",
+    path: paths.editMemberName,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <EditMemberName />,
+  },
+  {
+    name: "Member Names",
+    path: paths.addMemberName,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <AddMemberName />,
+  },
+  {
     name: "Ministry",
     path: paths.addMinistry,
     exact: true,
@@ -1221,7 +1246,7 @@ export const routes = [
   },
   {
     name: "User Management",
-    path: paths.addContact,
+    path: paths.editRole,
     exact: true,
     access: ["SuperAdmin", "Admin"],
     element: <EditRole />,

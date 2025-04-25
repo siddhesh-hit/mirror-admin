@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import back from "assets/back.svg";
 
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams, useSearchParams } from "react-router-dom";
 import { OverlayTrigger, Tooltip, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 
-import { API } from "lib/api";
-import { getApiById, putApi } from "services/axiosInterceptors";
+
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const ViewWorkflowLegislativeCouncil = () => {
@@ -20,12 +20,12 @@ const ViewWorkflowLegislativeCouncil = () => {
     Delete: "updateDel",
   };
 
-  const location = useLocation();
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [searchParams, _] = useSearchParams();
 
-  const id = location.search.split("&")[0].split("=")[1];
-  const action = location?.search?.split("&")[1]?.split("=")[1];
-  const history = location?.search?.split("&")[2]?.split("=")[1];
+  const action = searchParams.get("action");
+  const history = searchParams.get("history");
 
   const fetchData = async () => {
     try {
@@ -104,7 +104,7 @@ const ViewWorkflowLegislativeCouncil = () => {
                           <td>
                             <a
                               href={
-                                API.baseUrl +
+                                process.env.REACT_APP_IMG_URL +
                                 data?.data_object?.banner_image.destination +
                                 "/" +
                                 data?.data_object?.banner_image.filename
@@ -175,7 +175,7 @@ const ViewWorkflowLegislativeCouncil = () => {
                             <td>
                               <a
                                 href={
-                                  API.baseUrl +
+                                  process.env.REACT_APP_IMG_URL +
                                   item.english.document.destination +
                                   "/" +
                                   item.english.document.filename
@@ -203,7 +203,7 @@ const ViewWorkflowLegislativeCouncil = () => {
                             <td>
                               <a
                                 href={
-                                  API.baseUrl +
+                                  process.env.REACT_APP_IMG_URL +
                                   item.marathi.document.destination +
                                   "/" +
                                   item.marathi.document.filename
@@ -267,7 +267,7 @@ const ViewWorkflowLegislativeCouncil = () => {
                           <td>
                             <a
                               href={
-                                API.baseUrl +
+                                process.env.REACT_APP_IMG_URL +
                                 data?.data_object.structure_profile
                                   .destination +
                                 "/" +
@@ -347,7 +347,7 @@ const ViewWorkflowLegislativeCouncil = () => {
                             <td>
                               <a
                                 href={
-                                  API.baseUrl +
+                                  process.env.REACT_APP_IMG_URL +
                                   item.council_profile.destination +
                                   "/" +
                                   item.council_profile.filename

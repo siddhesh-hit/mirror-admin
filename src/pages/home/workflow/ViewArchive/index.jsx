@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import history from "assets/history.svg";
 
-import { getApi, postApi, putApi } from "services/axiosInterceptors";
+import { getApi, postApi, putApi } from "services/axios";
 import { pageName } from "data/fileName";
 import { toast } from "react-toastify";
 import { formatEnUsDateTime } from "lib/dateEnUsFormat";
@@ -84,9 +84,7 @@ const ViewArchive = () => {
                           {/* <td>{item?.state}</td> */}
                           <td>
                             {item?.modelName === "MandalGallery" ? (
-                              <Link
-                                to={`https://mlsapi.sblcorp.com/assets/mandal/${item?.modelId}`}
-                              >
+                              <Link to={`https://mlsapi.sblcorp.com/assets/mandal/${item?.modelId}`} >
                                 <OverlayTrigger
                                   delay={{ hide: 450, show: 300 }}
                                   overlay={(props) => (
@@ -101,10 +99,7 @@ const ViewArchive = () => {
                                 </OverlayTrigger>
                               </Link>
                             ) : (
-                              <Link
-                                to={`/${pageName[item?.modelName]}?id=${item.modelId
-                                  }`}
-                              >
+                              <Link to={`${pageName[item?.modelName]}/${item.modelId}`} >
                                 <OverlayTrigger
                                   delay={{ hide: 450, show: 300 }}
                                   overlay={(props) => (
@@ -122,7 +117,7 @@ const ViewArchive = () => {
                           </td>
                           {/* <td>
                             <Link
-                              to={`/EditWorkflow?id=${item._id}&action=${item.action}`}
+                              to={`/EditWorkflow/${item._id}&action=${item.action}`}
                             >
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}

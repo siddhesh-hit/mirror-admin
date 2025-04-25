@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import back from "assets/back.svg";
 
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams, useSearchParams } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 
-import { API } from "lib/api";
-import { getApiById, putApi } from "services/axiosInterceptors";
+
+import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
 const ViewWorkflowGalleryImage = () => {
@@ -20,12 +20,12 @@ const ViewWorkflowGalleryImage = () => {
     Delete: "updateDel",
   };
 
-  const location = useLocation();
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [searchParams, _] = useSearchParams();
 
-  const id = location.search.split("&")[0].split("=")[1];
-  const action = location?.search?.split("&")[1]?.split("=")[1];
-  const history = location?.search?.split("&")[2]?.split("=")[1];
+  const action = searchParams.get("action");
+  const history = searchParams.get("history");
 
   const fetchData = async () => {
     try {
@@ -98,7 +98,7 @@ const ViewWorkflowGalleryImage = () => {
                   display: "block",
                 }}
                 src={
-                  API.baseUrl +
+                  process.env.REACT_APP_IMG_URL +
                   data?.data_object?.destination +
                   "/" +
                   data?.data_object?.filename

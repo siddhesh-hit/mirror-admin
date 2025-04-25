@@ -5,14 +5,15 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
+import Select from "react-select";
 
-import { getApi, postApi } from "services/axiosInterceptors";
+import { getApi, getApiById, postApi } from "services/axios";
 import { basicInfoSchema, politicalJourneySchema, electionDataSchema } from "lib/validator";
 
 import back from "assets/back.svg";
 import BasicInformation from "components/pages/portal/legislative_members/BasicInformation";
 import PoliticalJourney from "components/pages/portal/legislative_members/PoliticalJourney";
-import ElectionData from "components/pages/portal/legislative_members/EditElectionData";
+import ElectionData from "components/pages/portal/legislative_members/ElectionData";
 import { paths } from "services/paths";
 
 const AddLegislativeMember = () => {
@@ -75,6 +76,8 @@ const AddLegislativeMember = () => {
     },
   });
 
+  const [selectedMemberId, setSMI] = useState(null);
+
   const [Data, seObjects] = useState({
     constituency: [],
     assembly: [],
@@ -85,6 +88,7 @@ const AddLegislativeMember = () => {
     officer: [],
     position: [],
     designation: [],
+    memberNames: []
   });
 
   const navigate = useNavigate();
@@ -99,6 +103,17 @@ const AddLegislativeMember = () => {
           console.log(err);
         });
     }
+
+    const res = await getApi("member/names");
+    seObjects((prev) => ({
+      ...prev,
+      memberNames: res.data.data.map(item => {
+        return {
+          value: item._id,
+          label: item.full_name,
+        }
+      })
+    }));
   };
 
   const validateStep = async (step, data) => {
@@ -179,6 +194,16 @@ const AddLegislativeMember = () => {
   };
 
   const removeDiv = (index) => {
+    if (divCount === 1 && data.political_journey?.length > 0) {
+      let object = [...data.political_journey];
+      object.splice(index, 1);
+
+      setData((prev) => ({
+        ...prev,
+        political_journey: object,
+      }));
+    };
+
     if (divCount > 1) {
       let object = [...data.political_journey];
       object.splice(index, 1);
@@ -189,7 +214,8 @@ const AddLegislativeMember = () => {
       }));
 
       setDivCount(divCount - 1);
-    }
+    };
+
     alert("You've removed one field");
   };
 
@@ -216,6 +242,19 @@ const AddLegislativeMember = () => {
   };
 
   const removeDivElect = (index) => {
+    if (divCountElect === 1 && data?.election_data?.member_election_result?.length > 0) {
+      let object = [...data.election_data.member_election_result];
+      object.splice(index, 1);
+
+      setData((prev) => ({
+        ...prev,
+        election_data: {
+          ...prev.election_data,
+          member_election_result: object,
+        },
+      }));
+    };
+
     if (divCountElect > 1) {
       let object = [...data.election_data.member_election_result];
       object.splice(index, 1);
@@ -229,7 +268,8 @@ const AddLegislativeMember = () => {
       }));
 
       setDivCountElect(divCountElect - 1);
-    }
+    };
+
     alert("You've removed one field");
   };
 
@@ -387,12 +427,26 @@ const AddLegislativeMember = () => {
     setSubmit(false);
   };
 
+  const handleGetMember = async (e) => {
+    setSMI(e.value);
+
+    const res = await getApiById("member", e.value);
+    setData((prev) => ({
+      ...prev,
+      basic_info: res.data.data.basic_info,
+      election_data: res.data.data.election_data,
+      political_journey: res.data.data.political_journey,
+    }))
+  };
+
   const handleKeyDown = (e) =>
     ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  console.log(data, divCountElect, divCount)
 
   return (
     <div className="content-wrapper pt-4">
@@ -406,6 +460,25 @@ const AddLegislativeMember = () => {
           <div className="row mb-4 mt-4">
             <div className="col-lg-9">
               <div>
+                <div className="form-group row">
+                  <label
+                    htmlFor="inputEmail3"
+                    className="col-sm-4 col-form-label"
+                  >
+                    Member Name :
+                  </label>
+                  <div className=" col-sm-8">
+                    <Select
+                      isMulti={false}
+                      name="colors"
+                      options={Data.memberNames}
+                      onChange={handleGetMember}
+                      className=""
+                      classNamePrefix="select"
+                      placeholder="Select Member Name"
+                    />
+                  </div>
+                </div>
                 <BasicInformation
                   currentStep={currentStep}
                   data={data}

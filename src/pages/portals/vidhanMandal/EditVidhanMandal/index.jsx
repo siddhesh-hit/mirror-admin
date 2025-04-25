@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import back from "assets/back.svg";
 
-import { getApiById, putApi } from "services/axiosInterceptors";
+import { getApiById, putApi } from "services/axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { paths } from "services/paths";
@@ -17,9 +17,7 @@ const EditVidhanMandal = () => {
   const [error, setError] = useState({});
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
 
   const [serverData, setServerData] = useState({});
 
@@ -190,7 +188,7 @@ const EditVidhanMandal = () => {
           if (res.data.success) {
             toast.success("Vidhanmandal updated successfully");
             setTimeout(() => {
-              navigate(`${paths.viewVidhanMandal}?id=${data._id}`);
+              navigate(`${paths.viewVidhanMandal}/${data._id}`);
             }, 1000);
           }
         })

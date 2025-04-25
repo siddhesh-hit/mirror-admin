@@ -5,12 +5,13 @@ import add from "assets/add.svg";
 import frame from "assets/Frame.svg";
 import back from "assets/back.svg";
 
-import { API } from "lib/api";
 
-import { useDataFetchingForBothApis } from "lib/useDataFetchingForBothApis";
+
+import { useDataFetchingForBothApis } from "hooks/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewSessionCalendar = () => {
   const { data, loading, error } = useDataFetchingForBothApis("session");
@@ -70,7 +71,7 @@ const ViewSessionCalendar = () => {
                           <a
                             key={index}
                             href={
-                              API.baseUrl +
+                              process.env.REACT_APP_IMG_URL +
                               doc?.document.destination +
                               "/" +
                               doc?.document.filename
@@ -95,7 +96,7 @@ const ViewSessionCalendar = () => {
                     )}
                   </td>
                   <td>
-                    <Link to={`${paths.editSessionCalendar}?id=${data._id}`}>
+                    <Link to={`${removeTailingId(paths.editSessionCalendar)}/${data._id}`}>
                       <OverlayTrigger
                         delay={{ hide: 450, show: 300 }}
                         overlay={(props) => (

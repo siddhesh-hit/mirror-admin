@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Select from "react-select";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -11,7 +11,7 @@ import {
   getApi,
   getApiById,
   putApi,
-} from "services/axiosInterceptors";
+} from "services/axios";
 import { formatDateForInput } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";
 
@@ -66,8 +66,7 @@ const EditMantriMandal = () => {
   });
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 
@@ -10,7 +10,7 @@ import {
   getApiById,
   getApi,
   putApi,
-} from "services/axiosInterceptors";
+} from "services/axios";
 import { paths } from "services/paths";
 
 const EditPortalUser = () => {
@@ -24,8 +24,7 @@ const EditPortalUser = () => {
     gender: [],
   });
 
-  const location = useLocation();
-  const id = location.search.split("=")[1];
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const handleChange = (e) => {

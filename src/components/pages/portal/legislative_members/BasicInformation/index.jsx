@@ -14,7 +14,6 @@ function BasicInformation({
   if (currentStep !== 1) {
     return null;
   }
-
   return (
     <div className="mb-5">
       <h2 className="stepper-form">• Basic Information</h2>
@@ -29,7 +28,7 @@ function BasicInformation({
                 type="radio"
                 name="basic_info.house"
                 value="Council"
-                defaultChecked={data.basic_info.house === "Council"}
+                checked={data.basic_info.house === "Council"}
                 onChange={handleChange}
                 className={`form-check-input`}
               />
@@ -43,7 +42,7 @@ function BasicInformation({
                 type="radio"
                 name="basic_info.house"
                 value="Assembly"
-                defaultChecked={data.basic_info.house === "Assembly"}
+                checked={data.basic_info.house === "Assembly"}
                 onChange={handleChange}
               />
 
@@ -72,7 +71,7 @@ function BasicInformation({
                   className={`form-control ${error?.basic_info?.assembly_number ? "activeError" : ""
                     }`}
                   name="basic_info.assembly_number"
-                  value={data.basic_info.assembly_number}
+                  value={data.basic_info.assembly_number ? data.basic_info.assembly_number._id : data.basic_info.assembly_number}
                   onChange={handleChange}
                 >
                   <option hidden>Select Assembly Number</option>
@@ -111,7 +110,7 @@ function BasicInformation({
                   <DatePicker
                     name="basic_info.constituency_from"
                     label="Select constituency from"
-                    defaultValue={dayjs("")}
+                    defaultValue={data.basic_info.constituency_from || dayjs("")}
                     onChange={(date) => {
                       setData((prev) => ({
                         ...prev,
@@ -139,7 +138,7 @@ function BasicInformation({
                   <DatePicker
                     name="basic_info.constituency_to"
                     label="Select constituency to"
-                    defaultValue={dayjs("")}
+                    defaultValue={data.basic_info.constituency_to || dayjs("")}
                     onChange={(date) => {
                       setData((prev) => ({
                         ...prev,
@@ -176,7 +175,7 @@ function BasicInformation({
             <div className="custom-file">
               <input
                 type="file"
-                title={data.basic_info.profile.name || "Please choose a file"}
+                title={data.basic_info.profile?.filename || data.basic_info.profile.name || "Please choose a file"}
                 name="basic_info.profile"
                 accept="image/png, image/jpeg, image.jpg"
                 onChange={handleChange}
@@ -191,12 +190,12 @@ function BasicInformation({
               )}
 
               <label
-                className={`custom-file-label ${error?.basic_info?.profile ? "activeError" : ""
-                  }`}
+                style={{ zIndex: "0" }}
+                className={`custom-file-label ${error?.basic_info?.profile ? "activeError" : ""}`}
                 htmlFor="customFile"
               >
                 Image -{" "}
-                {data.basic_info.profile ? data.basic_info.profile.name : ""}
+                {data.basic_info.profile ? data.basic_info.profile?.filename || data.basic_info.profile.name : ""}
               </label>
             </div>
             <p className="photo_disclaimer">
@@ -214,8 +213,7 @@ function BasicInformation({
               name="basic_info.name"
               defaultValue={data.basic_info.name}
               onChange={handleChange}
-              className={`form-control ${error?.basic_info?.name ? "activeError" : ""
-                }`}
+              className={`form-control ${error?.basic_info?.name ? "activeError" : ""}`}
               placeholder="Enter Name"
             />
             {error?.basic_info?.name ? (
@@ -235,8 +233,7 @@ function BasicInformation({
               name="basic_info.surname"
               defaultValue={data.basic_info.surname}
               onChange={handleChange}
-              className={`form-control ${error?.basic_info?.surname ? "activeError" : ""
-                }`}
+              className={`form-control ${error?.basic_info?.surname ? "activeError" : ""}`}
               placeholder="Enter Surname"
             />
             {error?.basic_info?.surname ? (
@@ -252,10 +249,9 @@ function BasicInformation({
           </label>
           <div className="col-sm-8">
             <select
-              className={`form-control ${error?.basic_info?.constituency ? "activeError" : ""
-                }`}
+              className={`form-control ${error?.basic_info?.constituency ? "activeError" : ""}`}
               name="basic_info.constituency"
-              value={data.basic_info.constituency}
+              value={data.basic_info.constituency._id || data.basic_info.constituency}
               onChange={handleChange}
             >
               <option hidden>Select Constituency</option>
@@ -289,7 +285,7 @@ function BasicInformation({
               className={`form-control ${error?.basic_info?.party ? "activeError" : ""
                 }`}
               name="basic_info.party"
-              value={data.basic_info.party}
+              value={data.basic_info.party._id || data.basic_info.party}
               onChange={handleChange}
             >
               <option hidden>Select Party</option>
@@ -319,7 +315,7 @@ function BasicInformation({
               className={`form-control ${error?.basic_info?.gender ? "activeError" : ""
                 }`}
               name="basic_info.gender"
-              value={data.basic_info.gender}
+              value={data.basic_info.gender._id || data.basic_info.gender}
               onChange={handleChange}
             >
               <option hidden>Select Gender</option>
@@ -349,7 +345,7 @@ function BasicInformation({
               className={`form-control ${error?.basic_info?.district ? "activeError" : ""
                 }`}
               name="basic_info.district"
-              value={data.basic_info.district}
+              value={data.basic_info.district._id || data.basic_info.district}
               onChange={handleChange}
             >
               <option hidden>Select District</option>
@@ -376,15 +372,14 @@ function BasicInformation({
           </label>
           <div className="col-sm-8">
             <select
-              className={`form-control ${error?.basic_info?.first_time_elected ? "activeError" : ""
-                }`}
+              className={`form-control ${error?.basic_info?.first_time_elected ? "activeError" : ""}`}
               name="basic_info.first_time_elected"
               value={data.basic_info.first_time_elected}
               onChange={handleChange}
             >
               <option hidden>Select Option</option>
-              <option>YES</option>
-              <option>NO</option>
+              <option value="YES">YES</option>
+              <option value="NO">NO</option>
             </select>
             {error?.basic_info?.first_time_elected ? (
               <p className="red-error mt-3">
@@ -403,7 +398,7 @@ function BasicInformation({
             <DatePicker
               name="basic_info.date_of_birth"
               label="Select Date of Birth"
-              defaultValue={dayjs("")}
+              value={dayjs(data?.basic_info?.date_of_birth) || dayjs("")}
               onChange={(date) => {
                 setData((prev) => ({
                   ...prev,
@@ -699,9 +694,8 @@ function BasicInformation({
           <div className="col-sm-8">
             <CKEditor
               editor={ClassicEditor}
-              // data={editorData}
-              className={`form-control ${error?.basic_info?.awards ? "activeError" : ""
-                }`}
+              data={data?.basic_info?.awards}
+              className={`form-control ${error?.basic_info?.awards ? "activeError" : ""}`}
               name="english.about_us-description"
               onChange={(event, value) =>
                 setData((prev) => ({
@@ -728,8 +722,8 @@ function BasicInformation({
           <div className="col-sm-8">
             <CKEditor
               editor={ClassicEditor}
-              className={`form-control ${error?.basic_info?.other_info ? "activeError" : ""
-                }`}
+              data={data?.basic_info?.other_info}
+              className={`form-control ${error?.basic_info?.other_info ? "activeError" : ""}`}
               name="english.about_us-description"
               onChange={(event, value) =>
                 setData((prev) => ({

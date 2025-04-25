@@ -7,7 +7,7 @@ import TotalEntries from "components/common/TotalEntries";
 import retrieve from "assets/retrieve.svg";
 import back from "assets/back.svg";
 
-import { getApi, postApi } from "services/axiosInterceptors";
+import { getApi, postApi } from "services/axios";
 import { newPageName } from "data/fileName";
 import { toast } from "react-toastify";
 import { formatEnUsDateTime } from "lib/dateEnUsFormat";
@@ -161,15 +161,10 @@ const ViewWorkflowHistory = () => {
                         <td>{item.modelName}</td>
                         {/* <td>{item.modelId}</td> */}
                         <td>
-                          <Link
-                            to={`/${newPageName[item?.modelName]}?id=${item._id
-                              }&pending=update&history=${status === "Approved"}`}
-                          >
+                          <Link to={`/${newPageName[item?.modelName]}/${item._id}?pending=update&history=${status === "Approved"}`}>
                             <OverlayTrigger
                               delay={{ hide: 450, show: 300 }}
-                              overlay={(props) => (
-                                <Tooltip {...props}>View the data.</Tooltip>
-                              )}
+                              overlay={(props) => <Tooltip {...props}>View the data.</Tooltip>}
                               placement="bottom"
                             >
                               <i className="fa fa-eye"></i>
@@ -179,9 +174,7 @@ const ViewWorkflowHistory = () => {
                         <td>
                           <OverlayTrigger
                             delay={{ hide: 450, show: 300 }}
-                            overlay={(props) => (
-                              <Tooltip {...props}>Retrieve the data.</Tooltip>
-                            )}
+                            overlay={(props) => <Tooltip {...props}>Retrieve the data.</Tooltip>}
                             placement="bottom"
                           >
                             <button onClick={() => handleRetrieve(item._id)}>

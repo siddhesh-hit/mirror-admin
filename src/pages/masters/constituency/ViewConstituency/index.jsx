@@ -7,8 +7,9 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { deleteApi, getApi } from "services/axiosInterceptors";
+import { deleteApi, getApi } from "services/axios";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewConstituency = () => {
   const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ const ViewConstituency = () => {
     current: 0,
     page: 10,
     count: 0,
-    assembly_name: "",
+    name: "",
   });
   const [isSubmitted, setSubmit] = useState(false);
 
@@ -24,7 +25,7 @@ const ViewConstituency = () => {
 
   const fetchData = async () => {
     await getApi(
-      `constituency?perPage=${pageOptions.current}&perLimit=${pageOptions.page}`
+      `constituency?perPage=${pageOptions.current}&perLimit=${pageOptions.page}&name=${pageOptions.name}`
     )
       .then((res) => {
         if (res.data.success) {
@@ -66,7 +67,7 @@ const ViewConstituency = () => {
 
   useEffect(() => {
     fetchData();
-  }, [pageOptions.page, pageOptions.current, pageOptions.assembly_name]);
+  }, [pageOptions.page, pageOptions.current, pageOptions.name]);
 
   console.log(data);
 
@@ -89,7 +90,7 @@ const ViewConstituency = () => {
           returnSearch={(data) =>
             setPageOptions((prev) => ({
               ...prev,
-              assembly_name: data,
+              name: data,
             }))
           }
           searchQuery="the Constituency Name"
@@ -154,7 +155,7 @@ const ViewConstituency = () => {
                             </h4>
                           </td>
                           <td>
-                            <Link to={`${paths.editConstituency}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editConstituency)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

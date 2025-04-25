@@ -3,8 +3,9 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { getApi, deleteApi } from "services/axiosInterceptors";
+import { getApi, deleteApi } from "services/axios";
 import { paths } from "services/paths";
+import { removeTailingId } from "data/RouteStructure";
 
 const ViewAllHelpdesk = () => {
   const [data, setData] = useState([]);
@@ -90,7 +91,7 @@ const ViewAllHelpdesk = () => {
                           <td>{item?.email}</td>
                           {/* <td>{item.isActive ? "Active" : "Inactive"}</td> */}
                           <td>
-                            <Link to={`${paths.viewHelpdesk}?id=${item._id}`}>
+                            <Link to={`${paths.viewHelpdesk}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (
@@ -103,7 +104,7 @@ const ViewAllHelpdesk = () => {
                             </Link>
                           </td>
                           {/* <td>
-                            <Link to={`${paths.editHelpdesk}?id=${item._id}`}>
+                            <Link to={`${removeTailingId(paths.editHelpdesk)}/${item._id}`}>
                               <OverlayTrigger
                                 delay={{ hide: 450, show: 300 }}
                                 overlay={(props) => (

@@ -21,8 +21,6 @@ function EditPoliticalJourney({
     return null;
   }
 
-  console.log(Data);
-
   return (
     <div className="mb-5">
       <h2 className="stepper-form">• Legislative Journey</h2>
@@ -49,8 +47,8 @@ function EditPoliticalJourney({
                           ...politicals[index],
                           date: date.format(),
                         };
-
-                        return politicals;
+                        prev.political_journey = politicals;
+                        return prev;
                       })
                     }
                     format="DD/MM/YYYY"
