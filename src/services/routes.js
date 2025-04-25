@@ -1246,7 +1246,7 @@ export const routes = [
   },
   {
     name: "User Management",
-    path: paths.addContact,
+    path: paths.editRole,
     exact: true,
     access: ["SuperAdmin", "Admin"],
     element: <EditRole />,
