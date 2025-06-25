@@ -53,7 +53,7 @@ const ViewAssembly = () => {
           if (res.status === 204) {
             toast.success("Deleted the assembly.");
             setTimeout(() => {
-              navigate("/ViewAssembly");
+              navigate(paths.viewAssembly);
               fetchData();
             }, 1100);
           }
