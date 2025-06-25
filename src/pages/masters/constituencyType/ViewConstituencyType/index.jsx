@@ -49,7 +49,7 @@ const ViewConstituencyType = () => {
       setSubmit(true);
       await deleteApi("constituencytypes", id)
         .then((res) => {
-          if (res.status === 204) {
+          if (res.status === 204 || res.status === 200) {
             toast.success("Deleted the Constituency Types.");
             setTimeout(() => {
               navigate(paths.viewConstituencyType);
