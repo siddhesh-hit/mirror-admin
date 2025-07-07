@@ -13,14 +13,8 @@ function EditBasicInformation({
   DatePicker,
   dayjs,
 }) {
-  if (currentStep !== 1) {
-    return null;
-  }
 
-  console.log(
-    formatDateForInput(data?.basic_info?.date_of_birth),
-    data?.basic_info?.date_of_birth
-  );
+  if (currentStep !== 1) return null;
 
   return (
     <div className="mb-5">

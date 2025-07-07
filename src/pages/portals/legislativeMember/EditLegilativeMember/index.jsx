@@ -131,13 +131,13 @@ const EditLegislativeMember = () => {
 
   // In the `nextStep` function:
   const nextStep = async () => {
-    const errors = await validateStep(currentStep, data);
-    console.log(errors);
-    if (errors) {
-      // Handle errors (e.g., show toast, set error state, etc.)
-      toast.error(errors); // Show the first error message
-      return;
-    }
+    // const errors = await validateStep(currentStep, data);
+    // console.log(errors);
+    // if (errors) {
+    //   // Handle errors (e.g., show toast, set error state, etc.)
+    //   toast.error(errors); // Show the first error message
+    //   return;
+    // }
 
     // If validation passed, go to the next step
 
@@ -167,16 +167,16 @@ const EditLegislativeMember = () => {
   };
 
   const removeDiv = (index) => {
-    if (divCount > 1) {
+    if (data.political_journey.length > 1) {
       let object = [...data.political_journey];
       object.splice(index, 1);
+
+      console.log(object)
 
       setData((prev) => ({
         ...prev,
         political_journey: object,
       }));
-
-      setDivCount(divCount - 1);
     }
     alert("You've removed one field");
   };
@@ -204,7 +204,7 @@ const EditLegislativeMember = () => {
   };
 
   const removeDivElect = (index) => {
-    if (divCountElect > 1) {
+    if (data.election_data.member_election_result.length > 1) {
       let object = [...data.election_data.member_election_result];
       object.splice(index, 1);
 
@@ -215,8 +215,6 @@ const EditLegislativeMember = () => {
           member_election_result: object,
         },
       }));
-
-      setDivCountElect(divCountElect - 1);
     }
     alert("You've removed one field");
   };
@@ -342,11 +340,11 @@ const EditLegislativeMember = () => {
 
   const handleSubmit = async () => {
     try {
-      let errors = await electionDataSchema(data.election_data);
-      if (errors) {
-        toast.error(errors);
-        return;
-      }
+      // let errors = await electionDataSchema(data.election_data);
+      // if (errors) {
+      //   toast.error(errors);
+      //   return;
+      // }
       if (isSubmitted) return;
       setSubmit(true);
 

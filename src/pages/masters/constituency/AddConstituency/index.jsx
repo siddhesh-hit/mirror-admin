@@ -118,7 +118,7 @@ const AddConstituency = () => {
     //   data.assembly.assembly_number = null;
     // }
     const fetchData = async () => {
-      await getApi("assembly")
+      await getApi("assembly/option")
         .then((res) => {
           if (res.data.success) {
             setAssembly(res.data.data);
@@ -208,7 +208,7 @@ const AddConstituency = () => {
                               <option hidden>Select Assembly</option>
                               {assembly?.map((item, index) => (
                                 <option key={index} value={item._id}>
-                                  {item.assembly_number}
+                                  {item.assembly_number} ( {item.assembly_name} )
                                 </option>
                               ))}
                             </select>

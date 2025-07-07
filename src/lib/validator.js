@@ -150,16 +150,16 @@ export const politicalJourneySchema = async (data) => {
 // Define election data validation
 export const electionDataSchema = async (data) => {
   let dataSchema = yup.object().shape({
-    constituency: yup.lazy((value) => {
-      if (typeof value === "object") {
-        if (Object.keys(value).length === 0) {
-          return yup.mixed().required("Constituency is required");
-        }
-        return yup.mixed(); // Accept valid File object
-      } else {
-        return yup.string().required("Constituency is required");
-      }
-    }),
+    // constituency: yup.lazy((value) => {
+    //   if (typeof value === "object") {
+    //     if (Object.keys(value).length === 0) {
+    //       return yup.mixed().required("Constituency is required");
+    //     }
+    //     return yup.mixed(); // Accept valid File object
+    //   } else {
+    //     return yup.string().required("Constituency is required");
+    //   }
+    // }),
 
     // yup.string().required("Constituency is required"),
     total_electorate: yup
