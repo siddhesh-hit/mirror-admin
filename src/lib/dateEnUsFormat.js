@@ -43,3 +43,10 @@ export const formatEnUsDateTime = (date) => {
 
 export const formatDateForInput = (date) =>
   date && new Date(date).toISOString().split("T")[0];
+
+
+export function isValidDate(dateString) {
+  const date = new Date(dateString);
+
+  return !isNaN(date.valueOf());
+}
