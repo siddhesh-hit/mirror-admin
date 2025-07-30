@@ -6,7 +6,7 @@ import dayjs, { Dayjs } from "dayjs";
 
 import back from "assets/back.svg";
 
-import { formatDateForInput } from "lib/dateEnUsFormat";
+import { formatDateForInput, isValidDate } from "lib/dateEnUsFormat";
 import { getApiById, putApi } from "services/axios";
 import { paths } from "services/paths";
 
@@ -79,11 +79,6 @@ const EditAssembly = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  console.log(
-    formatDateForInput(data?.start_date),
-    formatDateForInput(data?.end_date)
-  );
 
   return (
     <div className="content-wrapper pt-4">
@@ -177,6 +172,7 @@ const EditAssembly = () => {
                             label="Select End Date"
                             value={dayjs(data?.end_date)}
                             onChange={(date) => {
+                              console.log(date)
                               setData((prev) => ({
                                 ...prev,
                                 end_date: date.format(),
@@ -184,7 +180,7 @@ const EditAssembly = () => {
                             }}
                             format="DD/MM/YYYY"
                             minDate={
-                              data.end_date
+                              data.end_date && isValidDate(data.end_date)
                                 ? dayjs(
                                   new Date(data.end_date)
                                     .toISOString()

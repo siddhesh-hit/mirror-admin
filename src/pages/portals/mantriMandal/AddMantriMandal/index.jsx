@@ -9,6 +9,7 @@ import back from "assets/back.svg";
 
 import { getApi, postApi } from "services/axios";
 import { paths } from "services/paths";
+import { isValidDate } from "lib/dateEnUsFormat";
 
 const AddMantriMandal = () => {
   const [minister, setMinister] = useState({
@@ -341,7 +342,7 @@ const AddMantriMandal = () => {
                             }}
                             format="DD/MM/YYYY"
                             minDate={
-                              minister.des_from
+                              minister.des_from && isValidDate(minister.des_from)
                                 ? dayjs(
                                   new Date(minister.des_from)
                                     .toISOString()
@@ -419,7 +420,7 @@ const AddMantriMandal = () => {
                             }}
                             format="DD/MM/YYYY"
                             minDate={
-                              minister.pres_from
+                              minister.pres_from && isValidDate(minister.pres_from)
                                 ? dayjs(
                                   new Date(minister.pres_from)
                                     .toISOString()
@@ -497,7 +498,7 @@ const AddMantriMandal = () => {
                             }}
                             format="DD/MM/YYYY"
                             minDate={
-                              minister.lp_from
+                              minister.lp_from && isValidDate(minister.lp_from)
                                 ? dayjs(
                                   new Date(minister.lp_from)
                                     .toISOString()

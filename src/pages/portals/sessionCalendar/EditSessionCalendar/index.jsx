@@ -13,7 +13,7 @@ import {
   putApi,
   getApi,
 } from "services/axios";
-import { formatDateForInput } from "lib/dateEnUsFormat";
+import { formatDateForInput, isValidDate } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";
 
 const EditSessionCalendar = () => {
@@ -325,7 +325,7 @@ const EditSessionCalendar = () => {
                           }}
                           format="DD/MM/YYYY"
                           minDate={
-                            data.from_date
+                            data.from_date && isValidDate(data.from_date)
                               ? dayjs(
                                 new Date(data.from_date)
                                   .toISOString()
