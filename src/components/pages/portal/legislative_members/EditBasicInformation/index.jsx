@@ -1,4 +1,4 @@
-import { formatDateForInput } from "lib/dateEnUsFormat";
+import { formatDateForInput, isValidDate } from "lib/dateEnUsFormat";
 
 function EditBasicInformation({
   currentStep,
@@ -134,7 +134,7 @@ function EditBasicInformation({
                     }}
                     format="DD/MM/YYYY"
                     minDate={
-                      data.basic_info.constituency_from
+                      data.basic_info.constituency_from && isValidDate(data.basic_info.constituency_from)
                         ? dayjs(
                           new Date(data.basic_info.constituency_from)
                             .toISOString()

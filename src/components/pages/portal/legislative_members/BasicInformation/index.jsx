@@ -1,3 +1,5 @@
+import { isValidDate } from "lib/dateEnUsFormat";
+
 function BasicInformation({
   currentStep,
   data,
@@ -150,7 +152,7 @@ function BasicInformation({
                     }}
                     format="DD/MM/YYYY"
                     minDate={
-                      data.basic_info.constituency_from
+                      data.basic_info.constituency_from && isValidDate(data.basic_info.constituency_from)
                         ? dayjs(
                           new Date(data.basic_info.constituency_from)
                             .toISOString()
