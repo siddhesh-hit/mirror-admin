@@ -10,6 +10,7 @@ import back from "assets/back.svg";
 
 import { getApi, postApi } from "services/axios";
 import { paths } from "services/paths";
+import { isValidDate } from "lib/dateEnUsFormat";
 
 const AddSessionCalendar = () => {
   const [divCount, setDivCount] = useState(1);
@@ -307,7 +308,7 @@ const AddSessionCalendar = () => {
                         }}
                         format="DD/MM/YYYY"
                         minDate={
-                          data.from_date
+                          data.from_date && isValidDate(data.from_date)
                             ? dayjs(
                               new Date(data.from_date)
                                 .toISOString()

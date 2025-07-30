@@ -8,6 +8,7 @@ import back from "assets/back.svg";
 
 import { postApi } from "services/axios";
 import { paths } from "services/paths";
+import { isValidDate } from "lib/dateEnUsFormat";
 
 const AddAssembly = () => {
   const [error, setError] = useState({});
@@ -252,7 +253,7 @@ const AddAssembly = () => {
                           }}
                           format="DD/MM/YYYY"
                           minDate={dayjs(
-                            data.start_date
+                            data.start_date && isValidDate(data.start_date)
                               ? new Date(data.start_date).toISOString()
                               : ""
                           )}

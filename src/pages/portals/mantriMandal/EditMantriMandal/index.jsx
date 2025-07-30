@@ -12,7 +12,7 @@ import {
   getApiById,
   putApi,
 } from "services/axios";
-import { formatDateForInput } from "lib/dateEnUsFormat";
+import { formatDateForInput, isValidDate } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";
 
 const EditMantriMandal = () => {
@@ -408,7 +408,7 @@ const EditMantriMandal = () => {
                           }}
                           format="DD/MM/YYYY"
                           minDate={
-                            data.des_from
+                            data.des_from && isValidDate(data.des_from)
                               ? dayjs(
                                 new Date(data.des_from)
                                   .toISOString()
@@ -487,7 +487,7 @@ const EditMantriMandal = () => {
                           }}
                           format="DD/MM/YYYY"
                           minDate={
-                            data.pres_from
+                            data.pres_from && isValidDate(data.pres_from)
                               ? dayjs(
                                 new Date(data.pres_from)
                                   .toISOString()
@@ -566,7 +566,7 @@ const EditMantriMandal = () => {
                           }}
                           format="DD/MM/YYYY"
                           minDate={
-                            data.lp_from
+                            data.lp_from && isValidDate(data.lp_from)
                               ? dayjs(
                                 new Date(data.lp_from)
                                   .toISOString()

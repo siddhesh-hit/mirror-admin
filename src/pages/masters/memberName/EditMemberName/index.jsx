@@ -10,7 +10,7 @@ import remove from "assets/remove.svg";
 import back from "assets/back.svg";
 
 import { getApi, getApiById, putApi } from "services/axios";
-import { formatDateForInput } from "lib/dateEnUsFormat";
+import { formatDateForInput, isValidDate } from "lib/dateEnUsFormat";
 
 const EditMemberName = () => {
     const [isSubmitted, setSubmitted] = useState(false);
@@ -832,7 +832,7 @@ const EditMemberName = () => {
                                                             }}
                                                             format="DD/MM/YYYY"
                                                             minDate={dayjs(
-                                                                item.from_year ? item.from_year : "1937-01-01"
+                                                                item.from_year && isValidDate(item.from_year) ? item.from_year : "1937-01-01"
                                                             )}
                                                             maxDate={dayjs(
                                                                 new Date().toISOString().split("T")[0]
