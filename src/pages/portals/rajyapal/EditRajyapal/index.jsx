@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -13,6 +13,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { formatDateForInput } from "lib/dateEnUsFormat";
 import { paths } from "services/paths";
+import TransparentLoader from "components/common/TransparentLoader";
 
 const EditRajyapal = () => {
   const [data, setData] = useState();
@@ -177,6 +178,7 @@ const EditRajyapal = () => {
     formData.append("english", JSON.stringify(serverData.english));
     formData.append("marathi", JSON.stringify(serverData.marathi));
     formData.append("url", JSON.stringify(data.url));
+    formData.append("date_of_birth", JSON.stringify(data.date_of_birth));
     formData.append("speeches", JSON.stringify(data.speeches));
 
     formData.append("banner", data.image);
@@ -192,16 +194,22 @@ const EditRajyapal = () => {
       });
     }
 
-    await putApi("rajyapal", id, formData)
-      .then((res) => {
-        if (res.data.success) {
-          toast.success("Rajyapal member updated successfully.");
-          navigate(paths.viewAllRajyapal);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      const response = await putApi("rajyapal", id, formData)
+      if (response.data.success) {
+        toast.success("Rajyapal Member updated successfully.");
+        navigate(paths.viewAllRajyapal);
+      }
+    } catch (error) {
+      if (error.response.data.details && error.response.data.details.length > 0) {
+        error.response.data.details.map((item) => {
+          toast.error(item.message);
+        });
+      } else {
+        toast.error("Members not updated, Something went wrong");
+      }
+      setSubmit(false);
+    }
 
     setSubmit(false);
   };
@@ -209,6 +217,7 @@ const EditRajyapal = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
   const handleEditorChange = (event, value, name, index) => {
     // const { name, value, files } = e.target;
     const [subName, field] = name.split("_");
@@ -221,286 +230,127 @@ const EditRajyapal = () => {
       },
     }));
   };
-  return (
-    <div className="content-wrapper pt-4">
-      <div className="contentofpages">
-        <Link to={paths.viewAllRajyapal} className="addpagess">
-          <img src={back} style={{ width: "25px" }} alt="add" />
-          Go back
-        </Link>
-        <h4 className="page-title">• Edit Rajyapal</h4>
-        <div className="card card-info">
-          <div className="row pb-4">
-            <div className="col-lg-10">
-              <div className="border_name">
-                {data && data.english && data.marathi ? (
-                  <form className="form-horizontal">
-                    <div className="card-body">
-                      <div className="form-group row">
-                        <label
-                          htmlFor="inputEmail3"
-                          className="col-sm-4 col-form-label"
-                        >
-                          Edit Profile Image :
-                        </label>
-                        <div className="col-sm-8">
-                          <div className="custom-file">
-                            <input
-                              type="file"
-                              name="image"
-                              title={
-                                data.image.filename ||
-                                data.image.name ||
-                                "Please choose a file"
-                              }
-                              accept="image/png, image/jpeg, image/jpg"
-                              onChange={handleChange}
-                              className="custom-file-input"
-                              id="customFile"
-                            />
-                            <label
-                              className="custom-file-label"
-                              htmlFor="customFile"
-                            >
-                              assets - {data.image.filename || data.image.name}
-                            </label>
-                          </div>
-                          <p className="photo_disclaimer">
-                            {" "}
-                            *Only upload JPEG/JPG/PNG format assets
-                          </p>
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="inputPassword3"
-                          className="col-sm-4 col-form-label"
-                        >
-                          Edit Name :
-                        </label>
-                        <div className="col-sm-8">
-                          <input
-                            type="text"
-                            name="english_name"
-                            defaultValue={data.english.name}
-                            onChange={handleChange}
-                            className="form-control mb-3"
-                            placeholder="Enter Name"
-                          />
-                          <input
-                            type="text"
-                            name="marathi_name"
-                            defaultValue={data.marathi.name}
-                            onChange={handleChange}
-                            className="form-control"
-                            placeholder="नाव प्रविष्ट करा"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="inputPassword3"
-                          className="col-sm-4 col-form-label"
-                        >
-                          Edit Elected Date :
-                        </label>
-                        <div className="col-sm-8">
-                          <input
-                            type="string"
-                            name="english_electedDate"
-                            defaultValue={data.english.elected_date}
-                            onChange={handleChange}
-                            className="form-control mb-3"
-                            placeholder="Enter Elected date"
-                          />
-                          <input
-                            type="string"
-                            name="marathi_electedDate"
-                            defaultValue={data.marathi.elected_date}
-                            onChange={handleChange}
-                            className="form-control"
-                            placeholder="निवडलेली तारीख प्रविष्ट करा"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="inputPassword3"
-                          className="col-sm-4 col-form-label"
-                        >
-                          Edit Date of birth :
-                        </label>
-                        <div className="col-sm-8">
-                          <DatePicker
-                            name="date_of_birth"
-                            label="Select date of birth"
-                            value={dayjs(data?.date_of_birth)}
-                            onChange={(date) => {
-                              setData((prev) => ({
-                                ...prev,
-                                date_of_birth: date.format(),
-                              }));
-                            }}
-                            format="DD/MM/YYYY"
-                            minDate={dayjs("1937-01-01")}
-                            maxDate={dayjs(
-                              new Date().toISOString().split("T")[0]
-                            )}
-                            className={`form-control mb-3 `}
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="inputPassword3"
-                          className="col-sm-4 col-form-label"
-                        >
-                          Edit Select Gender :
-                        </label>
-                        <div className="col-sm-8">
-                          <select
-                            className="form-control select2 mb-3"
-                            name="english_gender"
-                            value={data.english.gender}
-                            onChange={handleChange}
-                          >
-                            <option hidden>Select Gender</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                          </select>
-                          <select
-                            className="form-control select2 mb-3"
-                            name="marathi_gender"
-                            value={data.marathi.gender}
-                            onChange={handleChange}
-                          >
-                            <option hidden>लिंग निवडा</option>
-                            <option>पुरुष</option>
-                            <option>स्त्री</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="inputPassword3"
-                          className="col-sm-4 col-form-label"
-                        >
-                          Edit Place Of Birth :
-                        </label>
-                        <div className="col-sm-8">
-                          <input
-                            type="text"
-                            name="english_placeOfBirth"
-                            defaultValue={data.english.place_of_birth}
-                            onChange={handleChange}
-                            className="form-control mb-3"
-                            placeholder="Enter Place Of Birth"
-                          />
-                          <input
-                            type="text"
-                            name="marathi_placeOfBirth"
-                            defaultValue={data.marathi.place_of_birth}
-                            onChange={handleChange}
-                            className="form-control"
-                            placeholder="जन्मस्थान प्रविष्ट करा"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="inputPassword3"
-                          className="col-sm-4 col-form-label"
-                        >
-                          Edit Political Career :
-                        </label>
-                        <div className="col-sm-8">
-                          <CKEditor
-                            editor={ClassicEditor}
-                            data={data.english.political_career}
-                            name="english_politicalCareer"
-                            onChange={(event, editor) =>
-                              handleEditorChange(
-                                event,
-                                editor,
-                                "english_politicalCareer"
-                              )
-                            }
-                          />
-                          <CKEditor
-                            editor={ClassicEditor}
-                            data={data.marathi.political_career}
-                            name="marathi_politicalCareer"
-                            onChange={(event, editor) =>
-                              handleEditorChange(
-                                event,
-                                editor,
-                                "marathi_politicalCareer"
-                              )
-                            }
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label
-                          htmlFor="inputPassword3"
-                          className="col-sm-4 col-form-label"
-                        >
-                          Edit URL :
-                        </label>
-                        <div className="col-sm-8">
-                          <input
-                            type="text"
-                            name="url"
-                            defaultValue={data.url}
-                            onChange={handleChange}
-                            className="form-control"
-                            placeholder="Enter URL"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                ) : (
-                  <></>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="contentofpages">
-        <h4 className="page-title">• Edit Speeches</h4>
-        <div className="card card-info">
-          <div className="row">
-            <div className="col-lg-11">
-              {speeches &&
-                speeches.length > 0 &&
-                speeches.map((speech, speechIndex) => (
-                  <div className="row" key={speechIndex}>
-                    <div className="col-lg-12">
-                      <div className="col-lg-12 mb-5">
-                        <div className="form-group row mt-5">
-                          <label
-                            htmlFor={`speech_year_${speechIndex}`}
-                            className="col-sm-3 col-form-label"
-                          >
-                            Edit Year :
-                          </label>
-                          <div className="col-sm-9">
-                            <DatePicker
-                              name={`year_${speechIndex}`}
-                              label="Select Speech Year"
-                              value={dayjs(speech?.year)}
-                              onChange={(date) => {
-                                setSpeeches((prev) => {
-                                  const speeches = [...prev];
 
-                                  speeches[speechIndex] = {
-                                    ...speeches[speechIndex],
-                                    year: date.format(),
-                                  };
-                                  return speeches;
-                                });
+  return (
+    <React.Fragment>
+      <div className="content-wrapper pt-4">
+        <div className="contentofpages">
+          <Link to={paths.viewAllRajyapal} className="addpagess">
+            <img src={back} style={{ width: "25px" }} alt="add" />
+            Go back
+          </Link>
+          <h4 className="page-title">• Edit Rajyapal</h4>
+          <div className="card card-info">
+            <div className="row pb-4">
+              <div className="col-lg-10">
+                <div className="border_name">
+                  {data && data.english && data.marathi ? (
+                    <form className="form-horizontal">
+                      <div className="card-body">
+                        <div className="form-group row">
+                          <label
+                            htmlFor="inputEmail3"
+                            className="col-sm-4 col-form-label"
+                          >
+                            Edit Profile Image :
+                          </label>
+                          <div className="col-sm-8">
+                            <div className="custom-file">
+                              <input
+                                type="file"
+                                name="image"
+                                title={
+                                  data.image.filename ||
+                                  data.image.name ||
+                                  "Please choose a file"
+                                }
+                                accept="image/png, image/jpeg, image/jpg"
+                                onChange={handleChange}
+                                className="custom-file-input"
+                                id="customFile"
+                              />
+                              <label
+                                className="custom-file-label"
+                                htmlFor="customFile"
+                              >
+                                assets - {data.image.filename || data.image.name}
+                              </label>
+                            </div>
+                            <p className="photo_disclaimer">
+                              {" "}
+                              *Only upload JPEG/JPG/PNG format assets
+                            </p>
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <label
+                            htmlFor="inputPassword3"
+                            className="col-sm-4 col-form-label"
+                          >
+                            Edit Name :
+                          </label>
+                          <div className="col-sm-8">
+                            <input
+                              type="text"
+                              name="english_name"
+                              defaultValue={data.english.name}
+                              onChange={handleChange}
+                              className="form-control mb-3"
+                              placeholder="Enter Name"
+                            />
+                            <input
+                              type="text"
+                              name="marathi_name"
+                              defaultValue={data.marathi.name}
+                              onChange={handleChange}
+                              className="form-control"
+                              placeholder="नाव प्रविष्ट करा"
+                            />
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <label
+                            htmlFor="inputPassword3"
+                            className="col-sm-4 col-form-label"
+                          >
+                            Edit Elected Date :
+                          </label>
+                          <div className="col-sm-8">
+                            <input
+                              type="string"
+                              name="english_electedDate"
+                              defaultValue={data.english.elected_date}
+                              onChange={handleChange}
+                              className="form-control mb-3"
+                              placeholder="Enter Elected date"
+                            />
+                            <input
+                              type="string"
+                              name="marathi_electedDate"
+                              defaultValue={data.marathi.elected_date}
+                              onChange={handleChange}
+                              className="form-control"
+                              placeholder="निवडलेली तारीख प्रविष्ट करा"
+                            />
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <label
+                            htmlFor="inputPassword3"
+                            className="col-sm-4 col-form-label"
+                          >
+                            Edit Date of birth :
+                          </label>
+                          <div className="col-sm-8">
+                            <DatePicker
+                              name="date_of_birth"
+                              label="Select date of birth"
+                              value={dayjs(data?.date_of_birth)}
+                              onChange={(date) => {
+                                setData((prev) => ({
+                                  ...prev,
+                                  date_of_birth: date.format(),
+                                }));
                               }}
                               format="DD/MM/YYYY"
                               minDate={dayjs("1937-01-01")}
@@ -511,94 +361,256 @@ const EditRajyapal = () => {
                             />
                           </div>
                         </div>
+                        <div className="form-group row">
+                          <label
+                            htmlFor="inputPassword3"
+                            className="col-sm-4 col-form-label"
+                          >
+                            Edit Select Gender :
+                          </label>
+                          <div className="col-sm-8">
+                            <select
+                              className="form-control select2 mb-3"
+                              name="english_gender"
+                              value={data.english.gender}
+                              onChange={handleChange}
+                            >
+                              <option hidden>Select Gender</option>
+                              <option>Male</option>
+                              <option>Female</option>
+                            </select>
+                            <select
+                              className="form-control select2 mb-3"
+                              name="marathi_gender"
+                              value={data.marathi.gender}
+                              onChange={handleChange}
+                            >
+                              <option hidden>लिंग निवडा</option>
+                              <option>पुरुष</option>
+                              <option>स्त्री</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <label
+                            htmlFor="inputPassword3"
+                            className="col-sm-4 col-form-label"
+                          >
+                            Edit Place Of Birth :
+                          </label>
+                          <div className="col-sm-8">
+                            <input
+                              type="text"
+                              name="english_placeOfBirth"
+                              defaultValue={data.english.place_of_birth}
+                              onChange={handleChange}
+                              className="form-control mb-3"
+                              placeholder="Enter Place Of Birth"
+                            />
+                            <input
+                              type="text"
+                              name="marathi_placeOfBirth"
+                              defaultValue={data.marathi.place_of_birth}
+                              onChange={handleChange}
+                              className="form-control"
+                              placeholder="जन्मस्थान प्रविष्ट करा"
+                            />
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <label
+                            htmlFor="inputPassword3"
+                            className="col-sm-4 col-form-label"
+                          >
+                            Edit Political Career :
+                          </label>
+                          <div className="col-sm-8">
+                            <CKEditor
+                              editor={ClassicEditor}
+                              data={data.english.political_career}
+                              name="english_politicalCareer"
+                              onChange={(event, editor) =>
+                                handleEditorChange(
+                                  event,
+                                  editor,
+                                  "english_politicalCareer"
+                                )
+                              }
+                            />
+                            <CKEditor
+                              editor={ClassicEditor}
+                              data={data.marathi.political_career}
+                              name="marathi_politicalCareer"
+                              onChange={(event, editor) =>
+                                handleEditorChange(
+                                  event,
+                                  editor,
+                                  "marathi_politicalCareer"
+                                )
+                              }
+                            />
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <label
+                            htmlFor="inputPassword3"
+                            className="col-sm-4 col-form-label"
+                          >
+                            Edit URL :
+                          </label>
+                          <div className="col-sm-8">
+                            <input
+                              type="text"
+                              name="url"
+                              defaultValue={data.url}
+                              onChange={handleChange}
+                              className="form-control"
+                              placeholder="Enter URL"
+                            />
+                          </div>
+                        </div>
                       </div>
-                      {speech.values.map((language, languageIndex) => (
-                        <div className="row mb-4" key={languageIndex}>
-                          <div className="col-lg-12">
-                            <div className="legis_members mt-0">
-                              <div
-                                className="card-body"
-                                style={{ pEditing: "25px 10px 25px" }}
-                              >
-                                <div className="row">
-                                  <div className="col-lg-6">
-                                    <div className="form-group row mb-0">
-                                      <label
-                                        htmlFor={`speech_language_${speechIndex}_${languageIndex}`}
-                                        className="col-sm-4 col-form-label"
-                                      >
-                                        Edit Language :
-                                      </label>
-                                      <div className="col-sm-8">
-                                        <input
-                                          type="text"
-                                          name={`language_${speechIndex}_${languageIndex}`}
-                                          defaultValue={language.language}
-                                          onChange={handleSpeechChange}
-                                          className="form-control mb-1"
-                                          placeholder="Enter Speech Language "
-                                        />
+                    </form>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="contentofpages">
+          <h4 className="page-title">• Edit Speeches</h4>
+          <div className="card card-info">
+            <div className="row">
+              <div className="col-lg-11">
+                {speeches &&
+                  speeches.length > 0 &&
+                  speeches.map((speech, speechIndex) => (
+                    <div className="row" key={speechIndex}>
+                      <div className="col-lg-12">
+                        <div className="col-lg-12 mb-5">
+                          <div className="form-group row mt-5">
+                            <label
+                              htmlFor={`speech_year_${speechIndex}`}
+                              className="col-sm-3 col-form-label"
+                            >
+                              Edit Year :
+                            </label>
+                            <div className="col-sm-9">
+                              <DatePicker
+                                name={`year_${speechIndex}`}
+                                label="Select Speech Year"
+                                value={dayjs(speech?.year)}
+                                onChange={(date) => {
+                                  setSpeeches((prev) => {
+                                    const speeches = [...prev];
+
+                                    speeches[speechIndex] = {
+                                      ...speeches[speechIndex],
+                                      year: date.format(),
+                                    };
+                                    return speeches;
+                                  });
+                                }}
+                                format="DD/MM/YYYY"
+                                minDate={dayjs("1937-01-01")}
+                                maxDate={dayjs(
+                                  new Date().toISOString().split("T")[0]
+                                )}
+                                className={`form-control mb-3 `}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        {speech.values.map((language, languageIndex) => (
+                          <div className="row mb-4" key={languageIndex}>
+                            <div className="col-lg-12">
+                              <div className="legis_members mt-0">
+                                <div
+                                  className="card-body"
+                                  style={{ pEditing: "25px 10px 25px" }}
+                                >
+                                  <div className="row">
+                                    <div className="col-lg-6">
+                                      <div className="form-group row mb-0">
+                                        <label
+                                          htmlFor={`speech_language_${speechIndex}_${languageIndex}`}
+                                          className="col-sm-4 col-form-label"
+                                        >
+                                          Edit Language :
+                                        </label>
+                                        <div className="col-sm-8">
+                                          <input
+                                            type="text"
+                                            name={`language_${speechIndex}_${languageIndex}`}
+                                            defaultValue={language.language}
+                                            onChange={handleSpeechChange}
+                                            className="form-control mb-1"
+                                            placeholder="Enter Speech Language "
+                                          />
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                  <div className="col-lg-6">
-                                    <div className="form-group row mb-0">
-                                      <label
-                                        htmlFor={`speech_pdf_${speechIndex}_${languageIndex}`}
-                                        className="col-sm-4 col-form-label"
-                                      >
-                                        Edit PDF :
-                                      </label>
-                                      <div className="col-sm-8">
-                                        <div className="custom-file">
-                                          <input
-                                            type="file"
-                                            title={
-                                              language.content.filename ||
-                                              language.content.name ||
-                                              "Please choose a file"
-                                            }
-                                            name={`content_${speechIndex}_${languageIndex}`}
-                                            accept="application/pdf"
-                                            onChange={handleSpeechChange}
-                                            className="custom-file-input"
-                                            id={`customFile_${speechIndex}_${languageIndex}`}
-                                          />
-                                          <label
-                                            className="custom-file-label"
-                                            htmlFor={`customFile_${speechIndex}_${languageIndex}`}
-                                          >
-                                            PDF -{" "}
-                                            {language.content.filename ||
-                                              language.content.name}
-                                          </label>
-                                          <a
-                                            className="dsldl"
-                                            href={
-                                              process.env.REACT_APP_IMG_URL +
-                                              language.content.destination +
-                                              "/" +
-                                              language.content.filename
-                                            }
-                                            // className="pt-5"
-                                            target="_blank"
-                                            rel="noreferrer"
-                                          >
-                                            <OverlayTrigger
-                                              delay={{ hide: 450, show: 300 }}
-                                              overlay={(props) => (
-                                                <Tooltip {...props}>
-                                                  View the data.
-                                                </Tooltip>
-                                              )}
-                                              placement="bottom"
+                                    <div className="col-lg-6">
+                                      <div className="form-group row mb-0">
+                                        <label
+                                          htmlFor={`speech_pdf_${speechIndex}_${languageIndex}`}
+                                          className="col-sm-4 col-form-label"
+                                        >
+                                          Edit PDF :
+                                        </label>
+                                        <div className="col-sm-8">
+                                          <div className="custom-file">
+                                            <input
+                                              type="file"
+                                              title={
+                                                language.content.filename ||
+                                                language.content.name ||
+                                                "Please choose a file"
+                                              }
+                                              name={`content_${speechIndex}_${languageIndex}`}
+                                              accept="application/pdf"
+                                              onChange={handleSpeechChange}
+                                              className="custom-file-input"
+                                              id={`customFile_${speechIndex}_${languageIndex}`}
+                                            />
+                                            <label
+                                              className="custom-file-label"
+                                              htmlFor={`customFile_${speechIndex}_${languageIndex}`}
                                             >
-                                              <i
-                                                className="fa fa-eye"
-                                                aria-hidden="true"
-                                              ></i>
-                                            </OverlayTrigger>
-                                          </a>
+                                              PDF -{" "}
+                                              {language.content.filename ||
+                                                language.content.name}
+                                            </label>
+                                            <a
+                                              className="dsldl"
+                                              href={
+                                                process.env.REACT_APP_IMG_URL +
+                                                language.content.destination +
+                                                "/" +
+                                                language.content.filename
+                                              }
+                                              // className="pt-5"
+                                              target="_blank"
+                                              rel="noreferrer"
+                                            >
+                                              <OverlayTrigger
+                                                delay={{ hide: 450, show: 300 }}
+                                                overlay={(props) => (
+                                                  <Tooltip {...props}>
+                                                    View the data.
+                                                  </Tooltip>
+                                                )}
+                                                placement="bottom"
+                                              >
+                                                <i
+                                                  className="fa fa-eye"
+                                                  aria-hidden="true"
+                                                ></i>
+                                              </OverlayTrigger>
+                                            </a>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -607,72 +619,73 @@ const EditRajyapal = () => {
                               </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+              </div>
+              <div className="col-lg-9">
+                <div className="form-group row">
+                  <label
+                    htmlFor="inputPassword3"
+                    className="col-sm-4 col-form-label"
+                  >
+                    Edit Status :
+                  </label>
+                  <div className="col-sm-8">
+                    <div
+                      className={`toggle-button ${isToggled ? "active" : ""}`}
+                      onClick={handleToggle}
+                    >
+                      <div className={`slider ${isToggled ? "active" : ""}`} />
+                      <div className="button-text">
+                        {isToggled ? "Active" : "Inactive"}
+                      </div>
                     </div>
                   </div>
-                ))}
-            </div>
-            <div className="col-lg-9">
-              <div className="form-group row">
-                <label
-                  htmlFor="inputPassword3"
-                  className="col-sm-4 col-form-label"
-                >
-                  Edit Status :
-                </label>
-                <div className="col-sm-8">
-                  <div
-                    className={`toggle-button ${isToggled ? "active" : ""}`}
-                    onClick={handleToggle}
+                </div>
+                <div className="form-group row">
+                  <label
+                    htmlFor="inputPassword3"
+                    className="col-sm-4 col-form-label"
                   >
-                    <div className={`slider ${isToggled ? "active" : ""}`} />
-                    <div className="button-text">
-                      {isToggled ? "Active" : "Inactive"}
+                    Edit Current{" "}
+                    <OverlayTrigger
+                      delay={{ hide: 450, show: 300 }}
+                      overlay={(props) => (
+                        <Tooltip {...props}>
+                          Only set active, when you want to show the current
+                          Rajyapal.
+                        </Tooltip>
+                      )}
+                      placement="bottom"
+                    >
+                      <i className="fa-regular fa-circle-question "></i>
+                    </OverlayTrigger>{" "}
+                    :
+                  </label>
+                  <div className="col-sm-8">
+                    <div
+                      className={`toggle-button ${isCurrent ? "active" : ""}`}
+                      onClick={handleCurrentToggle}
+                    >
+                      <div className={`slider ${isCurrent ? "active" : ""}`} />
+                      <div className="button-text">
+                        {isCurrent ? "Active" : "Inactive"}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="form-group row">
-                <label
-                  htmlFor="inputPassword3"
-                  className="col-sm-4 col-form-label"
-                >
-                  Edit Current{" "}
-                  <OverlayTrigger
-                    delay={{ hide: 450, show: 300 }}
-                    overlay={(props) => (
-                      <Tooltip {...props}>
-                        Only set active, when you want to show the current
-                        Rajyapal.
-                      </Tooltip>
-                    )}
-                    placement="bottom"
-                  >
-                    <i className="fa-regular fa-circle-question "></i>
-                  </OverlayTrigger>{" "}
-                  :
-                </label>
-                <div className="col-sm-8">
-                  <div
-                    className={`toggle-button ${isCurrent ? "active" : ""}`}
-                    onClick={handleCurrentToggle}
-                  >
-                    <div className={`slider ${isCurrent ? "active" : ""}`} />
-                    <div className="button-text">
-                      {isCurrent ? "Active" : "Inactive"}
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
+            <button className="submit123 mt-5" onClick={() => handleSubmit()}>
+              Update
+            </button>
           </div>
-          <button className="submit123 mt-5" onClick={() => handleSubmit()}>
-            Update
-          </button>
         </div>
       </div>
-    </div>
+      <TransparentLoader isVisible={isSubmitted} />
+    </React.Fragment>
   );
 };
 
