@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -7,6 +7,7 @@ import back from "assets/back.svg";
 import { getApiById, putApi } from "services/axios";
 import { Form } from "react-bootstrap";
 import { paths } from "services/paths";
+import TransparentLoader from "components/common/TransparentLoader";
 
 const EditWorkflow = () => {
   const [data, setData] = useState({});
@@ -60,67 +61,71 @@ const EditWorkflow = () => {
   }, []);
 
   return (
-    <div className="content-wrapper pt-4">
-      <div className="contentofpages">
-        <Link to={paths.viewAllWorkflow} className="addpagess">
-          <img src={back} style={{ width: "25px" }} alt="add" />
-          Go back
-        </Link>
-        <h4 className="page-title">• Edit Workflow</h4>
-        <div className="card card-info">
-          <div className="row mb-4 mt-4">
-            {data && (
-              <div className="col-lg-9 border_names">
-                <form className="form-horizontal">
-                  <div className="card-body">
-                    <div className="formada">
-                      <div className="form-group row">
-                        <label
-                          htmlFor="inputPassword3"
-                          className="col-sm-4 col-form-label"
-                        >
-                          Edit Status :
-                        </label>
-                        <div className="col-sm-8">
-                          <div className="d-flex align-items-center">
-                            <Form.Check
-                              type="radio"
-                              id="approveRadio"
-                              name="Accepted"
-                              checked={status === "Accepted"}
-                              onChange={handleChange}
-                            />
-                            <label style={{ margin: 0 }} htmlFor="approveRadio">
-                              Approve
-                            </label>
-                          </div>
+    <React.Fragment>
+      <div className="content-wrapper pt-4">
+        <div className="contentofpages">
+          <Link to={paths.viewAllWorkflow} className="addpagess">
+            <img src={back} style={{ width: "25px" }} alt="add" />
+            Go back
+          </Link>
+          <h4 className="page-title">• Edit Workflow</h4>
+          <div className="card card-info">
+            <div className="row mb-4 mt-4">
+              {data && (
+                <div className="col-lg-9 border_names">
+                  <form className="form-horizontal">
+                    <div className="card-body">
+                      <div className="formada">
+                        <div className="form-group row">
+                          <label
+                            htmlFor="inputPassword3"
+                            className="col-sm-4 col-form-label"
+                          >
+                            Edit Status :
+                          </label>
+                          <div className="col-sm-8">
+                            <div className="d-flex align-items-center">
+                              <Form.Check
+                                type="radio"
+                                id="approveRadio"
+                                name="Accepted"
+                                checked={status === "Accepted"}
+                                onChange={handleChange}
+                              />
+                              <label style={{ margin: 0 }} htmlFor="approveRadio">
+                                Approve
+                              </label>
+                            </div>
 
-                          <div className="d-flex align-items-center">
-                            <Form.Check
-                              type="radio"
-                              id="rejectRadio"
-                              name="Rejected"
-                              checked={status === "Rejected"}
-                              onChange={handleChange}
-                            />
-                            <label style={{ margin: 0 }} htmlFor="rejectRadio">
-                              Reject
-                            </label>
+                            <div className="d-flex align-items-center">
+                              <Form.Check
+                                type="radio"
+                                id="rejectRadio"
+                                name="Rejected"
+                                checked={status === "Rejected"}
+                                onChange={handleChange}
+                              />
+                              <label style={{ margin: 0 }} htmlFor="rejectRadio">
+                                Reject
+                              </label>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </form>
-              </div>
-            )}
+                  </form>
+                </div>
+              )}
+            </div>
+            <button className="submit123 mt-4" onClick={() => handleSubmit()}>
+              Submit
+            </button>
           </div>
-          <button className="submit123 mt-4" onClick={() => handleSubmit()}>
-            Submit
-          </button>
         </div>
       </div>
-    </div>
+
+      <TransparentLoader isVisible={isSubmitted} />
+    </React.Fragment>
   );
 };
 
