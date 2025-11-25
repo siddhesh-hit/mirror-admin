@@ -173,6 +173,16 @@ function EditPoliticalJourney({
               )}
             </div>
           ))}
+
+        {data?.political_journey?.length === 0 && (
+          <div onClick={addDiv} className="addSubButton">
+            <img
+              src={addwhite}
+              // style={{ height: "25px", width: "25px" }}
+              alt="add"
+            />
+          </div>
+        )}
       </form>
     </div>
   );

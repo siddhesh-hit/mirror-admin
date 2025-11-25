@@ -181,6 +181,44 @@ function EditBasicInformation({
             </p>
           </div>
         </div>
+
+        <div className="form-group row">
+          <label htmlFor="inputEmail3" className="col-sm-4 col-form-label">
+            *Edit Jeevan Parichay :
+          </label>
+          <div className="col-sm-8">
+            <div className="custom-file">
+              <input
+                type="file"
+                title={data.jeevan_parichay?.filename || data.jeevan_parichay?.name || "Please choose a file"}
+                name="jeevan_parichay"
+                accept="application/pdf"
+                onChange={handleChange}
+                className="custom-file-input"
+                id="customFile"
+              />
+
+              {error?.jeevan_parichay ? (
+                <p className="red-error mt-3">{error?.jeevan_parichay}</p>
+              ) : (
+                <></>
+              )}
+
+              <label
+                style={{ zIndex: "0" }}
+                className={`custom-file-label ${error?.jeevan_parichay ? "activeError" : ""}`}
+                htmlFor="customFile"
+              >
+                Document -{" "}
+                {data.jeevan_parichay ? data.jeevan_parichay?.filename || data.jeevan_parichay?.name : ""}
+              </label>
+            </div>
+            <p className="photo_disclaimer">
+              *Only upload PDF format document
+            </p>
+          </div>
+        </div>
+
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
             *Edit Name :

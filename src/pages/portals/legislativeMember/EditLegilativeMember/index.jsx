@@ -15,7 +15,6 @@ import EditPoliticalJourney from "components/pages/portal/legislative_members/Ed
 import EditElectionData from "components/pages/portal/legislative_members/EditElectionData";
 import { paths } from "services/paths";
 
-
 const EditLegislativeMember = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [divCount, setDivCount] = useState(1); // Initialize with one div
@@ -72,6 +71,7 @@ const EditLegislativeMember = () => {
         },
       ],
     },
+    jeevan_parichay: {}
   });
 
   const [Data, seObjects] = useState({
@@ -240,6 +240,7 @@ const EditLegislativeMember = () => {
     const [field, subField] = name.split(".");
 
     const maxAllowedSize = 2.5 * 1024 * 1024;
+    const maxPDFAllowedSize = 20 * 1024 * 1024;
 
     // console.log(name, value, checked);
 
@@ -253,25 +254,42 @@ const EditLegislativeMember = () => {
       }));
     } else {
       if (files) {
-        if (
-          files[0]?.type.startsWith("image/png") ||
-          files[0]?.type.startsWith("image/jpeg") ||
-          files[0]?.type.startsWith("image/jpg")
-        ) {
-          if (files[0].size > maxAllowedSize) {
-            alert("Upload the file of size less than 2MB.");
+        if (subField === "profile") {
+          if (
+            files[0]?.type.startsWith("image/png") ||
+            files[0]?.type.startsWith("image/jpeg") ||
+            files[0]?.type.startsWith("image/jpg")
+          ) {
+            if (files[0].size > maxAllowedSize) {
+              alert("Upload the file of size less than 2MB.");
+            } else {
+              setData((prev) => ({
+                ...prev,
+                [field]: {
+                  ...prev[field],
+                  [subField]: files[0],
+                },
+              }));
+            }
           } else {
-            setData((prev) => ({
-              ...prev,
-              [field]: {
-                ...prev[field],
-                [subField]: files[0],
-              },
-            }));
+            alert("Only upload JPEG/JPG/PNG format assets");
           }
-        } else {
-          alert("Only upload JPEG/JPG/PNG format assets");
-        }
+        };
+
+        if (name === "jeevan_parichay") {
+          if (files[0]?.type.startsWith("application/pdf")) {
+            if (files[0].size > maxPDFAllowedSize) {
+              alert("Upload the file of size less than 20MB.");
+            } else {
+              setData((prev) => ({
+                ...prev,
+                [name]: files[0],
+              }));
+            }
+          } else {
+            alert("Only upload PDF format document");
+          }
+        };
       } else {
         setData((prev) => ({
           ...prev,
@@ -352,11 +370,27 @@ const EditLegislativeMember = () => {
         data.basic_info.assembly_number = "";
       }
 
+      // Check if political journey has any meaningful data
+      const isPoliticalJourneyEmpty = data.political_journey.filter(item =>
+        item.date && item.designation && item.legislative_position && item.presiding && item.title
+      );
+
+      // Check if election data has meaningful data
+      const hasValidElectionResults = data.election_data?.member_election_result?.some(result =>
+        result.candidate_name || result.votes || result.party
+      );
+
+      const isElectionDataEmpty = !data.election_data ||
+        (!data.election_data.total_electorate &&
+          !data.election_data.total_valid_voting &&
+          !hasValidElectionResults);
+
       const formData = new FormData();
       formData.append("profile", data.basic_info.profile);
+      formData.append("jeevanParichay", data.jeevan_parichay);
       formData.append("basic_info", JSON.stringify(data.basic_info));
-      formData.append("political_journey", JSON.stringify(data.political_journey));
-      formData.append("election_data", JSON.stringify(data.election_data));
+      formData.append("political_journey", JSON.stringify(isPoliticalJourneyEmpty.length > 0 ? isPoliticalJourneyEmpty : []));
+      formData.append("election_data", JSON.stringify(isElectionDataEmpty ? {} : data.election_data));
 
       const res = await putApi("member", id, formData);
       if (res.data.success) {

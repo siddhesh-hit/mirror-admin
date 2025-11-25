@@ -74,6 +74,7 @@ const AddLegislativeMember = () => {
         },
       ],
     },
+    jeevan_parichay: {}
   });
 
   const [selectedMemberId, setSMI] = useState(null);
@@ -95,6 +96,7 @@ const AddLegislativeMember = () => {
 
   const fetchData = async () => {
     for (let key in Data) {
+      if (key === "memberNames") continue;
       await getApi(key + "/option")
         .then((res) => {
           seObjects((prevData) => ({ ...prevData, [key]: res.data.data }));
@@ -278,8 +280,7 @@ const AddLegislativeMember = () => {
     const [field, subField] = name.split(".");
 
     const maxAllowedSize = 2.5 * 1024 * 1024;
-
-    // console.log(name, value, checked);
+    const maxPDFAllowedSize = 20 * 1024 * 1024;
 
     if (checked) {
       value === "Council"
@@ -305,25 +306,42 @@ const AddLegislativeMember = () => {
         }));
     } else {
       if (files) {
-        if (
-          files[0]?.type.startsWith("image/png") ||
-          files[0]?.type.startsWith("image/jpeg") ||
-          files[0]?.type.startsWith("image/jpg")
-        ) {
-          if (files[0].size > maxAllowedSize) {
-            alert("Upload the file of size less than 2MB.");
+        if (subField === "profile") {
+          if (
+            files[0]?.type.startsWith("image/png") ||
+            files[0]?.type.startsWith("image/jpeg") ||
+            files[0]?.type.startsWith("image/jpg")
+          ) {
+            if (files[0].size > maxAllowedSize) {
+              alert("Upload the file of size less than 2MB.");
+            } else {
+              setData((prev) => ({
+                ...prev,
+                [field]: {
+                  ...prev[field],
+                  [subField]: files[0],
+                },
+              }));
+            }
           } else {
-            setData((prev) => ({
-              ...prev,
-              [field]: {
-                ...prev[field],
-                [subField]: files[0],
-              },
-            }));
+            alert("Only upload JPEG/JPG/PNG format assets");
           }
-        } else {
-          alert("Only upload JPEG/JPG/PNG format assets");
-        }
+        };
+
+        if (name === "jeevan_parichay") {
+          if (files[0]?.type.startsWith("application/pdf")) {
+            if (files[0].size > maxPDFAllowedSize) {
+              alert("Upload the file of size less than 20MB.");
+            } else {
+              setData((prev) => ({
+                ...prev,
+                [name]: files[0],
+              }));
+            }
+          } else {
+            alert("Only upload PDF format document");
+          }
+        };
       } else {
         setData((prev) => ({
           ...prev,
@@ -404,14 +422,34 @@ const AddLegislativeMember = () => {
     const formData = new FormData();
     if (data.basic_info.house === "Council") {
       data.basic_info.assembly_number = "";
-    }
+    };
+
+    // Check if political journey has any meaningful data
+    const isPoliticalJourneyEmpty = data.political_journey.filter(item =>
+      item.date && item.designation && item.legislative_position && item.presiding && item.title
+    );
+
+    // Check if election data has meaningful data
+    const hasValidElectionResults = data.election_data?.member_election_result?.some(result =>
+      result.candidate_name || result.votes || result.party
+    );
+
+    const isElectionDataEmpty = !data.election_data ||
+      (!data.election_data.total_electorate &&
+        !data.election_data.total_valid_voting &&
+        !hasValidElectionResults);
+
     formData.append("profile", data.basic_info.profile);
+    formData.append("jeevanParichay", data.jeevan_parichay);
     formData.append("basic_info", JSON.stringify(data.basic_info));
     formData.append(
       "political_journey",
-      JSON.stringify(data.political_journey)
+      JSON.stringify(isPoliticalJourneyEmpty.length > 0 ? isPoliticalJourneyEmpty : [])
     );
-    formData.append("election_data", JSON.stringify(data.election_data));
+    formData.append(
+      "election_data",
+      JSON.stringify(isElectionDataEmpty ? {} : data.election_data)
+    );
 
     await postApi("member", formData)
       .then((res) => {
@@ -439,14 +477,11 @@ const AddLegislativeMember = () => {
     }))
   };
 
-  const handleKeyDown = (e) =>
-    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
+  const handleKeyDown = (e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
 
   useEffect(() => {
     fetchData();
   }, []);
-
-  console.log(data, divCountElect, divCount)
 
   return (
     <div className="content-wrapper pt-4">
