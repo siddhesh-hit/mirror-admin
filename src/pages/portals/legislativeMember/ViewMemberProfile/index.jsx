@@ -108,16 +108,54 @@ const ViewMemberProfile = () => {
                         {data && data?.basic_info && (
                           <div>
                             <p>
+                              <b>House :</b>{" "}
+                              {data?.basic_info?.house ? data?.basic_info?.house : "N/A"}
+                            </p>
+                            <p>
+                              <b>Assembly :</b>{" "}
+                              {data?.basic_info?.assembly_number?.assembly_name ? data?.basic_info?.assembly_number?.assembly_name : "N/A"}
+                            </p>
+                            <p>
+                              <b>Gender :</b>{" "}
+                              {data?.basic_info.gender?.marathi?.gender ? data?.basic_info.gender?.marathi?.gender : "N/A"}
+                            </p>
+                            <p>
+                              <b>Party :</b>{" "}
+                              {data?.basic_info?.party?.marathi?.party_name ? data?.basic_info?.party?.marathi?.party_name : "N/A"}
+                            </p>
+                            <p>
+                              <b>District :</b>{" "}
+                              {data?.basic_info?.district?.marathi?.district ? data?.basic_info?.district?.marathi?.district : "N/A"}
+                            </p>
+                            <p>
+                              <b>Constituency :</b>
+                              {
+                                data?.basic_info?.constituency?.council?.constituency_name !== ""
+                                  ? data?.basic_info?.constituency?.council?.constituency_name
+                                  : data?.basic_info?.constituency?.assembly?.constituency_name
+                                    ? data?.basic_info?.constituency?.assembly?.constituency_name
+                                    : "N/A"
+                              }
+                            </p>
+                            <p>
+                              <b>Constituency From :</b>
+                              {data?.basic_info?.constituency_from ? formatEnUsDate(data?.basic_info?.constituency_from) : "N/A"}
+                            </p>
+                            <p>
+                              <b>Constituency To :</b>
+                              {data?.basic_info?.constituency_to ? formatEnUsDate(data?.basic_info?.constituency_to) : "N/A"}
+                            </p>
+                            <p>
                               <b>Date of Birth :</b>
                               {data?.basic_info?.date_of_birth ? formatEnUsDate(data?.basic_info?.date_of_birth) : "N/A"}
                             </p>
                             <p>
                               <b>Place of Birth :</b>
-                              {data?.basic_info?.place_of_birth ? data?.basic_info?.place_of_birth : "N/A"}
+                              {data?.basic_info?.place_of_birth ? data?.basic_info.place_of_birth : "N/A"}
                             </p>
                             <p>
                               <b>Educational Qualification :</b>
-                              {data?.basic_info?.education ? data?.basic_info?.education : "N/A"}
+                              {data?.basic_info?.education ? data?.basic_info.education : "N/A"}
                             </p>
                             <p>
                               <b>Known Languages :</b>
@@ -128,40 +166,28 @@ const ViewMemberProfile = () => {
                               {data?.basic_info?.marital_status ? data?.basic_info?.marital_status : "N/A"}
                             </p>
                             <p>
-                              <b>Children :</b> {data?.basic_info?.children ? data?.basic_info?.children : "N/A"}
+                              <b>Children :</b>{" "}
+                              {data?.basic_info?.children ? data?.basic_info?.children : "N/A"}
                             </p>
                             <p>
-                              <b>Business :</b> {data?.basic_info?.business ? data?.basic_info?.business : "N/A"}
+                              <b>Business :</b>{" "}
+                              {data?.basic_info?.business ? data?.basic_info?.business : "N/A"}
                             </p>
                             <p>
-                              <b>Party :</b>
-                              {data?.basic_info?.party.marathi.party_name ? data?.basic_info?.party.marathi.party_name : "N/A"}
-                            </p>
-                            <p>
-                              <b>Constituency :</b>
-                              {data?.basic_info?.constituency
-                                ? data?.basic_info?.constituency.council
-                                  .constituency_name !== ""
-                                  ? data?.basic_info?.constituency.council
-                                    .constituency_name
-                                  : data?.basic_info?.constituency.assembly
-                                    .constituency_name
-                                : "N/A"
-                              }
-                            </p>
-                            <p>
-                              <b>Hobby :</b> {data?.basic_info?.hobby ? data?.basic_info?.hobby : "N/A"}
+                              <b>Hobby :</b>{" "}
+                              {data?.basic_info?.hobby ? data?.basic_info?.hobby : "N/A"}
                             </p>
                             <p>
                               <b>Foreign Migration :</b>
                               {data?.basic_info?.foreign_migration ? data?.basic_info?.foreign_migration : "N/A"}
                             </p>
                             <p>
-                              <b>Gender :</b>{" "}
-                              {data?.basic_info?.gender?.english?.gender ? data?.basic_info?.gender.english.gender : "N/A"}
+                              <b>Address :</b>{" "}
+                              {data?.basic_info?.address ? data?.basic_info?.address : "N/A"}
                             </p>
                             <p>
-                              <b>Address :</b> {data?.basic_info?.address ? data?.basic_info?.address : "N/A"}
+                              <b>Address 1:</b>{" "}
+                              {data?.basic_info?.address1 ? data?.basic_info?.address1 : "N/A"}
                             </p>
                             <p>
                               <b>Mobile Number :</b>
@@ -169,7 +195,32 @@ const ViewMemberProfile = () => {
                             </p>
                             <p>
                               <b>Email Address :</b>
-                              {data?.basic_info?.email ? data?.basic_info?.email : "N/A"}
+                              {data?.basic_info.email ? data?.basic_info.email : "N/A"}
+                            </p>
+                            <p>
+                              <b>Other Information :</b>
+                              {
+                                data?.basic_info?.other_info
+                                  ? <span
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        data?.basic_info?.other_info,
+                                    }}
+                                  />
+                                  : "N/A"
+                              }
+                            </p>
+                            <p>
+                              <b>Awards :</b>
+                              {
+                                data?.basic_info?.awards
+                                  ? <span
+                                    dangerouslySetInnerHTML={{
+                                      __html: data?.data_object?.basic_info?.awards,
+                                    }}
+                                  />
+                                  : "N/A"
+                              }
                             </p>
                           </div>
                         )}
@@ -316,15 +367,21 @@ const ViewMemberProfile = () => {
                   aria-labelledby="custom-tabs-one-jeevan-parichay-tab"
                 >
                   <div className="row">
-                    <div className="col-12">
-                      <PDFViewer
-                        pdfUrl={process.env.REACT_APP_IMG_URL + data?.jeevan_parichay?.destination + "/" + data?.jeevan_parichay?.filename}
-                        height="600px"
-                        showToolbar={true}
-                        showDownloadLink={true}
-                        className="border rounded"
-                      />
-                    </div>
+                    {data && data?.jeevan_parichay && data?.jeevan_parichay?.filename && data?.jeevan_parichay?.destination ? (
+                      <div className="col-12">
+                        <PDFViewer
+                          pdfUrl={process.env.REACT_APP_IMG_URL + data?.jeevan_parichay?.destination + "/" + data?.jeevan_parichay?.filename}
+                          height="600px"
+                          showToolbar={true}
+                          showDownloadLink={true}
+                          className="border rounded"
+                        />
+                      </div>
+                    ) : (
+                      <div className="col-12">
+                        <h4>No jeevan parichay found</h4>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -332,8 +389,7 @@ const ViewMemberProfile = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
-
 export default ViewMemberProfile;
