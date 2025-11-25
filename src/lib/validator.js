@@ -65,28 +65,38 @@ export const basicInfoSchema = async (data) => {
         return yup.string().required("District is required");
       }
     }),
-    first_time_elected: yup.string().required("First time elected is required"),
-    date_of_birth: yup.string().required("Date of birth is required"),
-    place_of_birth: yup.string().required("Place of birth is required"),
-    education: yup.string().required("Education is required"),
-    language: yup.string().required("Language is required"),
-    marital_status: yup.string().required("Marital Status is required"),
-    children: yup
+    first_time_elected: yup.string().optional(),
+    date_of_birth: yup.string().optional(),
+    place_of_birth: yup.string().optional(),
+    education: yup.string().optional(),
+    language: yup.string().optional(),
+    marital_status: yup.string().optional(),
+    children: yup.string().optional(),
+    business: yup.string().optional(),
+    hobby: yup.string().optional(),
+    foreign_migration: yup.string().optional(),
+    address: yup.string().optional(),
+    address1: yup.string().optional(),
+    mobile_number: yup
       .string()
-      .required("Children is required, if no value then put '-'"),
-    business: yup.string().required("Business is required"),
-    hobby: yup.string().required("Hobby is required"),
-    foreign_migration: yup.string().required("Foreign Migration is required"),
-    address: yup.string().required("Address is required"),
-    address1: yup.string().required("Address 1 is required"),
-    mobile_number: yup.string().required("Mobile number must be 10 digits"), // if it's expected to be numeric
-    email: yup.string().required("Invalid email address"),
-    awards: yup
+      .optional()
+      .test('mobile-validation', 'Mobile number must be 10 digits', function (value) {
+        // If empty/undefined, it's valid (optional)
+        if (!value || value.trim() === '') return true;
+        // If has value, validate it's 10 digits
+        return /^\d{10}$/.test(value.trim());
+      }),
+    email: yup
       .string()
-      .required("Awards is required, if no value then put '-'"),
-    other_info: yup
-      .string()
-      .required("Other Information is required, if no value then put '-'"),
+      .optional()
+      .test('email-validation', 'Invalid email address', function (value) {
+        // If empty/undefined, it's valid (optional)
+        if (!value || value.trim() === '') return true;
+        // If has value, validate email format
+        return yup.string().email().isValidSync(value);
+      }),
+    awards: yup.string().optional(),
+    other_info: yup.string().optional(),
   });
   let validate = await dataSchema
     .validate(data, { abortEarly: false })
@@ -98,40 +108,44 @@ export const basicInfoSchema = async (data) => {
     return null;
   }
 };
+
 // Define political journey validation
 export const politicalJourneySchema = async (data) => {
-  let dataSchema = yup.array().of(
+  let dataSchema = yup.array().optional().of(
     yup.object().shape({
-      date: yup.string().required("Date is required"),
-      title: yup.string().required("Title is required"),
+      date: yup.string().optional(),
+      title: yup.string().optional(),
       presiding: yup.lazy((value) => {
         if (typeof value === "object") {
+          // If it's an empty object, it's optional (no validation error)
           if (Object.keys(value).length === 0) {
-            return yup.mixed().required("Presiding Officer is required");
+            return yup.mixed().optional();
           }
           return yup.mixed(); // Accept valid File object
         } else {
-          return yup.string().nullable();
+          return yup.string().optional();
         }
       }),
       legislative_position: yup.lazy((value) => {
         if (typeof value === "object") {
+          // If it's an empty object, it's optional (no validation error)
           if (Object.keys(value).length === 0) {
-            return yup.mixed().required("Legislative Position is required");
+            return yup.mixed().optional();
           }
           return yup.mixed(); // Accept valid File object
         } else {
-          return yup.string().nullable();
+          return yup.string().optional();
         }
       }),
       designation: yup.lazy((value) => {
         if (typeof value === "object") {
+          // If it's an empty object, it's optional (no validation error)
           if (Object.keys(value).length === 0) {
-            return yup.mixed().required("Designation is required");
+            return yup.mixed().optional();
           }
           return yup.mixed(); // Accept valid File object
         } else {
-          return yup.string().nullable();
+          return yup.string().optional();
         }
       }),
     })
@@ -149,7 +163,7 @@ export const politicalJourneySchema = async (data) => {
 
 // Define election data validation
 export const electionDataSchema = async (data) => {
-  let dataSchema = yup.object().shape({
+  let dataSchema = yup.object().optional().shape({
     // constituency: yup.lazy((value) => {
     //   if (typeof value === "object") {
     //     if (Object.keys(value).length === 0) {
@@ -162,28 +176,22 @@ export const electionDataSchema = async (data) => {
     // }),
 
     // yup.string().required("Constituency is required"),
-    total_electorate: yup
-      .string()
-      .required("Total electorate is required, else put '-'"),
-    total_valid_voting: yup
-      .string()
-      .required("Total valid voting is required, else put '-'"),
-    member_election_result: yup.array().of(
+    total_electorate: yup.string().optional(),
+    total_valid_voting: yup.string().optional(),
+    member_election_result: yup.array().optional().of(
       yup.object().shape({
-        candidate_name: yup.string().required("Candidate name is required"),
-        votes: yup.string().required("Votes is required, else put '-'"),
+        candidate_name: yup.string().optional(),
+        votes: yup.string().optional(),
         party: yup.lazy((value) => {
           if (typeof value === "object") {
             if (Object.keys(value).length === 0) {
-              return yup.mixed().required("Party is required");
+              return yup.mixed().optional(); // Make it optional instead of required
             }
             return yup.mixed(); // Accept valid File object
           } else {
-            return yup.string().required("Party is required");
+            return yup.string().optional(); // Make it optional instead of required
           }
         }),
-
-        // yup.string().required("Party is required"),
       })
     ),
   });
@@ -204,6 +212,16 @@ export const memberSchema = async (data) => {
     basic_info: basicInfoSchema,
     political_journey: politicalJourneySchema,
     election_data: electionDataSchema,
+    jeevan_parichay: yup.lazy((value) => {
+      if (typeof value === "object") {
+        if (value === null || Object.keys(value).length === 0) {
+          return yup.mixed().required("Jeevan parichat document must be uploaded");
+        }
+        return yup.mixed(); // Accept valid File object
+      } else {
+        return yup.string().required("Jeevan parichat is required");
+      }
+    })
   });
 
   let validate = await dataSchema

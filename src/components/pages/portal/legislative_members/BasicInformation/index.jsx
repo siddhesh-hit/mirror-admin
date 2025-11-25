@@ -205,6 +205,44 @@ function BasicInformation({
             </p>
           </div>
         </div>
+
+        <div className="form-group row">
+          <label htmlFor="inputEmail3" className="col-sm-4 col-form-label">
+            *Add Jeevan Parichay :
+          </label>
+          <div className="col-sm-8">
+            <div className="custom-file">
+              <input
+                type="file"
+                title={data.jeevan_parichay?.filename || data.jeevan_parichay?.name || "Please choose a file"}
+                name="jeevan_parichay"
+                accept="application/pdf"
+                onChange={handleChange}
+                className="custom-file-input"
+                id="customFile"
+              />
+
+              {error?.jeevan_parichay ? (
+                <p className="red-error mt-3">{error?.jeevan_parichay}</p>
+              ) : (
+                <></>
+              )}
+
+              <label
+                style={{ zIndex: "0" }}
+                className={`custom-file-label ${error?.jeevan_parichay ? "activeError" : ""}`}
+                htmlFor="customFile"
+              >
+                Document -{" "}
+                {data.jeevan_parichay ? data.jeevan_parichay?.filename || data.jeevan_parichay?.name : ""}
+              </label>
+            </div>
+            <p className="photo_disclaimer">
+              *Only upload PDF format document
+            </p>
+          </div>
+        </div>
+
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
             *Add Name :
@@ -370,7 +408,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add First Time Elected ? :
+            Add First Time Elected ? :
           </label>
           <div className="col-sm-8">
             <select
@@ -394,7 +432,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Date of Birth :
+            Add Date of Birth :
           </label>
           <div className="col-sm-8">
             <DatePicker
@@ -427,7 +465,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Place of Birth :
+            Add Place of Birth :
           </label>
           <div className="col-sm-8">
             <input
@@ -450,7 +488,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Education :
+            Add Education :
           </label>
           <div className="col-sm-8">
             <input
@@ -472,7 +510,7 @@ function BasicInformation({
 
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Language :
+            Add Language :
           </label>
           <div className="col-sm-8">
             <input
@@ -493,7 +531,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Marital Status :
+            Add Marital Status :
           </label>
           <div className="col-sm-8">
             <input
@@ -516,7 +554,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Children :
+            Add Children :
           </label>
           <div className="col-sm-8">
             <input
@@ -537,7 +575,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Business :
+            Add Business :
           </label>
           <div className="col-sm-8">
             <input
@@ -558,7 +596,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Hobby :
+            Add Hobby :
           </label>
           <div className="col-sm-8">
             <input
@@ -579,7 +617,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Foreign Journey :
+            Add Foreign Journey :
           </label>
           <div className="col-sm-8">
             <input
@@ -602,7 +640,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Address :
+            Add Address :
           </label>
           <div className="col-sm-8">
             <input
@@ -623,7 +661,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Address 1 :
+            Add Address 1 :
           </label>
           <div className="col-sm-8">
             <input
@@ -644,7 +682,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Mobile Number :
+            Add Mobile Number :
           </label>
           <div className="col-sm-8">
             <input
@@ -670,7 +708,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Email Address :
+            Add Email Address :
           </label>
           <div className="col-sm-8">
             <input
@@ -691,7 +729,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Awards :
+            Add Awards :
           </label>
           <div className="col-sm-8">
             <CKEditor
@@ -719,7 +757,7 @@ function BasicInformation({
         </div>
         <div className="form-group row">
           <label htmlFor="inputPassword3" className="col-sm-4 col-form-label">
-            *Add Other Information :
+            Add Other Information :
           </label>
           <div className="col-sm-8">
             <CKEditor

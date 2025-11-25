@@ -2,6 +2,7 @@
 import { useDataFetchingForBothApis } from "hooks/useDataFetchingForBothApis";
 import Loading from "components/common/Loader";
 import { formatEnUsDate } from "lib/dateEnUsFormat";
+import PDFViewer from "components/common/PDFViewer";
 
 const ViewMemberProfile = () => {
   const { data, loading } = useDataFetchingForBothApis("member");
@@ -60,6 +61,19 @@ const ViewMemberProfile = () => {
                     Election Data
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    id="custom-tabs-one-jeevan-parichay-tab"
+                    data-toggle="pill"
+                    href="#custom-tabs-one-jeevan-parichay"
+                    role="tab"
+                    aria-controls="custom-tabs-one-jeevan-parichay"
+                    aria-selected="false"
+                  >
+                    Jeevan Parichay
+                  </a>
+                </li>
               </ul>
             </div>
             <div className="card-body">
@@ -95,33 +109,33 @@ const ViewMemberProfile = () => {
                           <div>
                             <p>
                               <b>Date of Birth :</b>
-                              {formatEnUsDate(data?.basic_info?.date_of_birth)}
+                              {data?.basic_info?.date_of_birth ? formatEnUsDate(data?.basic_info?.date_of_birth) : "N/A"}
                             </p>
                             <p>
                               <b>Place of Birth :</b>
-                              {data?.basic_info?.place_of_birth}
+                              {data?.basic_info?.place_of_birth ? data?.basic_info?.place_of_birth : "N/A"}
                             </p>
                             <p>
                               <b>Educational Qualification :</b>
-                              {data?.basic_info?.education}
+                              {data?.basic_info?.education ? data?.basic_info?.education : "N/A"}
                             </p>
                             <p>
                               <b>Known Languages :</b>
-                              {data?.basic_info?.language}
+                              {data?.basic_info?.language ? data?.basic_info?.language : "N/A"}
                             </p>
                             <p>
                               <b>Marital Status :</b>
-                              {data?.basic_info?.marital_status}
+                              {data?.basic_info?.marital_status ? data?.basic_info?.marital_status : "N/A"}
                             </p>
                             <p>
-                              <b>Children :</b> {data?.basic_info?.children}
+                              <b>Children :</b> {data?.basic_info?.children ? data?.basic_info?.children : "N/A"}
                             </p>
                             <p>
-                              <b>Business :</b> {data?.basic_info?.business}
+                              <b>Business :</b> {data?.basic_info?.business ? data?.basic_info?.business : "N/A"}
                             </p>
                             <p>
                               <b>Party :</b>
-                              {data?.basic_info?.party.marathi.party_name}
+                              {data?.basic_info?.party.marathi.party_name ? data?.basic_info?.party.marathi.party_name : "N/A"}
                             </p>
                             <p>
                               <b>Constituency :</b>
@@ -132,30 +146,30 @@ const ViewMemberProfile = () => {
                                     .constituency_name
                                   : data?.basic_info?.constituency.assembly
                                     .constituency_name
-                                : ""
+                                : "N/A"
                               }
                             </p>
                             <p>
-                              <b>Hobby :</b> {data?.basic_info?.hobby}
+                              <b>Hobby :</b> {data?.basic_info?.hobby ? data?.basic_info?.hobby : "N/A"}
                             </p>
                             <p>
                               <b>Foreign Migration :</b>
-                              {data?.basic_info?.foreign_migration}
+                              {data?.basic_info?.foreign_migration ? data?.basic_info?.foreign_migration : "N/A"}
                             </p>
                             <p>
                               <b>Gender :</b>{" "}
-                              {data?.basic_info?.gender.english.gender}
+                              {data?.basic_info?.gender?.english?.gender ? data?.basic_info?.gender.english.gender : "N/A"}
                             </p>
                             <p>
-                              <b>Address :</b> {data?.basic_info?.address}
+                              <b>Address :</b> {data?.basic_info?.address ? data?.basic_info?.address : "N/A"}
                             </p>
                             <p>
                               <b>Mobile Number :</b>
-                              {data?.basic_info?.mobile_number}
+                              {data?.basic_info?.mobile_number ? data?.basic_info?.mobile_number : "N/A"}
                             </p>
                             <p>
                               <b>Email Address :</b>
-                              {data?.basic_info?.email}
+                              {data?.basic_info?.email ? data?.basic_info?.email : "N/A"}
                             </p>
                           </div>
                         )}
@@ -211,6 +225,12 @@ const ViewMemberProfile = () => {
                           ))}
                         </ul>
                       )}
+
+                      {data && data?.political_journey && data?.political_journey.length === 0 && (
+                        <div className="col-12">
+                          <h4>No political journey found</h4>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -232,25 +252,25 @@ const ViewMemberProfile = () => {
                                 .constituency_name
                               : data?.election_data?.constituency.assembly
                                 .constituency_name
-                            : ""
+                            : "N/A"
                           }
                         </h3>
                         <div className="row votes_abcdss">
                           <div className="col-lg-5">
                             <h3>
                               • Total Electorate :
-                              {data?.election_data?.total_electorate}
+                              {data?.election_data?.total_electorate ? data?.election_data?.total_electorate : "N/A"}
                             </h3>
                           </div>
                           <div className="col-lg-5">
                             <h3>
                               • Total valid voting :{" "}
-                              {data?.election_data?.total_valid_voting}
+                              {data?.election_data?.total_valid_voting ? data?.election_data?.total_valid_voting : "N/A"}
                             </h3>
                           </div>
                         </div>
                       </div>
-                      <table className="table table-striped table-bordered mb-0 view_vidhan_mandal">
+                      {data?.election_data?.member_election_result && data?.election_data?.member_election_result.length > 0 && <table className="table table-striped table-bordered mb-0 view_vidhan_mandal">
                         <thead>
                           <tr>
                             <th>Sr.No</th>
@@ -260,28 +280,52 @@ const ViewMemberProfile = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {data?.election_data?.member_election_result && data?.election_data?.member_election_result.length > 0 && data?.election_data?.member_election_result.map(
+                          {data?.election_data?.member_election_result.map(
                             (item, index) => (
                               <tr key={index}>
                                 <td>
                                   <h4>{index + 1}</h4>
                                 </td>
                                 <td>
-                                  <h4>{item.candidate_name}</h4>
+                                  <h4>{item.candidate_name ? item.candidate_name : "N/A"}</h4>
                                 </td>
                                 <td>
-                                  <h4>{item.votes}</h4>
+                                  <h4>{item.votes ? item.votes : "N/A"}</h4>
                                 </td>
                                 <td>
-                                  <h4>{item?.party?.marathi?.party_name}</h4>
+                                  <h4>{item?.party?.marathi?.party_name ? item?.party?.marathi?.party_name : "N/A"}</h4>
                                 </td>
                               </tr>
                             )
                           )}
                         </tbody>
-                      </table>
+                      </table>}
                     </>
                   )}
+
+                  {data && data?.election_data && data?.election_data?.member_election_result?.length === 0 && (
+                    <div className="col-12">
+                      <h4>No election data found</h4>
+                    </div>
+                  )}
+                </div>
+                <div
+                  className="tab-pane fade"
+                  id="custom-tabs-one-jeevan-parichay"
+                  role="tabpanel"
+                  aria-labelledby="custom-tabs-one-jeevan-parichay-tab"
+                >
+                  <div className="row">
+                    <div className="col-12">
+                      <PDFViewer
+                        pdfUrl={process.env.REACT_APP_IMG_URL + data?.jeevan_parichay?.destination + "/" + data?.jeevan_parichay?.filename}
+                        height="600px"
+                        showToolbar={true}
+                        showDownloadLink={true}
+                        className="border rounded"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

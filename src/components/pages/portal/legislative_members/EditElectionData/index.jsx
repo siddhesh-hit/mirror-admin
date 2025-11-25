@@ -171,6 +171,16 @@ function EditElectionData({
               )}
             </div>
           ))}
+
+        {data?.election_data?.member_election_result?.length === 0 && (
+          <div onClick={addDiv} className="addSubButton">
+            <img
+              src={addwhite}
+              // style={{ height: "25px", width: "25px" }}
+              alt="add"
+            />
+          </div>
+        )}
       </form>
     </div>
   );
