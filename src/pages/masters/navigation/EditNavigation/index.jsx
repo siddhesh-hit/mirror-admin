@@ -154,6 +154,11 @@ const EditNavigation = () => {
     if (isSubmitted) return;
     setSubmit(true);
 
+    if (!data.isDropDown) {
+      delete data.english.dropDownValue;
+      delete data.marathi.dropDownValue;
+    };
+
     await putApi("navigation", id, data)
       .then((res) => {
         if (res.data.success) {

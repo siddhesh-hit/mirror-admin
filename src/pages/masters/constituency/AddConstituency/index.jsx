@@ -129,6 +129,7 @@ const AddConstituency = () => {
         .then((res) => {
           if (res.data.success) {
             setConstituencyTypes(res.data.data);
+            navigate(paths.viewConstituency);
           }
         })
         .catch((err) => console.log(err));
