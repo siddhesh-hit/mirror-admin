@@ -20,7 +20,6 @@ const EditLibrary = () => {
   const fetchData = async () => {
     await getApiById("library", id)
       .then((res) => {
-        console.log(res);
         setData(res.data.data);
         setServerData(res.data.data);
         setIsToggled(res.data.data.isActive);
@@ -34,8 +33,6 @@ const EditLibrary = () => {
     const { name, value, files } = e.target;
     const [field, subField] = name.split("_");
     const maxAllowedSize = 2.5 * 1024 * 1024;
-
-    console.log(name, value, files);
 
     if (!files) {
       setServerData((prev) => ({
@@ -89,14 +86,12 @@ const EditLibrary = () => {
     formData.append("isActive", serverData.isActive);
     formData.append("isUpdated", true);
 
-    // console.log(formData);
-
     await putApi("library", data._id, formData)
       .then((res) => {
         if (res.data.success) {
           toast.success("Library updated Successfully");
           setTimeout(() => {
-            navigate(`${paths.viewAllLibrary}/${data._id}`);
+            navigate(`${paths.viewAllLibrary}`);
           }, 1100);
         }
       })
@@ -111,8 +106,6 @@ const EditLibrary = () => {
     fetchData();
   }, []);
 
-  console.log(serverData, "data here");
-
   const handleEditorChange = (event, value, name) => {
     const [field, subField] = name.split("_");
     setServerData((prev) => ({
@@ -123,8 +116,6 @@ const EditLibrary = () => {
       },
     }));
   };
-
-  // console.log(serverData)
 
   return (
     <div className="content-wrapper pt-4">

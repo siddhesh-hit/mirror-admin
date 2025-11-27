@@ -169,7 +169,6 @@ const EditLegislativeAssembly = () => {
         if (files[0].size > maxAllowedSize) {
           alert("Upload the file of size less than 2MB.");
         } else {
-          console.log("aya", field, index, lang, subField, files);
           setServer((prev) => ({
             ...prev,
             [field]: prev[field].map((item, ind) =>
@@ -208,9 +207,10 @@ const EditLegislativeAssembly = () => {
 
   const handleStructureChange = (e) => {
     const { name, value, files } = e.target;
+    console.log(name, value)
     const maxAllowedSize = 2.5 * 1024 * 1024;
 
-    const [lang, field, subField] = name.split(".");
+    const [lang, field, index, subField] = name.split(".");
     // english.structure.name
 
     if (files) {
@@ -235,10 +235,14 @@ const EditLegislativeAssembly = () => {
         ...prev,
         [lang]: {
           ...prev[lang],
-          [field]: {
-            ...prev[lang][field],
-            [subField]: value,
-          },
+          [field]: prev[lang][field].map((item, ind) =>
+            ind === +index
+              ? {
+                ...item,
+                [subField]: value,
+              }
+              : item
+          ),
         },
       }));
     }
@@ -440,7 +444,7 @@ const EditLegislativeAssembly = () => {
   }, []);
 
   // console.log(server);
-  const handleEditorBannerChange = (event, value, name, index) => {
+  const handleEditorBannerChange = (event, value, name) => {
     const [lang, field] = name.split(".");
     setServer((prev) => ({
       ...prev,
@@ -450,7 +454,6 @@ const EditLegislativeAssembly = () => {
       },
     }));
   };
-  console.log(server);
 
   const handleEditorProfileChange = (event, value, name) => {
     const [lang, field, index, subField] = name.split(".");
@@ -462,7 +465,7 @@ const EditLegislativeAssembly = () => {
           ind === +index
             ? {
               ...item,
-              [subField]: value.getData(),
+              [subField]: value?.getData(),
             }
             : item
         ),

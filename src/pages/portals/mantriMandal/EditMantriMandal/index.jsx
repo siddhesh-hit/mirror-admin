@@ -92,9 +92,7 @@ const EditMantriMandal = () => {
 
     data.designation = data.designation.map((item) => item.value);
     data.presiding = data.presiding.map((item) => item.value);
-    data.legislative_position = data.legislative_position.map(
-      (item) => item.value
-    );
+    data.legislative_position = data.legislative_position.map((item) => item.value);
     data.ministry_type = data.ministry_type.map((item) => item.value);
 
     data.assembly_number = data.assembly_number._id;
@@ -122,6 +120,7 @@ const EditMantriMandal = () => {
       await getApiById("minister", id)
         .then((res) => {
           setData(res.data.data);
+
           setDefaultOption((prev) => ({
             ...prev,
             desOpt: res?.data?.data?.designation.map((item) => {
@@ -249,8 +248,6 @@ const EditMantriMandal = () => {
     }
   }, [data.assembly_number]);
 
-  console.log(data);
-
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
@@ -331,11 +328,13 @@ const EditMantriMandal = () => {
                           value={defaultOption.minisOpt}
                           name="ministry_type"
                           options={minisOpt}
-                          onChange={(e) =>
+                          onChange={(e) => {
                             setData((prev) => ({
                               ...prev,
                               ministry_type: e,
                             }))
+                            console.log(e, data.ministry_type, "e")
+                          }
                           }
                           className=""
                           classNamePrefix="select"

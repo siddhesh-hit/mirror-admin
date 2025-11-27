@@ -4,8 +4,6 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { paths } from "services/paths";
 
 const EditBanner = ({ data, handleChange, error, back, handleEditorBannerChange }) => {
-  console.log(data, "data")
-
 
   return (
     <div className="contentofpages">

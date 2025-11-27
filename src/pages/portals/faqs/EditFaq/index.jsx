@@ -16,8 +16,6 @@ const EditFaq = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  console.log(id)
-
   const fetchData = async () => {
     await getApiById("faq", id)
       .then((res) => {
@@ -70,7 +68,7 @@ const EditFaq = () => {
         if (res.data.success) {
           toast.success("Updated FAQ");
           setTimeout(() => {
-            navigate(`${paths.viewFaq}/${id}`);
+            navigate(`${paths.viewAllFaq}`);
           }, 1100);
         }
       })
@@ -91,7 +89,7 @@ const EditFaq = () => {
       },
     }));
   }
-  console.log(data);
+
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">

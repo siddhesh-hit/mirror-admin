@@ -63,7 +63,6 @@ const AddLibrary = () => {
     setSubmit(true);
 
     const formData = new FormData();
-    console.log(data);
     formData.append("english", JSON.stringify(data.english));
     formData.append("marathi", JSON.stringify(data.marathi));
     formData.append("banner", data.banner);
@@ -73,7 +72,7 @@ const AddLibrary = () => {
         if (res.data.success) {
           toast.success("Library Added Successfully");
           setTimeout(() => {
-            navigate(`${paths.viewLibrary}/${res.data.data._id}`);
+            navigate(`${paths.viewAllLibrary}`);
           }, 1100);
         }
       })
@@ -83,8 +82,6 @@ const AddLibrary = () => {
 
     setSubmit(false);
   };
-
-  console.log(data);
 
   const handleEditorChange = (event, value, name) => {
     const [field, subField] = name.split("_");
