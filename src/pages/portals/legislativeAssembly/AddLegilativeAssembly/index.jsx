@@ -371,7 +371,6 @@ const AddLegislativeAssembly = () => {
     } catch (error) {
       console.log("error", error)
       toast.error("Something went wrong");
-      console.log(err);
     } finally {
       setSubmit(false);
     }

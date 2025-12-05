@@ -31,7 +31,7 @@ function EditBasicInformation({
                 type="radio"
                 name="basic_info.house"
                 value="Council"
-                checked={data.basic_info.house === "Council"}
+                checked={data?.basic_info?.house === "Council"}
                 onChange={handleChange}
               />
               <label className="form-check-label" htmlFor="flexRadioDefault1">
@@ -42,7 +42,7 @@ function EditBasicInformation({
                 type="radio"
                 name="basic_info.house"
                 value="Assembly"
-                checked={data.basic_info.house === "Assembly"}
+                checked={data?.basic_info?.house === "Assembly"}
                 onChange={handleChange}
               />
               <label className="form-check-label" htmlFor="flexRadioDefault2">
@@ -51,7 +51,7 @@ function EditBasicInformation({
             </div>
           </div>
 
-          {data.basic_info.house === "Assembly" && (
+          {data?.basic_info?.house === "Assembly" && (
             <div className="form-group row">
               <label
                 htmlFor="inputPassword3"
@@ -81,7 +81,7 @@ function EditBasicInformation({
             </div>
           )}
 
-          {data.basic_info.house === "Council" && (
+          {data?.basic_info?.house === "Council" && (
             <>
               <div className="form-group row">
                 <label
@@ -159,8 +159,8 @@ function EditBasicInformation({
               <input
                 type="file"
                 title={
-                  data.basic_info.profile.filename ||
-                  data.basic_info.profile.name ||
+                  data?.basic_info?.profile?.filename ||
+                  data?.basic_info?.profile?.name ||
                   "Please choose a file"
                 }
                 name="basic_info.profile"
@@ -171,8 +171,8 @@ function EditBasicInformation({
               />
               <label className="custom-file-label" htmlFor="customFile">
                 Image -{" "}
-                {data.basic_info.profile.filename ||
-                  data.basic_info.profile.name}
+                {data?.basic_info?.profile?.filename ||
+                  data?.basic_info?.profile?.name}
               </label>
             </div>
             <p className="photo_disclaimer">
@@ -190,7 +190,7 @@ function EditBasicInformation({
             <div className="custom-file">
               <input
                 type="file"
-                title={data.jeevan_parichay?.filename || data.jeevan_parichay?.name || "Please choose a file"}
+                title={data?.jeevan_parichay?.filename || data?.jeevan_parichay?.name || "Please choose a file"}
                 name="jeevan_parichay"
                 accept="application/pdf"
                 onChange={handleChange}
@@ -210,7 +210,7 @@ function EditBasicInformation({
                 htmlFor="customFile"
               >
                 Document -{" "}
-                {data.jeevan_parichay ? data.jeevan_parichay?.filename || data.jeevan_parichay?.name : ""}
+                {data?.jeevan_parichay ? data?.jeevan_parichay?.filename || data?.jeevan_parichay?.name : ""}
               </label>
             </div>
             <p className="photo_disclaimer">
@@ -227,7 +227,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.name"
-              defaultValue={data.basic_info.name}
+              defaultValue={data?.basic_info?.name}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Name"
@@ -242,7 +242,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.surname"
-              defaultValue={data.basic_info.surname}
+              defaultValue={data?.basic_info?.surname}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Surname"
@@ -355,7 +355,7 @@ function EditBasicInformation({
             <select
               className="form-control"
               name="basic_info.first_time_elected"
-              value={data.basic_info.first_time_elected}
+              value={data?.basic_info?.first_time_elected}
               onChange={handleChange}
             >
               <option hidden>Select Option</option>
@@ -397,7 +397,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.place_of_birth"
-              defaultValue={data.basic_info.place_of_birth}
+              defaultValue={data?.basic_info?.place_of_birth}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Place of Birth"
@@ -412,7 +412,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.education"
-              defaultValue={data.basic_info.education}
+              defaultValue={data?.basic_info?.education}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Education"
@@ -428,7 +428,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.language"
-              defaultValue={data.basic_info.language}
+              defaultValue={data?.basic_info?.language}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Language"
@@ -443,7 +443,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.marital_status"
-              defaultValue={data.basic_info.marital_status}
+              defaultValue={data?.basic_info?.marital_status}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Marital Status"
@@ -458,7 +458,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.children"
-              defaultValue={data.basic_info.children}
+              defaultValue={data?.basic_info?.children}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Children"
@@ -473,7 +473,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.business"
-              defaultValue={data.basic_info.business}
+              defaultValue={data?.basic_info?.business}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Business"
@@ -488,7 +488,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.hobby"
-              defaultValue={data.basic_info.hobby}
+              defaultValue={data?.basic_info?.hobby}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Hobby"
@@ -503,7 +503,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.foreign_migration"
-              defaultValue={data.basic_info.foreign_migration}
+              defaultValue={data?.basic_info?.foreign_migration}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Foreign Migration"
@@ -518,7 +518,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.address"
-              defaultValue={data.basic_info.address}
+              defaultValue={data?.basic_info?.address}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter address"
@@ -533,7 +533,7 @@ function EditBasicInformation({
             <input
               type="text"
               name="basic_info.address1"
-              defaultValue={data.basic_info.address1}
+              defaultValue={data?.basic_info?.address1}
               onChange={handleChange}
               className={`form-control ${error?.basic_info?.address1 ? "activeError" : ""
                 }`}
@@ -555,7 +555,7 @@ function EditBasicInformation({
               type="text"
               // onKeyDown={handleKeyDown}
               name="basic_info.mobile_number"
-              defaultValue={data.basic_info.mobile_number}
+              defaultValue={data?.basic_info?.mobile_number}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Mobile Number"
@@ -570,7 +570,7 @@ function EditBasicInformation({
             <input
               type="email"
               name="basic_info.email"
-              defaultValue={data.basic_info.email}
+              defaultValue={data?.basic_info?.email}
               onChange={handleChange}
               className="form-control"
               placeholder="Enter Email Address"
@@ -585,9 +585,8 @@ function EditBasicInformation({
             <CKEditor
               editor={ClassicEditor}
               // data={editorData}
-              className={`form-control ${error?.basic_info?.awards ? "activeError" : ""
-                }`}
-              data={data?.basic_info?.awards}
+              className={`form-control ${error?.basic_info?.awards ? "activeError" : ""}`}
+              data={data?.english?.awards}
               name="basic_info.awards"
               onChange={(event, value) =>
                 setData((prev) => ({
@@ -614,9 +613,8 @@ function EditBasicInformation({
           <div className="col-sm-8">
             <CKEditor
               editor={ClassicEditor}
-              className={`form-control ${error?.basic_info?.other_info ? "activeError" : ""
-                }`}
-              data={data?.basic_info?.other_info}
+              className={`form-control ${error?.basic_info?.other_info ? "activeError" : ""}`}
+              data={data?.english?.other_info}
               name="basic_info.other_info"
               onChange={(event, value) =>
                 setData((prev) => ({

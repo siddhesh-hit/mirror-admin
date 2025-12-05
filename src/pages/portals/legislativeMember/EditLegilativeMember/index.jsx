@@ -159,7 +159,7 @@ const EditLegislativeMember = () => {
 
     setData((prev) => ({
       ...prev,
-      political_journey: [...prev.political_journey, object],
+      political_journey: [...prev?.political_journey || [], object],
     }));
 
     setDivCount(divCount + 1);
@@ -191,9 +191,9 @@ const EditLegislativeMember = () => {
     setData((prev) => ({
       ...prev,
       election_data: {
-        ...prev.election_data,
+        ...prev?.election_data || {},
         member_election_result: [
-          ...prev.election_data.member_election_result,
+          ...prev?.election_data?.member_election_result || [],
           object,
         ],
       },

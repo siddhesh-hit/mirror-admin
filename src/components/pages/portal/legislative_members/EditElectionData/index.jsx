@@ -30,12 +30,12 @@ function EditElectionData({
               <select
                 className="form-control"
                 name="election_data.constituency"
-                value={data?.election_data?.constituency?._id || ""}
+                value={data?.election_data?.constituency?._id || data?.election_data?.constituency || ""}
                 onChange={handleChange}
               >
                 <option hidden>Select Constituency</option>
-                {Data.constituency.length > 0 ? (
-                  Data.constituency.map((item) => (
+                {Data?.constituency?.length > 0 ? (
+                  Data?.constituency?.map((item) => (
                     <option key={item._id} value={item._id}>
                       {item.council.constituency_name !== ""
                         ? item.council.constituency_name
@@ -56,7 +56,7 @@ function EditElectionData({
               <input
                 type="string"
                 name="election_data.total_electorate"
-                defaultValue={data.election_data.total_electorate}
+                defaultValue={data?.election_data?.total_electorate}
                 onChange={handleChange}
                 className="form-control"
                 placeholder="Enter Total Electorate Number"
@@ -71,7 +71,7 @@ function EditElectionData({
               <input
                 type="string"
                 name="election_data.total_valid_voting"
-                defaultValue={data.election_data.total_valid_voting}
+                defaultValue={data?.election_data?.total_valid_voting}
                 onChange={handleChange}
                 className="form-control"
                 placeholder="Enter Total Valid Voting"
@@ -80,7 +80,7 @@ function EditElectionData({
           </div>
         </div>
         {data?.election_data &&
-          data?.election_data?.member_election_result?.map((item, index) => (
+          data?.election_data?.member_election_result.map((item, index) => (
             <div className="border_names" key={index}>
               <div className="" style={{ padding: "0px 20px" }}>
                 <h2 className="stepper-form mb-2 mt-5">
@@ -99,7 +99,7 @@ function EditElectionData({
                         <input
                           type="text"
                           name={`election_data.member_election_result.candidate_name.${index}`}
-                          defaultValue={item.candidate_name}
+                          defaultValue={item?.candidate_name}
                           onChange={handleChange}
                           className="form-control"
                           placeholder="Enter Candidate Name"
@@ -117,7 +117,7 @@ function EditElectionData({
                         <input
                           type="string"
                           name={`election_data.member_election_result.votes.${index}`}
-                          defaultValue={item.votes}
+                          defaultValue={item?.votes}
                           onChange={handleChange}
                           className="form-control"
                           placeholder=" Enter Votes"
@@ -135,12 +135,12 @@ function EditElectionData({
                         <select
                           className="form-control"
                           name={`election_data.member_election_result.party.${index}`}
-                          value={item?.party?._id || ""}
+                          value={item?.party?._id || item?.party || ""}
                           onChange={handleChange}
                         >
                           <option hidden>Select Party</option>
-                          {Data.party.length > 0 ? (
-                            Data.party.map((item) => (
+                          {Data?.party?.length > 0 ? (
+                            Data?.party?.map((item) => (
                               <option key={item._id} value={item._id}>
                                 {item.english.party_name}
                               </option>
@@ -172,7 +172,7 @@ function EditElectionData({
             </div>
           ))}
 
-        {data?.election_data?.member_election_result?.length === 0 && (
+        {(data?.election_data?.member_election_result?.length === 0 || data?.election_data === null || data?.election_data?.member_election_result === null) && (
           <div onClick={addDiv} className="addSubButton">
             <img
               src={addwhite}
