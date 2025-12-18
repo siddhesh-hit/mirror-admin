@@ -25,7 +25,7 @@ export const newPageName = {
   RajyapalMember: "workflow/rajyapal",
   Faq: "workflow/faq",
   Minister: "workflow/mantri-mandal",
-  MandalGallery: "workflow/gallery",
+  MandalGallery: "workflow/gallery/image",
   Debate: "",
   ContactUs: "workflow/contact",
 };

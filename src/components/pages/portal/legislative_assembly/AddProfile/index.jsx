@@ -36,10 +36,8 @@ const AddProfile = ({
                             <input
                               type="file"
                               title={
-                                data.legislative_council[index].council_profile
-                                  ? data.legislative_council[index]
-                                    .council_profile.name ||
-                                  "Please choose a file"
+                                data?.legislative_council?.[index]?.council_profile
+                                  ? data?.legislative_council?.[index]?.council_profile?.name || data?.legislative_council?.[index]?.council_profile?.filename || "Please choose a file"
                                   : "Please choose a file"
                               }
                               accept="image/png, image/jpeg, image.jpg"
@@ -59,11 +57,7 @@ const AddProfile = ({
                             )}
 
                             <label
-                              className={`custom-file-label ${error.council &&
-                                error?.council[index]?.legislative_profile
-                                ? "activeError"
-                                : ""
-                                }`}
+                              className={`custom-file-label ${error.council && error?.council[index]?.legislative_profile ? "activeError" : ""}`}
                               htmlFor="customFile"
                             >
                               Image -{" "}
@@ -91,11 +85,7 @@ const AddProfile = ({
                             type="text"
                             name={`english.legislative_council.${index}.council_name`}
                             onChange={handleChange}
-                            className={`form-control mb-3 ${error.council &&
-                              error?.council[index]?.council_name_en
-                              ? "activeError"
-                              : ""
-                              }`}
+                            className={`form-control mb-3 ${error.council && error?.council[index]?.council_name_en ? "activeError" : ""}`}
                             placeholder="Enter Name"
                           />
                           {error.council &&
@@ -110,11 +100,7 @@ const AddProfile = ({
                             type="text"
                             name={`marathi.legislative_council.${index}.council_name`}
                             onChange={handleChange}
-                            className={`form-control ${error.council &&
-                              error?.council[index]?.council_name_en
-                              ? "activeError"
-                              : ""
-                              }`}
+                            className={`form-control ${error.council && error?.council[index]?.council_name_en ? "activeError" : ""}`}
                             placeholder="नाव प्रविष्ट करा"
                           />
                           {error.council &&
@@ -139,13 +125,13 @@ const AddProfile = ({
                             editor={ClassicEditor}
                             // data={editorData}
                             name={`english.legislative_council.${index}.council_description`}
-                            onChange={(event, editor) => handleEditorProfileChange(event, editor, "english.legislative_council.${index}.council_descriptio")}
+                            onChange={(event, editor) => handleEditorProfileChange(event, editor, `english.legislative_council.${index}.council_description`)}
                           />
                           <CKEditor
                             editor={ClassicEditor}
                             // data={editorData}
                             name={`marathi.legislative_council.${index}.council_description`}
-                            onChange={(event, editor) => handleEditorProfileChange(event, editor, "marathi.legislative_council.${index}.council_description")}
+                            onChange={(event, editor) => handleEditorProfileChange(event, editor, `marathi.legislative_council.${index}.council_description`)}
                           />
                           {/* <input
                             type="text"

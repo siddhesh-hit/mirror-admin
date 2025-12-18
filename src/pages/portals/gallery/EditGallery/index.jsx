@@ -16,11 +16,11 @@ const EditGallery = () => {
   const navigate = useNavigate();
 
   const [serverData, setServerData] = useState([]);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   const fetchData = async () => {
     await getApiById("gallery", id)
       .then((res) => {
-        console.log(res);
         setData(res.data.data);
       })
       .catch((err) => {
@@ -31,6 +31,8 @@ const EditGallery = () => {
   const handleChange = (e) => {
     const maxAllowedSize = 2.5 * 1024 * 1024;
     const { files } = e.target;
+
+    console.log(files)
     if (
       files[0].type.startsWith("image/png") ||
       files[0].type.startsWith("image/jpeg") ||
@@ -39,14 +41,20 @@ const EditGallery = () => {
       if (files[0].size > maxAllowedSize) {
         alert("Upload the file of size less than 2MB.");
       } else {
+        // Revoke previous preview URL if it exists
+        if (previewUrl) {
+          URL.revokeObjectURL(previewUrl);
+        }
+
         setServerData(files[0]);
+        // Create preview URL for the uploaded file
+        const url = URL.createObjectURL(files[0]);
+        setPreviewUrl(url);
       }
     } else {
       alert("Only upload JPEG/JPG/PNG format assets");
     }
   };
-
-  console.log(serverData);
 
   const handleSubmit = async () => {
     if (isSubmitted) return;
@@ -76,7 +84,14 @@ const EditGallery = () => {
     fetchData();
   }, []);
 
-  console.log(serverData, "data here");
+  // Cleanup preview URL to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   return (
     <div className="content-wrapper pt-4">
@@ -106,9 +121,7 @@ const EditGallery = () => {
                           <input
                             type="file"
                             title={
-                              serverData.name ||
-                              data.filename ||
-                              "Please choose a file"
+                              serverData?.name ? serverData?.name : data?.filename || "Please choose a file"
                             }
                             accept="image/png, image/jpg, image/jpeg"
                             onChange={handleChange}
@@ -119,7 +132,7 @@ const EditGallery = () => {
                             className="custom-file-label"
                             htmlFor="customFile"
                           >
-                            Image/Video - {serverData.name || data.filename}
+                            Image/Video - {serverData?.name ? serverData?.name : data?.filename}
                           </label>
                         </div>
                         <p className="photo_disclaimer">
@@ -131,10 +144,10 @@ const EditGallery = () => {
                       </div>
                     </div>
                     <div className="text-center">
-                      {data.length > 0 ? (
+                      {previewUrl ? (
                         <img
                           className="mt-5"
-                          src={data.name}
+                          src={previewUrl}
                           style={{ width: "200px" }}
                           alt="img"
                         />
@@ -142,7 +155,7 @@ const EditGallery = () => {
                         <img
                           className="mt-5"
                           src={
-                            process.env.REACT_APP_IMG_URL + data.destination + "/" + data.filename
+                            process.env.REACT_APP_IMG_URL + data?.destination + "/" + data?.filename
                           }
                           style={{ width: "200px" }}
                           alt="img"

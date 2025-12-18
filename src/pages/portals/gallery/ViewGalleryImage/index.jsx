@@ -22,6 +22,8 @@ const ViewGalleryAsset = () => {
     fetchData();
   }, []);
 
+  console.log(data)
+
   return (
     <div>
       <div className="content-wrapper pt-4">

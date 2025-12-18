@@ -646,15 +646,21 @@ const ViewWorkflowMemberProfile = () => {
                   aria-labelledby="custom-tabs-one-jeevan-parichay-tab"
                 >
                   <div className="row">
-                    <div className="col-12">
-                      <PDFViewer
-                        pdfUrl={process.env.REACT_APP_IMG_URL + data?.data_object?.jeevan_parichay?.destination + "/" + data?.data_object?.jeevan_parichay?.filename}
-                        height="600px"
-                        showToolbar={true}
-                        showDownloadLink={true}
-                        className="border rounded"
-                      />
-                    </div>
+                    {data?.data_object && data?.data_object.jeevan_parichay && data?.data_object.jeevan_parichay.filename && data?.data_object.jeevan_parichay.destination ? (
+                      <div className="col-12">
+                        <PDFViewer
+                          pdfUrl={process.env.REACT_APP_IMG_URL + data?.data_object?.jeevan_parichay?.destination + "/" + data?.data_object?.jeevan_parichay?.filename}
+                          height="600px"
+                          showToolbar={true}
+                          showDownloadLink={true}
+                          className="border rounded"
+                        />
+                      </div>
+                    ) : (
+                      <div className="col-12">
+                        <h4>No jeevan parichay found</h4>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

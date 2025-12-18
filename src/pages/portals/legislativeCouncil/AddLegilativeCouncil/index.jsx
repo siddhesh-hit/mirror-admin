@@ -199,7 +199,6 @@ const AddLegislativeCouncil = () => {
         [field]: value.getData(),
       },
     }));
-    console.log(data);
   };
 
   const handlePublicationChange = (e) => {
@@ -212,7 +211,6 @@ const AddLegislativeCouncil = () => {
         if (files[0].size > maxAllowedSize) {
           alert("Upload the file of size less than 2MB.");
         } else {
-          console.log("aya", field, index, lang, subField, files);
           setData((prev) => ({
             ...prev,
             [field]: prev[field].map((item, ind) =>
@@ -352,7 +350,6 @@ const AddLegislativeCouncil = () => {
         ),
       },
     }));
-    console.log(data);
   };
 
   const handleSubmit = async () => {

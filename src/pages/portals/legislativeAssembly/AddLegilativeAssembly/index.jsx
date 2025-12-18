@@ -198,7 +198,6 @@ const AddLegislativeAssembly = () => {
         if (files[0].size > maxAllowedSize) {
           alert("Upload the file of size less than 2MB.");
         } else {
-          console.log("aya", field, index, lang, subField, files);
           setData((prev) => ({
             ...prev,
             [field]: prev[field].map((item, ind) =>
@@ -331,52 +330,60 @@ const AddLegislativeAssembly = () => {
     //   return;
     // } else {
 
-    if (isSubmitted) return;
-    setSubmit(true);
+    try {
+      if (isSubmitted) return;
+      setSubmit(true);
 
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(data));
-    formData.append("profile", data.structure_profile);
-    formData.append("banner_image", data.banner_image);
+      const formData = new FormData();
+      console.log(data)
+      formData.append("data", JSON.stringify(data));
+      formData.append("profile", data.structure_profile);
+      formData.append("banner_image", data.banner_image);
 
-    data.legislative_council.map((item) => {
-      formData.append("legislative_profile", item.council_profile);
-    });
-
-    data.publication.map((item) => {
-      if (item.english) {
-        formData.append("publication_docs_en", item.english.document);
-      }
-      if (item.marathi) {
-        formData.append("publication_docs_mr", item.marathi.document);
-      }
-    });
-
-    await postApi("sabha", formData)
-      .then((res) => {
-        if (res.data.success) {
-          toast.success("VidhanSabha added successfully");
-          setTimeout(() => {
-            navigate(paths.viewAllLegislativeAssembly);
-          }, 1000);
-        }
-      })
-      .catch((err) => {
-        toast.error("Something went wrong");
-        console.log(err);
+      data.legislative_council.map((item) => {
+        formData.append("legislative_profile", item.council_profile);
       });
-    // }
 
-    setSubmit(false);
+      data.publication.map((item) => {
+        if (item.english) {
+          formData.append("publication_docs_en", item.english.document);
+        }
+        if (item.marathi) {
+          formData.append("publication_docs_mr", item.marathi.document);
+        }
+      });
+
+      await postApi("sabha", formData)
+        .then((res) => {
+          if (res.data.success) {
+            toast.success("VidhanSabha added successfully");
+            setTimeout(() => {
+              navigate(paths.viewAllLegislativeAssembly);
+            }, 1000);
+          }
+        })
+        .catch((err) => {
+          toast.error("Something went wrong");
+          console.log(err);
+        });
+      // }
+
+    } catch (error) {
+      console.log("error", error)
+      toast.error("Something went wrong");
+    } finally {
+      setSubmit(false);
+    }
   };
 
-  const handleEditorBannerChange = (event, value, name, index) => {
+  const handleEditorBannerChange = (event, value, name) => {
     const [lang, field] = name.split(".");
+
     setData((prev) => ({
       ...prev,
       [lang]: {
         ...prev[lang],
-        [field]: value,
+        [field]: value.getData(),
       },
     }));
   };
@@ -391,13 +398,14 @@ const AddLegislativeAssembly = () => {
           ind === +index
             ? {
               ...item,
-              [subField]: value,
+              [subField]: value.getData(),
             }
             : item
         ),
       },
     }));
   };
+
   return (
     <div className="content-wrapper pt-4">
       <AddBanner

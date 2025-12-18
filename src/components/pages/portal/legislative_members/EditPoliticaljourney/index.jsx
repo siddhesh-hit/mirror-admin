@@ -42,7 +42,7 @@ function EditPoliticalJourney({
                     value={dayjs(item?.date)}
                     onChange={(date) =>
                       setData((prev) => {
-                        const politicals = [...prev.political_journey];
+                        const politicals = [...prev?.political_journey || []];
                         politicals[index] = {
                           ...politicals[index],
                           date: date.format(),
@@ -69,7 +69,7 @@ function EditPoliticalJourney({
                   <input
                     type="text"
                     name={`political_journey.title.${index}`}
-                    defaultValue={item.title}
+                    defaultValue={item?.title}
                     onChange={handleChange}
                     className="form-control"
                     placeholder="Enter Title"
@@ -92,7 +92,7 @@ function EditPoliticalJourney({
                   >
                     <option hidden>Select Presiding Officer</option>
                     {Data?.officer?.length > 0 ? (
-                      Data?.officer.map((it) => (
+                      Data?.officer?.map((it) => (
                         <option key={it._id} value={it._id}>
                           {it.name}
                         </option>
@@ -119,7 +119,7 @@ function EditPoliticalJourney({
                   >
                     <option hidden>Select Legislative Position</option>
                     {Data?.position?.length > 0 ? (
-                      Data?.position?.map((it) => (
+                      Data?.position.map((it) => (
                         <option key={it._id} value={it._id}>
                           {it.name}
                         </option>
@@ -174,7 +174,7 @@ function EditPoliticalJourney({
             </div>
           ))}
 
-        {data?.political_journey?.length === 0 && (
+        {(data?.political_journey?.length === 0 || data?.political_journey === null) && (
           <div onClick={addDiv} className="addSubButton">
             <img
               src={addwhite}

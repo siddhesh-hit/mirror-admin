@@ -31,7 +31,7 @@ const EditLegislativePosition = () => {
         if (res.data.success) {
           toast.success("Updated Position");
           setTimeout(() => {
-            navigate("/ViewLegislativePositions");
+            navigate(paths.viewLegislativePosition);
           }, 1100);
         }
       })

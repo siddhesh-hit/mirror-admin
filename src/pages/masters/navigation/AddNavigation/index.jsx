@@ -125,6 +125,12 @@ const AddNavigation = () => {
   const handleSubmit = async () => {
     if (isSubmitted) return;
     setSubmit(true);
+
+    if (!data.isDropDown) {
+      delete data.english.dropDownValue;
+      delete data.marathi.dropDownValue;
+    };
+
     await postApi("navigation", data)
       .then((res) => {
         if (res.data.success) {

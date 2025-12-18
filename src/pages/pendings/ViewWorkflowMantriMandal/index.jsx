@@ -241,10 +241,10 @@ const ViewWorkflowMantriMandal = () => {
                         </td>
                         <td>
                           <p>
-                            {data?.data_object?.ministry_type?.map(
+                            {data?.data_object?.ministry_type.length > 0 && data?.data_object?.ministry_type?.map(
                               (item, index, array) => (
                                 <span key={index}>
-                                  {item.ministry_name}
+                                  {item?.ministry_name}
                                   {index === array.length - 1 ? "" : ", "}
                                 </span>
                               )
@@ -253,30 +253,10 @@ const ViewWorkflowMantriMandal = () => {
                         </td>
                         <td>
                           <p>
-                            {data?.data_object?.designation?.map(
+                            {data?.data_object?.designation.length > 0 && data?.data_object?.designation?.map(
                               (item, index, array) => (
                                 <span key={index}>
-                                  {item.name}
-                                  {index === array.length - 1 ? "" : ", "}
-                                </span>
-                              )
-                            )}
-                          </p>
-                        </td>
-                        <td>
-                          <p>
-                            {"From " +
-                              formatEnUsDate(data?.data_object?.des_from) +
-                              " To " +
-                              formatEnUsDate(data?.data_object?.des_to)}
-                          </p>
-                        </td>
-                        <td>
-                          <p>
-                            {data?.data_object?.presiding?.map(
-                              (item, index, array) => (
-                                <span key={index}>
-                                  {item.name}
+                                  {item?.name}
                                   {index === array.length - 1 ? "" : ", "}
                                 </span>
                               )
@@ -286,17 +266,17 @@ const ViewWorkflowMantriMandal = () => {
                         <td>
                           <p>
                             {"From " +
-                              formatEnUsDate(data?.data_object?.pres_from) +
-                              " To " +
-                              formatEnUsDate(data?.data_object?.pres_to)}
+                              data?.data_object?.des_from && data?.data_object?.des_from !== "" ? formatEnUsDate(data?.data_object?.des_from) : "" +
+                                " To " +
+                                data?.data_object?.des_to && data?.data_object?.des_to !== "" ? formatEnUsDate(data?.data_object?.des_to) : ""}
                           </p>
                         </td>
                         <td>
                           <p>
-                            {data?.data_object?.legislative_position?.map(
+                            {data?.data_object?.presiding.length > 0 && data?.data_object?.presiding?.map(
                               (item, index, array) => (
                                 <span key={index}>
-                                  {item.name}
+                                  {item?.name}
                                   {index === array.length - 1 ? "" : ", "}
                                 </span>
                               )
@@ -306,9 +286,29 @@ const ViewWorkflowMantriMandal = () => {
                         <td>
                           <p>
                             {"From " +
-                              formatEnUsDate(data?.data_object?.lp_from) +
-                              " To " +
-                              formatEnUsDate(data?.data_object?.lp_to)}
+                              data?.data_object?.pres_from && data?.data_object?.pres_from !== "" ? formatEnUsDate(data?.data_object?.pres_from) : "" +
+                                " To " +
+                                data?.data_object?.pres_to && data?.data_object?.pres_to !== "" ? formatEnUsDate(data?.data_object?.pres_to) : ""}
+                          </p>
+                        </td>
+                        <td>
+                          <p>
+                            {data?.data_object?.legislative_position.length > 0 && data?.data_object?.legislative_position?.map(
+                              (item, index, array) => (
+                                <span key={index}>
+                                  {item?.name}
+                                  {index === array.length - 1 ? "" : ", "}
+                                </span>
+                              )
+                            )}
+                          </p>
+                        </td>
+                        <td>
+                          <p>
+                            {"From " +
+                              data?.data_object?.lp_from && data?.data_object?.lp_from !== "" ? formatEnUsDate(data?.data_object?.lp_from) : "" +
+                                " To " +
+                                data?.data_object?.lp_to && data?.data_object?.lp_to !== "" ? formatEnUsDate(data?.data_object?.lp_to) : ""}
                           </p>
                         </td>
                       </tr>
