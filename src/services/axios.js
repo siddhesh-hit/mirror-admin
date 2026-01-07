@@ -47,6 +47,10 @@ const getApi = (url) => {
   return axiosInstance.get(url);
 };
 
+const getApiForBlob = (url) => {
+  return axiosInstance.get(url, { responseType: 'blob' });
+};
+
 const getApiById = (url, id) => {
   return axiosInstance.get(`${url}/${id}`);
 };
@@ -63,4 +67,4 @@ const deleteApi = (url, id) => {
   return axiosInstance.delete(`${url}/${id}`);
 };
 
-export { getApi, getApiById, postApi, putApi, deleteApi };
+export { getApi, getApiForBlob, getApiById, postApi, putApi, deleteApi };

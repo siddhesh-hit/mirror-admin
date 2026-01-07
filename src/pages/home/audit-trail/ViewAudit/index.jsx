@@ -72,7 +72,7 @@ const ViewAudit = () => {
               returnCount={(data) =>
                 setSearch((prev) => ({
                   ...prev,
-                  page: data,
+                  limit: data,
                 }))
               }
               returnSearch={(data) =>
