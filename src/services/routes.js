@@ -477,7 +477,7 @@ export const routes = [
   },
   {
     name: "Legislative Member",
-    path: paths.ViewLegislativeMember,
+    path: paths.viewLegislativeMember,
     exact: true,
     access: ["SuperAdmin", "Admin", "ContentCreator", "Reviewer"],
     element: <ViewLegislativeMember />,

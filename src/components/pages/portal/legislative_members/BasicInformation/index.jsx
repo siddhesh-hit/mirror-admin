@@ -73,7 +73,7 @@ function BasicInformation({
                   className={`form-control ${error?.basic_info?.assembly_number ? "activeError" : ""
                     }`}
                   name="basic_info.assembly_number"
-                  value={data.basic_info.assembly_number ? data.basic_info.assembly_number._id : data.basic_info.assembly_number}
+                  value={data.basic_info.assembly_number && typeof data.basic_info.assembly_number === "object" ? data.basic_info.assembly_number._id : data.basic_info.assembly_number}
                   onChange={handleChange}
                 >
                   <option hidden>Select Assembly Number</option>
