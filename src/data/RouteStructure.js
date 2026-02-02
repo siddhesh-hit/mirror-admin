@@ -109,6 +109,11 @@ export const masterPaths = [
     child: [paths.viewLegislativePosition, paths.addLegislativePosition, removeTailingId(paths.editLegislativePosition)],
   },
   {
+    name: "LOB",
+    path: paths.viewLOB,
+    child: [paths.viewLOB, paths.addLOB, removeTailingId(paths.editLOB), paths.addLOBType, removeTailingId(paths.editLOBType), paths.addLOBSubType, removeTailingId(paths.editLOBSubType)],
+  },
+  {
     name: "Member Name",
     path: paths.viewMemberName,
     child: [paths.viewMemberName, paths.addMemberName, removeTailingId(paths.editMemberName)],
@@ -240,6 +245,7 @@ export const routes = [
   "Designation",
   "Department",
   "Legislative Positions",
+  "LOB",
   "Presiding Officer",
   "SessionField",
   "Constituency Types",

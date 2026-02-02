@@ -73,7 +73,7 @@ function BasicInformation({
                   className={`form-control ${error?.basic_info?.assembly_number ? "activeError" : ""
                     }`}
                   name="basic_info.assembly_number"
-                  value={data.basic_info.assembly_number ? data.basic_info.assembly_number._id : data.basic_info.assembly_number}
+                  value={data.basic_info.assembly_number && typeof data.basic_info.assembly_number === "object" ? data.basic_info.assembly_number._id : data.basic_info.assembly_number}
                   onChange={handleChange}
                 >
                   <option hidden>Select Assembly Number</option>
@@ -112,7 +112,11 @@ function BasicInformation({
                   <DatePicker
                     name="basic_info.constituency_from"
                     label="Select constituency from"
-                    defaultValue={data.basic_info.constituency_from || dayjs("")}
+                    defaultValue={
+                      data.basic_info?.constituency_from
+                        ? dayjs(data.basic_info?.constituency_from)
+                        : dayjs("")
+                    }
                     onChange={(date) => {
                       setData((prev) => ({
                         ...prev,
@@ -124,7 +128,7 @@ function BasicInformation({
                     }}
                     format="DD/MM/YYYY"
                     minDate={dayjs("1937-01-01")}
-                    maxDate={dayjs(new Date().toISOString().split("T")[0])}
+                    maxDate={dayjs(new Date())}
                     className={`form-control`}
                   />
                 </div>
@@ -140,7 +144,11 @@ function BasicInformation({
                   <DatePicker
                     name="basic_info.constituency_to"
                     label="Select constituency to"
-                    defaultValue={data.basic_info.constituency_to || dayjs("")}
+                    defaultValue={
+                      data.basic_info?.constituency_to
+                        ? dayjs(data.basic_info?.constituency_to)
+                        : dayjs("")
+                    }
                     onChange={(date) => {
                       setData((prev) => ({
                         ...prev,
@@ -152,15 +160,11 @@ function BasicInformation({
                     }}
                     format="DD/MM/YYYY"
                     minDate={
-                      data.basic_info.constituency_from && isValidDate(data.basic_info.constituency_from)
-                        ? dayjs(
-                          new Date(data.basic_info.constituency_from)
-                            .toISOString()
-                            .split("T")[0]
-                        )
+                      data.basic_info?.constituency_from && isValidDate(data.basic_info?.constituency_from)
+                        ? dayjs(new Date(data.basic_info?.constituency_from))
                         : dayjs("1937-01-01")
                     }
-                    maxDate={dayjs(new Date().toISOString().split("T")[0])}
+                    maxDate={dayjs(new Date())}
                     className={`form-control`}
                   />
                 </div>
@@ -177,7 +181,7 @@ function BasicInformation({
             <div className="custom-file">
               <input
                 type="file"
-                title={data.basic_info.profile?.filename || data.basic_info.profile.name || "Please choose a file"}
+                title={data.basic_info?.profile?.filename || data.basic_info?.profile?.name || "Please choose a file"}
                 name="basic_info.profile"
                 accept="image/png, image/jpeg, image.jpg"
                 onChange={handleChange}
@@ -197,7 +201,7 @@ function BasicInformation({
                 htmlFor="customFile"
               >
                 Image -{" "}
-                {data.basic_info.profile ? data.basic_info.profile?.filename || data.basic_info.profile.name : ""}
+                {data.basic_info?.profile ? data.basic_info?.profile?.filename || data.basic_info?.profile?.name : ""}
               </label>
             </div>
             <p className="photo_disclaimer">
@@ -291,7 +295,7 @@ function BasicInformation({
             <select
               className={`form-control ${error?.basic_info?.constituency ? "activeError" : ""}`}
               name="basic_info.constituency"
-              value={data.basic_info.constituency._id || data.basic_info.constituency}
+              value={typeof data.basic_info?.constituency === "object" ? data.basic_info?.constituency?._id : data.basic_info?.constituency}
               onChange={handleChange}
             >
               <option hidden>Select Constituency</option>
@@ -325,7 +329,7 @@ function BasicInformation({
               className={`form-control ${error?.basic_info?.party ? "activeError" : ""
                 }`}
               name="basic_info.party"
-              value={data.basic_info.party._id || data.basic_info.party}
+              value={typeof data.basic_info?.party === "object" ? data.basic_info?.party?._id : data.basic_info?.party}
               onChange={handleChange}
             >
               <option hidden>Select Party</option>
@@ -355,7 +359,7 @@ function BasicInformation({
               className={`form-control ${error?.basic_info?.gender ? "activeError" : ""
                 }`}
               name="basic_info.gender"
-              value={data.basic_info.gender._id || data.basic_info.gender}
+              value={typeof data.basic_info?.gender === "object" ? data.basic_info?.gender?._id : data.basic_info?.gender}
               onChange={handleChange}
             >
               <option hidden>Select Gender</option>
@@ -385,7 +389,7 @@ function BasicInformation({
               className={`form-control ${error?.basic_info?.district ? "activeError" : ""
                 }`}
               name="basic_info.district"
-              value={data.basic_info.district._id || data.basic_info.district}
+              value={typeof data.basic_info?.district === "object" ? data.basic_info?.district?._id : data.basic_info?.district}
               onChange={handleChange}
             >
               <option hidden>Select District</option>
@@ -414,7 +418,7 @@ function BasicInformation({
             <select
               className={`form-control ${error?.basic_info?.first_time_elected ? "activeError" : ""}`}
               name="basic_info.first_time_elected"
-              value={data.basic_info.first_time_elected}
+              value={data.basic_info?.first_time_elected}
               onChange={handleChange}
             >
               <option hidden>Select Option</option>

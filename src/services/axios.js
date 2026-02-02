@@ -47,12 +47,20 @@ const getApi = (url) => {
   return axiosInstance.get(url);
 };
 
+const getApiForBlob = (url) => {
+  return axiosInstance.get(url, { responseType: 'blob' });
+};
+
 const getApiById = (url, id) => {
   return axiosInstance.get(`${url}/${id}`);
 };
 
 const postApi = (url, data) => {
   return axiosInstance.post(url, data);
+};
+
+const patchApi = (url, id, data) => {
+  return axiosInstance.patch(`${url}/${id}`, data);
 };
 
 const putApi = (url, id, data) => {
@@ -63,4 +71,4 @@ const deleteApi = (url, id) => {
   return axiosInstance.delete(`${url}/${id}`);
 };
 
-export { getApi, getApiById, postApi, putApi, deleteApi };
+export { getApi, getApiForBlob, getApiById, postApi, patchApi, putApi, deleteApi };

@@ -1,11 +1,13 @@
+import dayjs, { Dayjs } from "dayjs";
+import { toast } from "react-toastify";
 import React, { useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { BarChart } from "@mui/x-charts/BarChart";
 import { useQuery } from "@tanstack/react-query";
+import { BarChart } from "@mui/x-charts/BarChart";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-import Loader from "components/common/Loader";
-
-import { getApi } from "services/axios";
+import { getApi, getApiForBlob } from "services/axios";
 import { api } from "services/api";
 import AuditTable from "components/pages/home/audit-trail/Table";
 
@@ -15,13 +17,15 @@ const ViewAllUserAudit = () => {
     debate: { current: 0, message: "" },
     member: { current: 0, message: "" },
     session: { current: 0, message: "" },
+    fromDate: "",
+    toDate: "",
   });
 
   const { id } = useParams();
   const PER_PAGE_COUNT = 10;
 
   const userData = useQuery({
-    queryKey: [`user`, userAudits.auth.current, userAudits.auth.message],
+    queryKey: [`user_${id}`, userAudits.auth.current, userAudits.auth.message],
     queryFn: async () => {
       const querystring = new URLSearchParams({
         perPage: userAudits.auth.current,
@@ -36,7 +40,7 @@ const ViewAllUserAudit = () => {
   });
 
   const debateData = useQuery({
-    queryKey: [`debate`, userAudits.debate.current, userAudits.debate.message],
+    queryKey: [`debate_${id}`, userAudits.debate.current, userAudits.debate.message],
     queryFn: async () => {
       const querystring = new URLSearchParams({
         perPage: userAudits.debate.current,
@@ -51,7 +55,7 @@ const ViewAllUserAudit = () => {
   });
 
   const memberData = useQuery({
-    queryKey: [`member`, userAudits.member.current, userAudits.member.message],
+    queryKey: [`member_${id}`, userAudits.member.current, userAudits.member.message],
     queryFn: async () => {
       const querystring = new URLSearchParams({
         perPage: userAudits.member.current,
@@ -66,7 +70,7 @@ const ViewAllUserAudit = () => {
   });
 
   const sessionData = useQuery({
-    queryKey: [`session`, userAudits.session.current, userAudits.session.message],
+    queryKey: [`session_${id}`, userAudits.session.current, userAudits.session.message],
     queryFn: async () => {
       const querystring = new URLSearchParams({
         perPage: userAudits.session.current,
@@ -80,12 +84,123 @@ const ViewAllUserAudit = () => {
     }
   });
 
-  if (userData.isFetching || debateData.isFetching || memberData.isFetching || sessionData.isFetching) {
-    return <Loader />
-  };
-
   if (userData.isError || debateData.isError || memberData.isError || sessionData.isError) {
     throw new Error("Failed to fetch the data!")
+  };
+
+  const handleDownload = async (type) => {
+    const querystring = new URLSearchParams({
+      userId: id, endPoints: type
+    });
+
+    try {
+      switch (type) {
+        case "auth": {
+          querystring.delete("endPoints");
+          querystring.append("endPoints", "user/log");
+          toast.info("Downloading auth data...");
+
+          // const res = await getApi(`${api.auditUserDownload}?${querystring}`);
+          const res = await getApiForBlob(`${api.auditUserDownload}?${querystring}`);
+          const filename = res?.headers?.['content-disposition']?.split('filename=')?.[1]?.replace(/"/g, '');
+          const url = window.URL.createObjectURL(res.data);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          a.click();
+          window.URL.revokeObjectURL(url);
+
+          toast.success(`Data downloaded successfully as ${filename}`);
+          break;
+        }
+        case "debate": {
+          querystring.delete("endPoints");
+          querystring.append("endPoints", "Debate");
+          toast.info("Downloading debate data...");
+
+          const res = await getApiForBlob(`${api.auditUserDownload}?${querystring}`);
+          const filename = res?.headers?.['content-disposition']?.split('filename=')?.[1]?.replace(/"/g, '');
+          const url = window.URL.createObjectURL(res.data);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          a.click();
+          window.URL.revokeObjectURL(url);
+
+          toast.success(`Data downloaded successfully as ${filename}`);
+          break;
+        }
+        case "member": {
+          querystring.delete("endPoints");
+          querystring.append("endPoints", "Member");
+          toast.info("Downloading member data...");
+
+          const res = await getApiForBlob(`${api.auditUserDownload}?${querystring}`);
+          const filename = res?.headers?.['content-disposition']?.split('filename=')?.[1]?.replace(/"/g, '');
+
+          const url = window.URL.createObjectURL(res.data);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          a.click();
+          window.URL.revokeObjectURL(url);
+
+          toast.success(`Data downloaded successfully as ${filename}`);
+          break;
+        }
+        case "session": {
+          querystring.delete("endPoints");
+          querystring.append("endPoints", "Session");
+          toast.info("Downloading session data...");
+
+          const res = await getApiForBlob(`${api.auditUserDownload}?${querystring}`);
+          const filename = res?.headers?.['content-disposition']?.split('filename=')?.[1]?.replace(/"/g, '');
+
+          const url = window.URL.createObjectURL(res.data);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          a.click();
+          window.URL.revokeObjectURL(url);
+
+          toast.success(`Data downloaded successfully as ${filename}`);
+          break;
+        }
+
+        default:
+          toast.error("Invalid type");
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message || "Failed to download the data");
+    }
+  };
+
+  const downloadUserActivityData = async () => {
+    if (!userAudits.fromDate || !userAudits.toDate) {
+      toast.error("Please select from and to date");
+      return;
+    }
+
+    const querystring = new URLSearchParams({
+      fromDate: userAudits.fromDate.split("T")[0],
+      toDate: userAudits.toDate.split("T")[0]
+    });
+
+    try {
+      const res = await getApiForBlob(`${api.auditUserActivityCountDownload + "/" + id}?${querystring}`);
+      const filename = res?.headers?.['content-disposition']?.split('filename=')?.[1]?.replace(/"/g, '');
+      const url = window.URL.createObjectURL(res.data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message || "Failed to download the data");
+    }
   };
 
   return (
@@ -96,48 +211,121 @@ const ViewAllUserAudit = () => {
 
           <BarChart
             xAxis={[{ id: "barCategories", data: ["User", "Debate", "Member", "Session"], scaleType: "band" }]}
-            series={[{ data: [userData.data.count, debateData.data.count, memberData.data.count, sessionData.data.count] }]}
+            series={[{
+              data: [
+                userData?.data?.count || 0,
+                debateData?.data?.count || 0,
+                memberData?.data?.count || 0,
+                sessionData?.data?.count || 0
+              ]
+            }]}
             width={500}
             height={300}
           />
         </div>
+
+
+        <div className="d-flex flex-column gap-4" style={{ marginLeft: "25px" }}>
+          <div>
+            <h4 className="page-title">• Download user activity data</h4>
+          </div>
+          <div className="d-flex justify-content-between align-items-center gap-2">
+            <div className="d-flex flex-row gap-4">
+              <DatePicker
+                name="fromDate"
+                label="Select from date"
+                defaultValue={dayjs("")}
+                onChange={(date) => {
+                  setUsrAud((prev) => ({
+                    ...prev,
+                    fromDate: date.format(),
+                  }));
+                }}
+                format="DD/MM/YYYY"
+                minDate={dayjs("1937-01-01")}
+                maxDate={dayjs(new Date().toISOString().split("T")[0])}
+              />
+
+              <DatePicker
+                name="toDate"
+                label="Select to date"
+                defaultValue={dayjs("")}
+                onChange={(date) => {
+                  setUsrAud((prev) => ({
+                    ...prev,
+                    toDate: date.format(),
+                  }));
+                }}
+                format="DD/MM/YYYY"
+                minDate={userAudits.fromDate ? dayjs(userAudits.fromDate) : dayjs("1937-01-01")}
+                maxDate={dayjs(new Date().toISOString().split("T")[0])}
+              />
+            </div>
+
+            <button className="btn btn-primary" onClick={() => downloadUserActivityData()}>Download user activity data</button>
+          </div>
+        </div>
       </div>
 
-      <AuditTable
-        data={userData.data}
-        setUsrAud={setUsrAud}
-        userAudits={userAudits}
-        PER_PAGE_COUNT={PER_PAGE_COUNT}
-        header={"• View All Login/Logout Audits"}
-        type={"auth"}
-      />
+      {
+        userData.isFetching
+          ? <div className="d-flex justify-content-center align-items-center mt-4">
+            <Spinner animation="border" role="status" />
+          </div>
+          : <AuditTable
+            data={userData.data}
+            setUsrAud={setUsrAud}
+            userAudits={userAudits}
+            PER_PAGE_COUNT={PER_PAGE_COUNT}
+            header={"• View All Login/Logout Audits"}
+            type={"auth"}
+            handleDownload={() => handleDownload("auth")}
+          />
+      }
 
-      <AuditTable
-        data={debateData.data}
-        setUsrAud={setUsrAud}
-        userAudits={userAudits}
-        PER_PAGE_COUNT={PER_PAGE_COUNT}
-        header={"• View All Debate Audits"}
-        type={"debate"}
-      />
+      {debateData.isFetching
+        ? <div className="d-flex justify-content-center align-items-center mt-4">
+          <Spinner animation="border" role="status" />
+        </div>
+        : <AuditTable
+          data={debateData.data}
+          setUsrAud={setUsrAud}
+          userAudits={userAudits}
+          PER_PAGE_COUNT={PER_PAGE_COUNT}
+          header={"• View All Debate Audits"}
+          type={"debate"}
+          handleDownload={() => handleDownload("debate")}
+        />
+      }
 
-      <AuditTable
-        data={memberData.data}
-        setUsrAud={setUsrAud}
-        userAudits={userAudits}
-        PER_PAGE_COUNT={PER_PAGE_COUNT}
-        header={"• View All Member Audits"}
-        type={"member"}
-      />
-
-      <AuditTable
-        data={sessionData.data}
-        setUsrAud={setUsrAud}
-        userAudits={userAudits}
-        PER_PAGE_COUNT={PER_PAGE_COUNT}
-        header={"• View All Session Audits"}
-        type={"session"}
-      />
+      {memberData.isFetching
+        ? <div className="d-flex justify-content-center align-items-center mt-4">
+          <Spinner animation="border" role="status" />
+        </div>
+        : <AuditTable
+          data={memberData.data}
+          setUsrAud={setUsrAud}
+          userAudits={userAudits}
+          PER_PAGE_COUNT={PER_PAGE_COUNT}
+          header={"• View All Member Audits"}
+          type={"member"}
+          handleDownload={() => handleDownload("member")}
+        />
+      }
+      {sessionData.isFetching
+        ? <div className="d-flex justify-content-center align-items-center mt-4 mb-4">
+          <Spinner animation="border" role="status" />
+        </div>
+        : <AuditTable
+          data={sessionData.data}
+          setUsrAud={setUsrAud}
+          userAudits={userAudits}
+          PER_PAGE_COUNT={PER_PAGE_COUNT}
+          header={"• View All Session Audits"}
+          type={"session"}
+          handleDownload={() => handleDownload("session")}
+        />
+      }
     </div>
   );
 };

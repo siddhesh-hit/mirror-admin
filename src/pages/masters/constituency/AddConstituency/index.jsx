@@ -103,7 +103,7 @@ const AddConstituency = () => {
         if (res.data.success) {
           toast.success("New Constituency Added.");
           setTimeout(() => {
-            navigate([paths.viewConstituency]);
+            navigate(paths.viewConstituency);
           }, 1100);
         }
       })
@@ -129,7 +129,6 @@ const AddConstituency = () => {
         .then((res) => {
           if (res.data.success) {
             setConstituencyTypes(res.data.data);
-            navigate(paths.viewConstituency);
           }
         })
         .catch((err) => console.log(err));

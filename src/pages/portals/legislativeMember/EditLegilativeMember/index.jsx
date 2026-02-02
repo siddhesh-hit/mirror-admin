@@ -5,6 +5,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
+import { useQueries, useQuery } from "@tanstack/react-query";
 
 import { getApi, getApiById, putApi } from "services/axios";
 import { basicInfoSchema, politicalJourneySchema, electionDataSchema } from "lib/validator";
@@ -14,6 +15,7 @@ import EditBasicInformation from "components/pages/portal/legislative_members/Ed
 import EditPoliticalJourney from "components/pages/portal/legislative_members/EditPoliticaljourney";
 import EditElectionData from "components/pages/portal/legislative_members/EditElectionData";
 import { paths } from "services/paths";
+import Loader from "components/common/Loader";
 
 const EditLegislativeMember = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -72,18 +74,6 @@ const EditLegislativeMember = () => {
       ],
     },
     jeevan_parichay: {}
-  });
-
-  const [Data, seObjects] = useState({
-    constituency: [],
-    assembly: [],
-    district: [],
-    party: [],
-    gender: [],
-    district: [],
-    officer: [],
-    position: [],
-    designation: [],
   });
 
   const navigate = useNavigate();
@@ -219,19 +209,108 @@ const EditLegislativeMember = () => {
     alert("You've removed one field");
   };
 
-  const fetchData = async () => {
-    await getApiById("member", id)
-      .then((res) => setData(res.data.data))
-      .catch((err) => console.log(err));
+  const fetchData = async (type = "") => {
+    switch (type) {
+      case "constituency": {
+        try {
+          const res = await getApi("constituency/option" + `?assembly.assembly_number=${typeof data?.basic_info?.assembly_number === "object" ? data?.basic_info?.assembly_number?._id : data?.basic_info?.assembly_number}`)
+          return res.data.success ? res.data.data : [];
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+      };
 
-    for (let key in Data) {
-      await getApi(key + "/option")
-        .then((res) => {
-          seObjects((prevData) => ({ ...prevData, [key]: res.data.data }));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      case "assembly": {
+        try {
+          const res = await getApi("assembly/option")
+          return res.data.success ? res.data.data : [];
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+      };
+
+      case "district": {
+        try {
+          const res = await getApi("district/option")
+          return res.data.success ? res.data.data : [];
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+      };
+
+      case "party": {
+        try {
+          const res = await getApi("party/option")
+          return res.data.success ? res.data.data : [];
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+      };
+
+      case "gender": {
+        try {
+          const res = await getApi("gender/option")
+          return res.data.success ? res.data.data : [];
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+        break;
+      };
+
+      case "officer": {
+        try {
+          const res = await getApi("officer/option")
+          return res.data.success ? res.data.data : [];
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      };
+
+      case "position": {
+        try {
+          const res = await getApi("position/option")
+          return res.data.success ? res.data.data : [];
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      };
+
+      case "designation": {
+        try {
+          const res = await getApi("designation/option")
+          return res.data.success ? res.data.data : [];
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      };
+
+      case "memberNames": {
+        try {
+          const res = await getApi("member/names")
+          return res.data.success ? res.data.data.map(item => {
+            return {
+              value: item._id,
+              label: item.full_name,
+            }
+          }) : [];
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      };
+
+      default: {
+        alert(`Wrong type ${type} passed to fetchData`);
+        break;
+      };
     }
   };
 
@@ -414,9 +493,80 @@ const EditLegislativeMember = () => {
 
   const handleKeyDown = (e) => ["e", "E", "+"].includes(e.key) && e.preventDefault();
 
+  const memberData = useQuery({
+    queryKey: ["member", id],
+    queryFn: async () => {
+      const res = await getApiById("member", id);
+      return res.data.data;
+    },
+    enabled: !!id,
+  });
+
+  // Sync query data to local state when it changes (including from cache)
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (memberData.data) {
+      setData(memberData.data);
+    }
+  }, [memberData.data]);
+
+  const optionData = useQueries({
+    queries: [
+      {
+        queryKey: ["constituency", data?.basic_info?.assembly_number?._id],
+        queryFn: () => fetchData("constituency")
+      },
+      {
+        queryKey: ["assembly"],
+        queryFn: () => fetchData("assembly")
+      },
+      {
+        queryKey: ["district"],
+        queryFn: () => fetchData("district")
+      },
+      {
+        queryKey: ["party"],
+        queryFn: () => fetchData("party")
+      },
+      {
+        queryKey: ["gender"],
+        queryFn: () => fetchData("gender")
+      },
+      {
+        queryKey: ["officer"],
+        queryFn: () => fetchData("officer")
+      },
+      {
+        queryKey: ["position"],
+        queryFn: () => fetchData("position")
+      },
+      {
+        queryKey: ["designation"],
+        queryFn: () => fetchData("designation")
+      },
+    ],
+    combine: (results) => {
+      return {
+        data: {
+          constituency: results[0].data,
+          assembly: results[1].data,
+          district: results[2].data,
+          party: results[3].data,
+          gender: results[4].data,
+          officer: results[5].data,
+          position: results[6].data,
+          designation: results[7].data,
+        },
+        isLoading: results.some(res => res.isLoading),
+        isError: results.some(res => res.isError)
+      };
+    },
+  });
+
+  if (memberData.isLoading) return <Loader />;
+  if (memberData.isError) return toast.error("Something went wrong while fetching member data!");
+
+  if (optionData.isLoading) return <Loader />;
+  if (optionData.isError) return toast.error("Something went wrong while fetching master data!");
 
   return (
     <div className="content-wrapper pt-4">
@@ -435,7 +585,7 @@ const EditLegislativeMember = () => {
                   data={data}
                   handleChange={handleChange}
                   error={error}
-                  Data={Data}
+                  Data={optionData?.data}
                   setData={setData}
                   CKEditor={CKEditor}
                   ClassicEditor={ClassicEditor}
@@ -451,7 +601,7 @@ const EditLegislativeMember = () => {
                   removeDiv={removeDiv}
                   setData={setData}
                   divCount={divCount}
-                  Data={Data}
+                  Data={optionData?.data}
                   handleKeyDown={handleKeyDown}
                   DatePicker={DatePicker}
                   dayjs={dayjs}
@@ -463,7 +613,7 @@ const EditLegislativeMember = () => {
                   addDiv={addDivElect}
                   removeDiv={removeDivElect}
                   divCount={divCountElect}
-                  Data={Data}
+                  Data={optionData?.data}
                   handleKeyDown={handleKeyDown}
                 />
                 <div className="stepper-buttons">

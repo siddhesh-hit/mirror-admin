@@ -80,7 +80,6 @@ export const paths = {
   editVidhanMandal: "/vidhan-mandal/edit/:id",
 
   // masters
-
   addAssembly: "/assembly/add",
   viewAssembly: "/assembly",
   editAssembly: "/assembly/edit/:id",
@@ -120,6 +119,14 @@ export const paths = {
   addLegislativePosition: "/legislative-position/add",
   editLegislativePosition: "/legislative-position/edit/:id",
   viewLegislativePosition: "/legislative-position",
+
+  viewLOB: "/lob",
+  addLOB: "/lob/add",
+  editLOB: "/lob/edit/:id",
+  addLOBType: "/lob-type/add",
+  editLOBType: "/lob-type/edit/:id",
+  addLOBSubType: "/lob-sub-type/add",
+  editLOBSubType: "/lob-sub-type/edit/:id",
 
   addMinistry: "/ministry/add",
   viewMinistry: "/ministry",
@@ -219,4 +226,5 @@ export const paths = {
   viewWorkflowRajyapal: "/workflow/rajyapal/:id",
   viewWorkflowSessionCalendar: "/workflow/session-calendar/:id",
   viewWorkflowVidhanMandal: "/workflow/vidhan-mandal/:id",
+
 };
