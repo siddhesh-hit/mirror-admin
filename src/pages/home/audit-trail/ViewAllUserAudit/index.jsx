@@ -1,15 +1,15 @@
+import dayjs, { Dayjs } from "dayjs";
+import { toast } from "react-toastify";
 import React, { useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { BarChart } from "@mui/x-charts/BarChart";
 import { useQuery } from "@tanstack/react-query";
-
-import Loader from "components/common/Loader";
+import { BarChart } from "@mui/x-charts/BarChart";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { getApi, getApiForBlob } from "services/axios";
 import { api } from "services/api";
 import AuditTable from "components/pages/home/audit-trail/Table";
-import { Spinner } from "react-bootstrap";
-import { toast } from "react-toastify";
 
 const ViewAllUserAudit = () => {
   const [userAudits, setUsrAud] = useState({
@@ -17,6 +17,8 @@ const ViewAllUserAudit = () => {
     debate: { current: 0, message: "" },
     member: { current: 0, message: "" },
     session: { current: 0, message: "" },
+    fromDate: "",
+    toDate: "",
   });
 
   const { id } = useParams();
@@ -175,6 +177,32 @@ const ViewAllUserAudit = () => {
     }
   };
 
+  const downloadUserActivityData = async () => {
+    if (!userAudits.fromDate || !userAudits.toDate) {
+      toast.error("Please select from and to date");
+      return;
+    }
+
+    const querystring = new URLSearchParams({
+      fromDate: userAudits.fromDate.split("T")[0],
+      toDate: userAudits.toDate.split("T")[0]
+    });
+
+    try {
+      const res = await getApiForBlob(`${api.auditUserActivityCountDownload + "/" + id}?${querystring}`);
+      const filename = res?.headers?.['content-disposition']?.split('filename=')?.[1]?.replace(/"/g, '');
+      const url = window.URL.createObjectURL(res.data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message || "Failed to download the data");
+    }
+  };
+
   return (
     <div>
       <div className="content-wrapper pt-4">
@@ -194,6 +222,48 @@ const ViewAllUserAudit = () => {
             width={500}
             height={300}
           />
+        </div>
+
+
+        <div className="d-flex flex-column gap-4" style={{ marginLeft: "25px" }}>
+          <div>
+            <h4 className="page-title">• Download user activity data</h4>
+          </div>
+          <div className="d-flex justify-content-between align-items-center gap-2">
+            <div className="d-flex flex-row gap-4">
+              <DatePicker
+                name="fromDate"
+                label="Select from date"
+                defaultValue={dayjs("")}
+                onChange={(date) => {
+                  setUsrAud((prev) => ({
+                    ...prev,
+                    fromDate: date.format(),
+                  }));
+                }}
+                format="DD/MM/YYYY"
+                minDate={dayjs("1937-01-01")}
+                maxDate={dayjs(new Date().toISOString().split("T")[0])}
+              />
+
+              <DatePicker
+                name="toDate"
+                label="Select to date"
+                defaultValue={dayjs("")}
+                onChange={(date) => {
+                  setUsrAud((prev) => ({
+                    ...prev,
+                    toDate: date.format(),
+                  }));
+                }}
+                format="DD/MM/YYYY"
+                minDate={userAudits.fromDate ? dayjs(userAudits.fromDate) : dayjs("1937-01-01")}
+                maxDate={dayjs(new Date().toISOString().split("T")[0])}
+              />
+            </div>
+
+            <button className="btn btn-primary" onClick={() => downloadUserActivityData()}>Download user activity data</button>
+          </div>
         </div>
       </div>
 

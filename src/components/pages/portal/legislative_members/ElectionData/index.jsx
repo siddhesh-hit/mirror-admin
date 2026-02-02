@@ -31,7 +31,7 @@ function ElectionData({
               <select
                 className="form-control"
                 name="election_data.constituency"
-                value={data?.election_data?.constituency?._id || data?.election_data?.constituency}
+                value={typeof data?.election_data?.constituency === "object" ? data?.election_data?.constituency?._id : data?.election_data?.constituency}
                 onChange={handleChange}
               >
                 <option hidden value={""}>
@@ -60,7 +60,7 @@ function ElectionData({
                 type="string"
                 min={0}
                 name="election_data.total_electorate"
-                defaultValue={data.election_data.total_electorate}
+                defaultValue={data.election_data?.total_electorate}
                 onChange={handleChange}
                 className="form-control"
                 placeholder="Enter Total Electorate Number"
@@ -76,7 +76,7 @@ function ElectionData({
                 type="string"
                 min={0}
                 name="election_data.total_valid_voting"
-                defaultValue={data.election_data.total_valid_voting}
+                defaultValue={data.election_data?.total_valid_voting}
                 onChange={handleChange}
                 className="form-control"
                 placeholder="Enter Total Valid Voting"
@@ -103,7 +103,7 @@ function ElectionData({
                       <input
                         type="text"
                         name={`election_data.member_election_result.candidate_name.${index}`}
-                        defaultValue={data.election_data.member_election_result[index].candidate_name}
+                        defaultValue={data.election_data?.member_election_result[index]?.candidate_name}
                         onChange={handleChange}
                         className="form-control"
                         placeholder="Enter Candidate Name"
@@ -121,7 +121,7 @@ function ElectionData({
                       <input
                         type="string"
                         name={`election_data.member_election_result.votes.${index}`}
-                        defaultValue={data.election_data.member_election_result[index].votes}
+                        defaultValue={data.election_data?.member_election_result[index]?.votes}
                         onChange={handleChange}
                         className="form-control"
                         placeholder=" Enter Votes"
@@ -139,7 +139,13 @@ function ElectionData({
                       <select
                         className="form-control"
                         name={`election_data.member_election_result.party.${index}`}
-                        value={data?.election_data?.member_election_result[index]?.party?._id || data?.election_data?.member_election_result[index]?.party}
+                        value={
+                          data?.election_data?.member_election_result?.length > 0
+                            ? typeof data?.election_data?.member_election_result[index]?.party === "object"
+                              ? data?.election_data?.member_election_result[index]?.party?._id
+                              : data?.election_data?.member_election_result[index]?.party
+                            : ""
+                        }
                         onChange={handleChange}
                       >
                         <option hidden value={""}>

@@ -123,6 +123,14 @@ import AddLegislativePosition from "pages/masters/legislativePosition/AddLegisla
 import EditLegislativePosition from "pages/masters/legislativePosition/EditLegislativePosition";
 import ViewLegislativePosition from "pages/masters/legislativePosition/ViewLegislativePosition";
 
+import AddLOB from "pages/masters/lobs/AddLOB";
+import ViewLOB from "pages/masters/lobs/ViewLOB";
+import EditLOB from "pages/masters/lobs/EditLOB";
+import AddLOBType from "pages/masters/lobs/AddLOBType";
+import EditLOBType from "pages/masters/lobs/EditLOBType";
+import AddLOBSubType from "pages/masters/lobs/AddLOBSubType";
+import EditLOBSubType from "pages/masters/lobs/EditLOBSubType";
+
 import AddMemberName from "pages/masters/memberName/AddMemberName";
 import EditMemberName from "pages/masters/memberName/EditMemberName";
 import ViewMemberName from "pages/masters/memberName/ViewMemberName";
@@ -876,6 +884,55 @@ export const routes = [
     exact: true,
     access: ["SuperAdmin", "Admin", "ContentCreator"],
     element: <ViewLegislativePosition />,
+  },
+  {
+    name: "LOB",
+    path: paths.viewLOB,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator", "Reviewer"],
+    element: <ViewLOB />,
+  },
+  {
+    name: "LOB",
+    path: paths.addLOB,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <AddLOB />,
+  },
+  {
+    name: "LOB",
+    path: paths.editLOB,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <EditLOB />,
+  },
+  {
+    name: "LOB",
+    path: paths.addLOBType,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <AddLOBType />,
+  },
+  {
+    name: "LOB",
+    path: paths.editLOBType,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <EditLOBType />,
+  },
+  {
+    name: "LOB",
+    path: paths.addLOBSubType,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <AddLOBSubType />,
+  },
+  {
+    name: "LOB",
+    path: paths.editLOBSubType,
+    exact: true,
+    access: ["SuperAdmin", "Admin", "ContentCreator"],
+    element: <EditLOBSubType />,
   },
   {
     name: "Member Names",

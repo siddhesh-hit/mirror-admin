@@ -59,6 +59,10 @@ const postApi = (url, data) => {
   return axiosInstance.post(url, data);
 };
 
+const patchApi = (url, id, data) => {
+  return axiosInstance.patch(`${url}/${id}`, data);
+};
+
 const putApi = (url, id, data) => {
   return axiosInstance.put(`${url}/${id}`, data);
 };
@@ -67,4 +71,4 @@ const deleteApi = (url, id) => {
   return axiosInstance.delete(`${url}/${id}`);
 };
 
-export { getApi, getApiForBlob, getApiById, postApi, putApi, deleteApi };
+export { getApi, getApiForBlob, getApiById, postApi, patchApi, putApi, deleteApi };

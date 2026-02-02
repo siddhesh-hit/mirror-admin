@@ -38,10 +38,10 @@ function PoliticalJourney({
                 <DatePicker
                   name={`political_journey.date.${index}`}
                   label="Select your date"
-                  defaultValue={dayjs(data.political_journey[index]?.date) || dayjs("")}
+                  defaultValue={dayjs(data.political_journey?.length > 0 ? data.political_journey[index]?.date : "") || dayjs("")}
                   onChange={(date) =>
                     setData((prev) => {
-                      const politicals = [...prev.political_journey];
+                      const politicals = [...(prev.political_journey || [])];
                       politicals[index] = {
                         ...politicals[index],
                         date: date.format(),
@@ -69,7 +69,7 @@ function PoliticalJourney({
                 <input
                   type="text"
                   name={`political_journey.title.${index}`}
-                  defaultValue={data.political_journey[index].title}
+                  defaultValue={data.political_journey?.length > 0 ? data.political_journey[index]?.title : ""}
                   onChange={handleChange}
                   className="form-control"
                   placeholder="Enter Title"
@@ -86,7 +86,13 @@ function PoliticalJourney({
               <div className="col-sm-8">
                 <select
                   className="form-control"
-                  value={data.political_journey[index].presiding?._id || data.political_journey[index].presiding}
+                  value={
+                    data.political_journey?.length > 0
+                      ? typeof data.political_journey[index]?.presiding === "object"
+                        ? data.political_journey[index]?.presiding?._id
+                        : data.political_journey[index]?.presiding
+                      : ""
+                  }
                   name={`political_journey.presiding.${index}`}
                   onChange={handleChange}
                 >
@@ -113,7 +119,13 @@ function PoliticalJourney({
               <div className="col-sm-8">
                 <select
                   className="form-control"
-                  value={data.political_journey[index].legislative_position?._id || data.political_journey[index].legislative_position}
+                  value={
+                    data.political_journey?.length > 0
+                      ? typeof data.political_journey[index]?.legislative_position === "object"
+                        ? data.political_journey[index]?.legislative_position?._id
+                        : data.political_journey[index]?.legislative_position
+                      : ""
+                  }
                   name={`political_journey.legislative_position.${index}`}
                   onChange={handleChange}
                 >
@@ -140,7 +152,13 @@ function PoliticalJourney({
               <div className="col-sm-8">
                 <select
                   className="form-control"
-                  value={data.political_journey[index].designation?._id || data.political_journey[index].designation}
+                  value={
+                    data.political_journey?.length > 0
+                      ? typeof data.political_journey[index]?.designation === "object"
+                        ? data.political_journey[index]?.designation?._id
+                        : data.political_journey[index]?.designation
+                      : ""
+                  }
                   name={`political_journey.designation.${index}`}
                   onChange={handleChange}
                 >

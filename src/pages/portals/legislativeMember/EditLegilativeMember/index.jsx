@@ -496,18 +496,18 @@ const EditLegislativeMember = () => {
   const memberData = useQuery({
     queryKey: ["member", id],
     queryFn: async () => {
-      try {
-        const res = await getApiById("member", id);
-        setData(res.data.data);
-
-        return res.data.data;
-      } catch (error) {
-        console.log(error);
-        return null;
-      }
+      const res = await getApiById("member", id);
+      return res.data.data;
     },
     enabled: !!id,
   });
+
+  // Sync query data to local state when it changes (including from cache)
+  useEffect(() => {
+    if (memberData.data) {
+      setData(memberData.data);
+    }
+  }, [memberData.data]);
 
   const optionData = useQueries({
     queries: [

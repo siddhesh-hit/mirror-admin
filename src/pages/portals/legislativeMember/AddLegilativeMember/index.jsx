@@ -87,7 +87,9 @@ const AddLegislativeMember = () => {
     switch (type) {
       case "constituency": {
         try {
-          const res = await getApi("constituency/option" + `?assembly.assembly_number=${data.basic_info.assembly_number}`)
+          const assemblyNumber = typeof data.basic_info.assembly_number === "object" ? data.basic_info.assembly_number?._id : data.basic_info.assembly_number;
+          const house = data.basic_info.house;
+          const res = await getApi("constituency/option" + `?assembly.assembly_number=${assemblyNumber}&isHouse=${house}`)
           return res.data.success ? res.data.data : [];
         } catch (error) {
           console.log(error);
@@ -359,7 +361,7 @@ const AddLegislativeMember = () => {
           [field]: {
             ...prev[field],
             house: value,
-            assembly_number: null,
+            assembly_number: "",
             constituency_from: "",
             constituency_to: "",
           },
@@ -505,9 +507,7 @@ const AddLegislativeMember = () => {
     );
 
     const isElectionDataEmpty = !data.election_data ||
-      (!data.election_data.total_electorate &&
-        !data.election_data.total_valid_voting &&
-        !hasValidElectionResults);
+      (!data.election_data?.total_electorate && !data.election_data?.total_valid_voting && !hasValidElectionResults);
 
     formData.append("profile", data.basic_info.profile);
     formData.append("jeevanParichay", data.jeevan_parichay);
@@ -552,7 +552,7 @@ const AddLegislativeMember = () => {
   const optionData = useQueries({
     queries: [
       {
-        queryKey: ["constituency", data.basic_info.assembly_number],
+        queryKey: ["constituency", data.basic_info.assembly_number, data.basic_info.house],
         queryFn: () => fetchData("constituency")
       },
       {
@@ -633,6 +633,11 @@ const AddLegislativeMember = () => {
                     <Select
                       isMulti={false}
                       name="colors"
+                      value={
+                        selectedMemberId
+                          ? optionData?.data?.memberNames?.find(item => item.value === selectedMemberId)
+                          : null
+                      }
                       options={optionData?.data?.memberNames}
                       onChange={handleGetMember}
                       className=""

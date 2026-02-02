@@ -6,9 +6,11 @@ import Paginate from "components/common/Pagination";
 import TotalEntries from "components/common/TotalEntries";
 import add from "assets/add.svg";
 
-import { getApi } from "services/axios";
+import { getApi, getApiForBlob } from "services/axios";
 import { paths } from "services/paths";
 import { removeIdFromPathname, removeTailingId } from "data/RouteStructure";
+import { toast } from "react-toastify";
+import { api } from "services/api";
 
 const ViewAllUserAudit = () => {
   const [data, setData] = useState([]);
@@ -34,6 +36,41 @@ const ViewAllUserAudit = () => {
         }
       })
       .catch((err) => console.log(err));
+  };
+
+  const handleDownload = async (id) => {
+    try {
+      const querystring = new URLSearchParams({ userId: id });
+      toast.info("Downloading auth data, please wait it'll take a few minutes...");
+
+      const res = await getApiForBlob(`${api.auditUserDownloadAll}?${querystring}`);
+      const filename = res?.headers?.['content-disposition']?.split('filename=')?.[1]?.replace(/"/g, '');
+      const url = window.URL.createObjectURL(res.data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      toast.success(`Data downloaded successfully as ${filename}`);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+
+      // When responseType is 'blob', error response data is also a Blob
+      // Need to parse it to get the JSON error message
+      if (error.response?.data instanceof Blob) {
+        try {
+          const text = await error.response.data.text();
+          const json = JSON.parse(text);
+          toast.error(json.message || "Failed to download the data");
+        } catch {
+          toast.error("Failed to download the data");
+        }
+      } else {
+        toast.error(error.response?.data?.message || "Failed to download the data");
+      }
+    }
   };
 
   useEffect(() => {
@@ -100,6 +137,7 @@ const ViewAllUserAudit = () => {
                     <th>Name</th>
                     <th>Email Id</th>
                     <th>View</th>
+                    <th>Download</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -128,6 +166,21 @@ const ViewAllUserAudit = () => {
                               <i className="fa fa-eye" aria-hidden="true"></i>
                             </OverlayTrigger>
                           </Link>
+                        </td>
+                        <td>
+                          <button className="btn btn-primary" onClick={() => handleDownload(item._id)}>
+                            <OverlayTrigger
+                              delay={{ hide: 450, show: 300 }}
+                              overlay={(props) => (
+                                <Tooltip {...props}>
+                                  Download all user audit.
+                                </Tooltip>
+                              )}
+                              placement="bottom"
+                            >
+                              <i className="fa fa-download" aria-hidden="true"></i>
+                            </OverlayTrigger>
+                          </button>
                         </td>
                       </tr>
                     ))}
