@@ -41,7 +41,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && cd build && zip -r admin.zip * && mv admin.zip /var/www/html/admstg && WWW && cd admstg && unzip admin.zip",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
