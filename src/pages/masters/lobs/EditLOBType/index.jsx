@@ -17,7 +17,7 @@ const EditLOBType = () => {
     const queryClient = useQueryClient();
 
     const [data, setData] = useState({
-        name: "", alias: "", lob_id: ""
+        name: "", alias: "", lob_id: "", isActive: null
     });
 
     const handleChange = (e) => {
@@ -28,10 +28,23 @@ const EditLOBType = () => {
         }));
     };
 
+    const handleActiveToggle = () => {
+        setData((prev) => ({
+            ...prev,
+            isActive: !prev.isActive,
+        }));
+    };
+
     const mutation = useMutation({
         mutationKey: [`lobType_${id}`],
         mutationFn: async () => {
-            const res = await patchApi(api.lobType, id, { ...data, lob_id: data.lob_id?._id ? data.lob_id?._id : data.lob_id });
+            const payload = {
+                ...data,
+                lob_id: data.lob_id?._id ? data.lob_id?._id : data.lob_id,
+                isActive: data.isActive
+            };
+
+            const res = await patchApi(api.lobType, id, payload);
             return res;
         },
         onSuccess: (response) => {
@@ -53,23 +66,6 @@ const EditLOBType = () => {
 
     const handleSubmit = () => mutation.mutate();
 
-    const lob = useQuery({
-        queryKey: ["lob"],
-        queryFn: async () => {
-            const res = await getApi(api.lobActive);
-            if (res.data.success) {
-                return res.data.data.map(item => {
-                    return {
-                        value: item._id,
-                        label: item.name + " (" + item.house + ")",
-                    };
-                });
-            } else {
-                return [];
-            }
-        },
-    });
-
     const lobType = useQuery({
         queryKey: [`lobType_${id}`],
         queryFn: async () => {
@@ -82,6 +78,27 @@ const EditLOBType = () => {
         enabled: !!id,
     });
 
+    const lob = useQuery({
+        queryKey: ["lobActive"],
+        queryFn: async () => {
+            const house = lobType.data?.lob_id?.house;
+
+            const queryString = new URLSearchParams({ house: house });
+            const res = await getApi(`${api.lobActive}?${queryString}`);
+            if (res.data.success) {
+                return res.data.data.map(item => {
+                    return {
+                        value: item._id,
+                        label: item.name + " (" + item.house + ")",
+                    };
+                });
+            } else {
+                return [];
+            }
+        },
+        enabled: !!lobType.data?.lob_id?.house,
+    });
+
     // Sync query data to local state
     useEffect(() => {
         if (lobType.data) {
@@ -89,6 +106,7 @@ const EditLOBType = () => {
                 name: lobType.data.name || "",
                 alias: lobType.data.alias || "",
                 lob_id: lobType.data.lob_id || "",
+                isActive: lobType.data.isActive || null,
             });
         }
     }, [lobType.data]);
@@ -104,7 +122,7 @@ const EditLOBType = () => {
                     <img src={back} style={{ width: "25px" }} alt="add" />
                     Go back
                 </Link>
-                <h4 className="page-title">• Edit LOB</h4>
+                <h4 className="page-title">• Edit LOB Type</h4>
                 <div className="card card-info">
                     <div className="row mb-4 mt-4">
                         <div className="col-lg-9">
@@ -169,6 +187,26 @@ const EditLOBType = () => {
                                                     classNamePrefix="select"
                                                     placeholder="Select LOB"
                                                 />
+                                            </div>
+                                        </div>
+
+                                        <div className="form-group row">
+                                            <label
+                                                htmlFor="inputPassword3"
+                                                className="col-sm-3 col-form-label"
+                                            >
+                                                Edit Status :
+                                            </label>
+                                            <div className="col-sm-9">
+                                                <div
+                                                    className={`toggle-button ${data?.isActive ? "active" : ""}`}
+                                                    onClick={handleActiveToggle}
+                                                >
+                                                    <div className={`slider ${data?.isActive ? "active" : ""}`} />
+                                                    <div className="button-text">
+                                                        {data?.isActive ? "Active" : "Inactive"}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

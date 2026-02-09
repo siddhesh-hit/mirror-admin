@@ -35,6 +35,7 @@ const LOB = ({ data, paths, handleDelete, pageOptions, setPageOptions }) => {
                                     <th>Name</th>
                                     <th>Alias</th>
                                     <th>House</th>
+                                    <th>Status</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -54,6 +55,9 @@ const LOB = ({ data, paths, handleDelete, pageOptions, setPageOptions }) => {
                                             </td>
                                             <td>
                                                 <h4>{item.house ? item.house : "-"}</h4>
+                                            </td>
+                                            <td>
+                                                <h4>{item.isActive ? "Active" : "Inactive"}</h4>
                                             </td>
                                             <td>
                                                 <Link to={`${removeTailingId(paths.editLOB)}/${item._id}`}>

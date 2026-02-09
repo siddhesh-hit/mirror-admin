@@ -53,7 +53,8 @@ const AddLOBType = () => {
     const lob = useQuery({
         queryKey: ["lobActive"],
         queryFn: async () => {
-            const res = await getApi(api.lobActive);
+            const queryString = new URLSearchParams({ for: "admin" });
+            const res = await getApi(`${api.lob}?${queryString}`);
             if (res.data.success) {
                 return res.data.data.map(item => {
                     return {

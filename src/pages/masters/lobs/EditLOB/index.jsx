@@ -16,7 +16,7 @@ const EditLOB = () => {
     const queryClient = useQueryClient();
 
     const [data, setData] = useState({
-        name: "", alias: "", house: ""
+        name: "", alias: "", house: "", isActive: null
     });
 
     const lob = useQuery({
@@ -36,6 +36,13 @@ const EditLOB = () => {
         setData((prev) => ({
             ...prev,
             [name]: value,
+        }));
+    };
+
+    const handleActiveToggle = () => {
+        setData((prev) => ({
+            ...prev,
+            isActive: !prev.isActive,
         }));
     };
 
@@ -70,6 +77,7 @@ const EditLOB = () => {
                 name: lob.data.name || "",
                 alias: lob.data.alias || "",
                 house: lob.data.house.toLowerCase() || "",
+                isActive: lob.data.isActive || null,
             });
         }
     }, [lob.data]);
@@ -160,6 +168,26 @@ const EditLOB = () => {
                                                 <label className="form-check-label" htmlFor="flexRadioDefault2">
                                                     Assembly
                                                 </label>
+                                            </div>
+                                        </div>
+
+                                        <div className="form-group row">
+                                            <label
+                                                htmlFor="inputPassword3"
+                                                className="col-sm-3 col-form-label"
+                                            >
+                                                Edit Status :
+                                            </label>
+                                            <div className="col-sm-9">
+                                                <div
+                                                    className={`toggle-button ${data?.isActive ? "active" : ""}`}
+                                                    onClick={handleActiveToggle}
+                                                >
+                                                    <div className={`slider ${data?.isActive ? "active" : ""}`} />
+                                                    <div className="button-text">
+                                                        {data?.isActive ? "Active" : "Inactive"}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -37,6 +37,7 @@ const LOBSubType = ({ data, paths, handleDelete, pageOptions, setPageOptions }) 
                                     <th>LOB</th>
                                     <th>LOB Type</th>
                                     <th>House</th>
+                                    <th>Status</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -62,6 +63,9 @@ const LOBSubType = ({ data, paths, handleDelete, pageOptions, setPageOptions }) 
                                             </td>
                                             <td>
                                                 <h4>{item?.lob?.house ? item?.lob?.house : "-"}</h4>
+                                            </td>
+                                            <td>
+                                                <h4>{item.isActive ? "Active" : "Inactive"}</h4>
                                             </td>
                                             <td>
                                                 <Link to={`${removeTailingId(paths.editLOBSubType)}/${item._id}`}>

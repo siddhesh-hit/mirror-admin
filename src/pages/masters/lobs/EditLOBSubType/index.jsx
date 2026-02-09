@@ -16,7 +16,7 @@ const EditLOBSubType = () => {
     const { id } = useParams();
     const queryClient = useQueryClient();
     const [data, setData] = useState({
-        name: "", alias: "", lob_id: "", lob_type_id: ""
+        name: "", alias: "", lob_id: "", lob_type_id: "", isActive: null
     });
 
     const handleChange = (e) => {
@@ -28,10 +28,23 @@ const EditLOBSubType = () => {
 
     };
 
+    const handleActiveToggle = () => {
+        setData((prev) => ({
+            ...prev,
+            isActive: !prev.isActive,
+        }));
+    };
+
     const mutation = useMutation({
         mutationKey: [`lobSubType_${id}`],
         mutationFn: async () => {
-            const res = await patchApi(api.lobSubType, id, data);
+            const payload = {
+                ...data,
+                lob_id: data.lob_id?._id ? data.lob_id?._id : data.lob_id,
+                lob_type_id: data.lob_type_id?._id ? data.lob_type_id?._id : data.lob_type_id,
+                isActive: data.isActive
+            };
+            const res = await patchApi(api.lobSubType, id, payload);
             return res;
         },
         onSuccess: (response) => {
@@ -50,41 +63,6 @@ const EditLOBSubType = () => {
         },
     });
 
-    const lob = useQuery({
-        queryKey: ["lobActive"],
-        queryFn: async () => {
-            const res = await getApi(api.lobActive);
-            if (res.data.success) {
-                return res.data.data.map(item => {
-                    return {
-                        value: item._id,
-                        label: item.name + " (" + item.house + ")",
-                    };
-                });
-            } else {
-                return [];
-            }
-        },
-    });
-
-    const lobType = useQuery({
-        queryKey: ["lobTypeActive"],
-        queryFn: async () => {
-            const res = await getApi(api.lobTypeActive);
-            if (res.data.success) {
-                return res.data.data.map(item => {
-                    return {
-                        value: item._id,
-                        lob_id: item.lob?._id,
-                        label: item.name + " (" + item.lob?.house + ")",
-                    };
-                });
-            } else {
-                return [];
-            }
-        },
-    });
-
     const lobSubType = useQuery({
         queryKey: [`lobSubType_${id}`],
         queryFn: async () => {
@@ -97,6 +75,49 @@ const EditLOBSubType = () => {
         enabled: !!id,
     });
 
+    const lob = useQuery({
+        queryKey: ["lobActive"],
+        queryFn: async () => {
+            const house = lobSubType.data?.lob_id?.house;
+
+            const queryString = new URLSearchParams({ house: house });
+            const res = await getApi(`${api.lobActive}?${queryString}`);
+            if (res.data.success) {
+                return res.data.data.map(item => {
+                    return {
+                        value: item._id,
+                        label: item.name + " (" + item.house + ")",
+                    };
+                });
+            } else {
+                return [];
+            }
+        },
+        enabled: !!data.lob_id && !!lobSubType.data?.lob_id?.house
+    });
+
+    const lobType = useQuery({
+        queryKey: ["lobTypeActive"],
+        queryFn: async () => {
+            const house = lobSubType.data?.lob_id?.house;
+
+            const queryString = new URLSearchParams({ house: house });
+            const res = await getApi(`${api.lobTypeActive}?${queryString}`);
+            if (res.data.success) {
+                return res.data.data.map(item => {
+                    return {
+                        value: item._id,
+                        lob_id: item.lob?._id,
+                        label: item.name + " (" + item.lob?.house + ")",
+                    };
+                });
+            } else {
+                return [];
+            }
+        },
+        enabled: !!data.lob_type_id && !!lobSubType.data?.lob_id?.house
+    });
+
     // Sync query data to local state
     useEffect(() => {
         if (lobSubType.data) {
@@ -105,6 +126,7 @@ const EditLOBSubType = () => {
                 alias: lobSubType.data.alias || "",
                 lob_id: lobSubType.data.lob_id?._id || "",
                 lob_type_id: lobSubType.data.lob_type_id?._id || "",
+                isActive: lobSubType.data.isActive || null,
             });
         }
     }, [lobSubType.data]);
@@ -119,11 +141,9 @@ const EditLOBSubType = () => {
     const handleLOBChange = (e, type) => {
         switch (type) {
             case "lob":
-                console.log(e)
                 setData((prev) => ({ ...prev, lob_id: e.value, lob_type_id: "" }));
                 break;
             case "lobType":
-                console.log(e)
                 if (data.lob_id) {
                     setData((prev) => ({ ...prev, lob_type_id: e.value }));
                 } else {
@@ -142,7 +162,7 @@ const EditLOBSubType = () => {
                     <img src={back} style={{ width: "25px" }} alt="add" />
                     Go back
                 </Link>
-                <h4 className="page-title">• Add LOB Sub Type</h4>
+                <h4 className="page-title">• Edit LOB Sub Type</h4>
                 <div className="card card-info">
                     <div className="row mb-4 mt-4">
                         <div className="col-lg-9">
@@ -197,7 +217,11 @@ const EditLOBSubType = () => {
                                                 <Select
                                                     name="lob_id"
                                                     options={lob.data}
-                                                    value={data.lob_id ? lob.data.find(item => item.value === data.lob_id) : null}
+                                                    value={
+                                                        data.lob_id
+                                                            ? lob.data.find(item => item.value === data.lob_id)
+                                                            : null
+                                                    }
                                                     onChange={(e) => handleLOBChange(e, "lob")}
                                                     // isClearable={isClearable}
                                                     className=""
@@ -217,7 +241,11 @@ const EditLOBSubType = () => {
                                             <div className="col-sm-9">
                                                 <Select
                                                     name="lob_type_id"
-                                                    value={data.lob_type_id ? lobType.data.find(item => item.value === data.lob_type_id) : null}
+                                                    value={
+                                                        data.lob_type_id
+                                                            ? lobType.data.find(item => item.value === data.lob_type_id)
+                                                            : null
+                                                    }
                                                     options={
                                                         data.lob_id
                                                             ? lobType.data.filter(item => item.lob_id === data.lob_id)
@@ -228,6 +256,26 @@ const EditLOBSubType = () => {
                                                     classNamePrefix="select"
                                                     placeholder="Select LOB Type"
                                                 />
+                                            </div>
+                                        </div>
+
+                                        <div className="form-group row">
+                                            <label
+                                                htmlFor="inputPassword3"
+                                                className="col-sm-3 col-form-label"
+                                            >
+                                                Edit Status :
+                                            </label>
+                                            <div className="col-sm-9">
+                                                <div
+                                                    className={`toggle-button ${data?.isActive ? "active" : ""}`}
+                                                    onClick={handleActiveToggle}
+                                                >
+                                                    <div className={`slider ${data?.isActive ? "active" : ""}`} />
+                                                    <div className="button-text">
+                                                        {data?.isActive ? "Active" : "Inactive"}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
