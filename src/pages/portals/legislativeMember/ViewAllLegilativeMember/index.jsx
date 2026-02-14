@@ -125,8 +125,6 @@ const ViewAllLegislativeMember = () => {
   if (members.isError) return toast.error("Something went wrong while fetching member data!");
   if (assemblies.isError) return toast.error("Something went wrong while fetching assemblies!");
 
-  console.log(members.data)
-
   return (
     <div>
       <div className="content-wrapper pt-4">
