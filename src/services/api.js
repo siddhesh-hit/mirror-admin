@@ -10,6 +10,9 @@ export const api = {
     lobTypeActive: 'lob/type/active',
     lobSubType: 'lob/sub-type',
     lobSubTypeActive: 'lob/sub-type/active',
+
+    assembly: 'assembly/option',
+    member: 'member',
 };
 
 export const queryApi = {

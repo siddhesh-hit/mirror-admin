@@ -110,7 +110,7 @@ const EditLegislativeMember = () => {
         errors = basicInfoSchema(data.basic_info);
         break;
       case 2:
-        errors = politicalJourneySchema(data.political_journey);
+        errors = politicalJourneySchema(data.political_journey || []);
         break;
       default:
         throw new Error("Invalid step");
@@ -157,7 +157,7 @@ const EditLegislativeMember = () => {
   };
 
   const removeDiv = (index) => {
-    if (data.political_journey.length > 1) {
+    if (data.political_journey && data.political_journey.length > 1) {
       let object = [...data.political_journey];
       object.splice(index, 1);
 
@@ -194,7 +194,7 @@ const EditLegislativeMember = () => {
   };
 
   const removeDivElect = (index) => {
-    if (data.election_data.member_election_result.length > 1) {
+    if (data.election_data?.member_election_result && data.election_data.member_election_result.length > 1) {
       let object = [...data.election_data.member_election_result];
       object.splice(index, 1);
 
@@ -450,9 +450,9 @@ const EditLegislativeMember = () => {
       }
 
       // Check if political journey has any meaningful data
-      const isPoliticalJourneyEmpty = data.political_journey.filter(item =>
+      const isPoliticalJourneyEmpty = data.political_journey ? data.political_journey.filter(item =>
         item.date && item.designation && item.legislative_position && item.presiding && item.title
-      );
+      ) : [];
 
       // Check if election data has meaningful data
       const hasValidElectionResults = data.election_data?.member_election_result?.some(result =>
@@ -460,8 +460,8 @@ const EditLegislativeMember = () => {
       );
 
       const isElectionDataEmpty = !data.election_data ||
-        (!data.election_data.total_electorate &&
-          !data.election_data.total_valid_voting &&
+        (!data.election_data?.total_electorate &&
+          !data.election_data?.total_valid_voting &&
           !hasValidElectionResults);
 
       const formData = new FormData();
@@ -472,19 +472,22 @@ const EditLegislativeMember = () => {
       formData.append("election_data", JSON.stringify(isElectionDataEmpty ? {} : data.election_data));
 
       const res = await putApi("member", id, formData);
-      if (res.data.success) {
+      if (res?.data?.success) {
         toast.success("Legislative Member updated successfully.");
         setTimeout(() => {
           navigate(paths.viewAllLegislativeMember);
         }, 1100);
-      };
+      } else {
+        toast.error("Failed to update member. Please try again.");
+      }
 
     } catch (error) {
-      const errors = error.response.data.details;
-      if (errors.length > 0) {
+      console.error("Error in handleSubmit:", error);
+      const errors = error?.response?.data?.details;
+      if (errors && errors.length > 0) {
         errors.forEach(errMsg => toast.error(errMsg.message));
       } else {
-        toast.error(error.response.data.message);
+        toast.error(error?.response?.data?.message || "An error occurred while updating the member.");
       }
     } finally {
       setSubmit(false);

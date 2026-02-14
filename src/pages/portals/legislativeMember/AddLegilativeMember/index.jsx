@@ -221,7 +221,7 @@ const AddLegislativeMember = () => {
         errors = basicInfoSchema(data.basic_info);
         break;
       case 2:
-        errors = politicalJourneySchema(data.political_journey);
+        errors = politicalJourneySchema(data.political_journey || []);
         break;
       default:
         throw new Error("Invalid step");
@@ -260,7 +260,7 @@ const AddLegislativeMember = () => {
 
     setData((prev) => ({
       ...prev,
-      political_journey: [...prev.political_journey, object],
+      political_journey: [...(prev.political_journey || []), object],
     }));
 
     setDivCount(divCount + 1);
@@ -278,7 +278,7 @@ const AddLegislativeMember = () => {
       }));
     };
 
-    if (divCount > 1) {
+    if (divCount > 1 && data.political_journey) {
       let object = [...data.political_journey];
       object.splice(index, 1);
 
@@ -303,9 +303,9 @@ const AddLegislativeMember = () => {
     setData((prev) => ({
       ...prev,
       election_data: {
-        ...prev.election_data,
+        ...(prev.election_data || {}),
         member_election_result: [
-          ...prev.election_data.member_election_result,
+          ...(prev.election_data?.member_election_result || []),
           object,
         ],
       },
@@ -329,7 +329,7 @@ const AddLegislativeMember = () => {
       }));
     };
 
-    if (divCountElect > 1) {
+    if (divCountElect > 1 && data?.election_data?.member_election_result) {
       let object = [...data.election_data.member_election_result];
       object.splice(index, 1);
 
@@ -481,58 +481,70 @@ const AddLegislativeMember = () => {
   };
 
   const handleSubmit = async () => {
-    let errors = await electionDataSchema(data.election_data);
+    console.log("first")
+    try {
+      let errors = await electionDataSchema(data.election_data || {});
 
-    if (errors) {
-      toast.error(errors);
-      return;
+      if (errors) {
+        toast.error(errors);
+        return;
+      }
+
+      if (isSubmitted) return;
+      setSubmit(true);
+
+      const formData = new FormData();
+      if (data.basic_info.house === "Council") {
+        data.basic_info.assembly_number = "";
+      };
+
+      // Check if political journey has any meaningful data
+      const isPoliticalJourneyEmpty = data.political_journey ? data.political_journey.filter(item =>
+        item.date && item.designation && item.legislative_position && item.presiding && item.title
+      ) : [];
+
+      // Check if election data has meaningful data
+      const hasValidElectionResults = data.election_data?.member_election_result?.some(result =>
+        result.candidate_name || result.votes || result.party
+      );
+
+      const isElectionDataEmpty = !data.election_data ||
+        (!data.election_data?.total_electorate && !data.election_data?.total_valid_voting && !hasValidElectionResults);
+
+      formData.append("profile", data.basic_info.profile);
+      formData.append("jeevanParichay", data.jeevan_parichay);
+      formData.append("basic_info", JSON.stringify(data.basic_info));
+      formData.append(
+        "political_journey",
+        JSON.stringify(isPoliticalJourneyEmpty.length > 0 ? isPoliticalJourneyEmpty : [])
+      );
+      formData.append(
+        "election_data",
+        JSON.stringify(isElectionDataEmpty ? {} : data.election_data)
+      );
+
+      await postApi("member", formData)
+        .then((res) => {
+          if (res?.data?.success) {
+            toast.success("Legislative Member added successfully.");
+            setTimeout(() => {
+              navigate(paths.viewAllLegislativeMember);
+            }, 1100);
+          } else {
+            toast.error("Failed to add member. Please try again.");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("An error occurred while adding the member.");
+        });
+
+      setSubmit(false);
+    } catch (error) {
+      console.error("Error in handleSubmit:", error);
+      toast.error("An unexpected error occurred.");
+      setSubmit(false);
     }
-
-    if (isSubmitted) return;
-    setSubmit(true);
-
-    const formData = new FormData();
-    if (data.basic_info.house === "Council") {
-      data.basic_info.assembly_number = "";
-    };
-
-    // Check if political journey has any meaningful data
-    const isPoliticalJourneyEmpty = data.political_journey.filter(item =>
-      item.date && item.designation && item.legislative_position && item.presiding && item.title
-    );
-
-    // Check if election data has meaningful data
-    const hasValidElectionResults = data.election_data?.member_election_result?.some(result =>
-      result.candidate_name || result.votes || result.party
-    );
-
-    const isElectionDataEmpty = !data.election_data ||
-      (!data.election_data?.total_electorate && !data.election_data?.total_valid_voting && !hasValidElectionResults);
-
-    formData.append("profile", data.basic_info.profile);
-    formData.append("jeevanParichay", data.jeevan_parichay);
-    formData.append("basic_info", JSON.stringify(data.basic_info));
-    formData.append(
-      "political_journey",
-      JSON.stringify(isPoliticalJourneyEmpty.length > 0 ? isPoliticalJourneyEmpty : [])
-    );
-    formData.append(
-      "election_data",
-      JSON.stringify(isElectionDataEmpty ? {} : data.election_data)
-    );
-
-    await postApi("member", formData)
-      .then((res) => {
-        if (res.data.success) {
-          toast.success("Legislative Member added successfully.");
-          setTimeout(() => {
-            navigate(paths.viewAllLegislativeMember);
-          }, 1100);
-        }
-      })
-      .catch((err) => console.log(err));
-
-    setSubmit(false);
   };
 
   const handleGetMember = async (e) => {
@@ -542,8 +554,21 @@ const AddLegislativeMember = () => {
     setData((prev) => ({
       ...prev,
       basic_info: res.data.data.basic_info,
-      election_data: res.data.data.election_data,
-      political_journey: res.data.data.political_journey,
+      election_data: res.data.data.election_data || {
+        constituency: "",
+        total_electorate: "",
+        total_valid_voting: "",
+        member_election_result: [],
+      },
+      political_journey: res.data.data.political_journey || [
+        {
+          date: "",
+          title: "",
+          presiding: "",
+          legislative_position: "",
+          designation: "",
+        },
+      ],
     }))
   };
 

@@ -896,7 +896,7 @@ table.table.table-striped.mb-0.view_vidhan_mandal thead {
 .table.table-striped.mb-0.view_vidhan_mandal button {
   background: #008;
   border: none;
-  color: white;
+  color: white !important;
   padding: 5px 25px;
   font-size: 12px;
   font-weight: 400;
