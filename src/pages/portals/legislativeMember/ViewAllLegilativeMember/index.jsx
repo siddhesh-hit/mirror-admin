@@ -43,8 +43,8 @@ const ViewAllLegislativeMember = () => {
       const houseFilter = pageOptions.house !== "All" ? pageOptions.house : "";
 
       const queryString = new URLSearchParams({
-        perPage: pageOptions.page,
-        perLimit: pageOptions.current,
+        perPage: pageOptions.current,
+        perLimit: pageOptions.page,
         name: pageOptions["basic_info.name"],
         house: houseFilter,
         assembly_number: pageOptions.assembly !== "All" ? pageOptions.assembly : "",
