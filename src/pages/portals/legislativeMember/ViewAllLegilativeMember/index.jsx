@@ -53,7 +53,7 @@ const ViewAllLegislativeMember = () => {
       });
 
       const res = await getApi(api.member + `?${queryString}`);
-      if (res.data.success) return res.data.data;
+      if (res.data.success) return res.data;
       return [];
     },
   })
@@ -125,7 +125,7 @@ const ViewAllLegislativeMember = () => {
   if (members.isError) return toast.error("Something went wrong while fetching member data!");
   if (assemblies.isError) return toast.error("Something went wrong while fetching assemblies!");
 
-  console.log(members?.data)
+  console.log(members.data)
 
   return (
     <div>
@@ -136,7 +136,7 @@ const ViewAllLegislativeMember = () => {
             Add Legislative Member
           </Link>
 
-          <h4 className="page-title">• View All Legislative Members</h4>
+          <h4 className="page-title">• View All Legislative Members ({members?.data?.count})</h4>
           <TotalEntries
             returnCount={(data) => setPageOptions((prev) => ({ ...prev, page: data }))}
             returnSearch={(data) => setPageOptions((prev) => ({ ...prev, "basic_info.name": data }))}
@@ -309,8 +309,8 @@ const ViewAllLegislativeMember = () => {
                   </thead>
                   <tbody>
                     {
-                      members?.data && members?.data?.length > 0
-                        ? members?.data?.map((item, index) => (
+                      members?.data?.data && members?.data?.data?.length > 0
+                        ? members?.data?.data?.map((item, index) => (
                           <tr key={index}>
                             <td>
                               <h4>
@@ -385,10 +385,10 @@ const ViewAllLegislativeMember = () => {
                     }
                   </tbody>
                 </table>
-                {members?.count > 0 && (
+                {members?.data?.count > 0 && (
                   <Paginate
                     perPage={pageOptions.page}
-                    totalCount={members?.count}
+                    totalCount={members?.data?.count}
                     initialPage={pageOptions.current}
                     handlePageChange={(currentPage) => setPageOptions((prev) => ({ ...prev, current: currentPage }))}
                   />
