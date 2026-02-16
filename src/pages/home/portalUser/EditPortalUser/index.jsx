@@ -94,7 +94,7 @@ const EditPortalUser = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getApiById("user", id)
+      await getApiById("user/admin", id)
         .then((res) => {
           setServer(res.data.data);
           setServer((prev) => ({
