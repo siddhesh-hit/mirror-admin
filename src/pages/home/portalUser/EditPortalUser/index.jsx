@@ -78,7 +78,7 @@ const EditPortalUser = () => {
     formData.append("data", JSON.stringify(server));
     formData.append("user_image", server.user_image);
 
-    await putApi("user", id, formData)
+    await putApi("user/admin", id, formData)
       .then((res) => {
         if (res.data.success) {
           toast.success("User updated Successfully");
