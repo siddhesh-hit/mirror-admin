@@ -136,8 +136,6 @@ const EditConstituency = () => {
     fetchData();
   }, []);
 
-  console.log(data);
-
   return (
     <div className="content-wrapper pt-4">
       <div className="contentofpages">
@@ -149,27 +147,6 @@ const EditConstituency = () => {
         <div className="card card-info">
           <div className="row mb-4 mt-4">
             <div className="col-lg-9">
-              <div className="card-body">
-                <div className="form-group row">
-                  <label
-                    htmlFor="inputPassword3"
-                    className="col-sm-4 col-form-label"
-                  >
-                    Select constituency type :
-                  </label>
-                  <div className="col-sm-8">
-                    <div
-                      className={`toggle-button ${isToggled ? "active" : ""}`}
-                      onClick={handleToggle}
-                    >
-                      <div className={`slider ${isToggled ? "active" : ""}`} />
-                      <div className="button-text">
-                        {isToggled ? "Assembly" : "Council"}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <form className="form-horizontal">
                 {data && (
                   <>
@@ -177,6 +154,26 @@ const EditConstituency = () => {
                       <div className="formada border_names">
                         {state.assembly && (
                           <>
+                            <div className="form-group row">
+                              <label
+                                htmlFor="inputPassword3"
+                                className="col-sm-4 col-form-label"
+                              >
+                                Select House :
+                              </label>
+                              <div className="col-sm-8">
+                                <div
+                                  className={`toggle-button ${isToggled ? "active" : ""}`}
+                                  onClick={handleToggle}
+                                >
+                                  <div className={`slider ${isToggled ? "active" : ""}`} />
+                                  <div className="button-text">
+                                    {isToggled ? "Assembly" : "Council"}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
                             <div className="form-group row mb-5">
                               <label
                                 htmlFor="inputPassword3"
@@ -234,9 +231,8 @@ const EditConstituency = () => {
                                   onChange={handleChange}
                                   value={data?.assembly?.constituency_type}
                                 >
-                                  <option hidden>
-                                    Select Constituency Type
-                                  </option>
+                                  <option hidden> Select Constituency Type </option>
+                                  <option value=""> Empty </option>
                                   {constituencytypes?.map((item, index) => (
                                     <option key={index} value={item._id}>
                                       {item.english.name}
@@ -338,9 +334,8 @@ const EditConstituency = () => {
                                     onChange={handleChange}
                                     value={data?.council?.constituency_type}
                                   >
-                                    <option hidden>
-                                      Select Constituency Type
-                                    </option>
+                                    <option hidden> Select Constituency Type </option>
+                                    <option value=""> Empty </option>
                                     {constituencytypes?.map((item, index) => (
                                       <option key={index} value={item._id}>
                                         {item.english.name}
